@@ -20,9 +20,15 @@
 			
 			// 삭제
 			$(".delete_btn").on("click", function(){
+				
+				var deleteYN = confirm("삭제하시겠습니가?");
+				if(deleteYN == true){
+					
 				formObj.attr("action", "/board/delete");
 				formObj.attr("method", "post");
 				formObj.submit();
+					
+				}
 			})
 			
 			// 취소

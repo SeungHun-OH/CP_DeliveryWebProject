@@ -1,5 +1,7 @@
 package com.delivery.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,5 +21,12 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.insert("boardMapper.insert", boardVO);
 		
 	}
+	// 게시글 목록 조회
+	@Override
+	public List<BoardVO> list() throws Exception {
+		return sqlSession.selectList("boardMapper.list");
+	}
+	
+	
 
 }

@@ -1,5 +1,7 @@
 package com.delivery.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +21,12 @@ public class BoardServiceImpl implements BoardService {
 	public void write(BoardVO boardVO) throws Exception {
 		dao.write(boardVO);
 
+	}
+
+	//게시글 목록 조회
+	@Override
+	public List<BoardVO> list() throws Exception {
+		return dao.list();
 	}
 
 }

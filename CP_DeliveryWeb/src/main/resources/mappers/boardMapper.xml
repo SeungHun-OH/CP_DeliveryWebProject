@@ -16,13 +16,31 @@
    
    </insert>
    
-   	<select id="list" resultType="com.delivery.vo.BoardVO">
-		SELECT   BNO
-			   , TITLE
-			   , WRITER
-			   , REGDATE
+	<select id="listPage" resultType="com.delivery.vo.BoardVO" parameterType="com.delivery.vo.Criteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        REGDATE
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               REGDATE, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM MP_BOARD 
+		                       )
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BNO)
 		  FROM MP_BOARD
-		  ORDER BY BNO DESC
+		 WHERE BNO > 0
+	]]>
 	</select>
 	
 	<select id="read" parameterType="int" resultType="com.delivery.vo.BoardVO">

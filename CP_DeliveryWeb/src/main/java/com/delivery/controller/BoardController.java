@@ -1,6 +1,7 @@
 package com.delivery.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.delivery.service.BoardService;
 import com.delivery.vo.BoardVO;
@@ -84,5 +86,14 @@ public class BoardController {
 		logger.info("delete");
 		service.delete(boardVO.getBno());
 		return "redirect:/board/list";
+	}
+	
+
+	// 운송장 검색
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String deliverySearch(@RequestParam int waybillNum, Model model) throws Exception{
+		
+		model.addAttribute("deliveryNum",waybillNum);
+		return "searchView";
 	}
 }

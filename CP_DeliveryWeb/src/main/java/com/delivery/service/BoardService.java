@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.delivery.vo.BoardVO;
 import com.delivery.vo.Criteria;
+import com.delivery.vo.DeliveryVO;
 
 public interface BoardService {
 
@@ -25,4 +26,7 @@ public interface BoardService {
 		
 	// 게시물 삭제
 		public void delete(int bno) throws Exception;
+
+	//운송장 조회
+		public DeliveryVO search(long deliveryNum) throws Exception;
 }

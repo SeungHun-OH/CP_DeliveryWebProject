@@ -57,7 +57,7 @@
 		UPDATE MP_BOARD
 		   SET TITLE = #{title}
 		   	   ,CONTENT = #{content}
-		 WHERE BNO = #{bno} 
+		 WHERE BNO = #{bno}
 	</update>
 	
 	<delete id="delete" parameterType="int">
@@ -65,4 +65,10 @@
 		  FROM MP_BOARD
 		 WHERE BNO = #{bno}
 	</delete>
+	
+	<select id="search" parameterType="long" resultType="com.delivery.vo.DeliveryVO">
+		SELECT WAYBILL
+		FROM TEST
+		WHERE WAYBILL = #{waybill_Num}
+	</select>
 </mapper>

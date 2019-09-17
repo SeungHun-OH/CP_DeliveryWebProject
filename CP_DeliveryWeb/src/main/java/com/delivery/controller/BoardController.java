@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.delivery.service.BoardService;
 import com.delivery.vo.BoardVO;
 import com.delivery.vo.Criteria;
+import com.delivery.vo.DeliveryVO;
 import com.delivery.vo.PageMaker;
 
 @Controller
@@ -91,9 +92,9 @@ public class BoardController {
 
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String deliverySearch(@RequestParam int waybillNum, Model model) throws Exception{
-		
-		model.addAttribute("deliveryNum",waybillNum);
-		return "searchView";
+	public String deliverySearch(HttpServletRequest req,Model model) throws Exception{
+		long num = Long.parseLong(req.getParameter("waybillNum"));
+		model.addAttribute("deliveryNum",service.search(num));
+		return "board/searchView";
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.delivery.dao.BoardDAO;
 import com.delivery.vo.BoardVO;
 import com.delivery.vo.Criteria;
+import com.delivery.vo.DeliveryVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -52,6 +53,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delete(int bno) throws Exception {
 		dao.delete(bno);
+	}
+	
+	//운송장 조회
+	public DeliveryVO search(long deliveryNum) throws Exception {
+		return dao.search(deliveryNum);
 	}
 
 }

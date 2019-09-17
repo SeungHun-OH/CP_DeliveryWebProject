@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.delivery.vo.BoardVO;
 import com.delivery.vo.Criteria;
+import com.delivery.vo.DeliveryVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -52,6 +53,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public void delete(int bno) throws Exception {
 		
 		sqlSession.delete("boardMapper.delete", bno);
+	}
+	
+	public DeliveryVO search(long deliveryNum) throws Exception {
+		
+		return sqlSession.selectOne("boardMapper.search", deliveryNum);
 	}
 	
 }

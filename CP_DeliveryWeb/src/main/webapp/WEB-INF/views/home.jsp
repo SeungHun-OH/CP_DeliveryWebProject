@@ -22,7 +22,7 @@
 <h1>
 	Hello world!  
 </h1>
-		<a href="/board/search">서치</a>
+		<a href="${pageContext.request.contextPath}/board/search">서치</a>
 <P>  The time on the server is ${serverTime}. </P>
 
 		<!-- search{s} -->

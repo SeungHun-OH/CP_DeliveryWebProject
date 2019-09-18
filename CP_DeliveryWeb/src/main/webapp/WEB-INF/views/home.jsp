@@ -22,11 +22,11 @@
 <h1>
 	Hello world!  
 </h1>
-
+		<a href="/board/search">서치</a>
 <P>  The time on the server is ${serverTime}. </P>
 
 		<!-- search{s} -->
-
+		
 		<div class="form-group row justify-content-center">
 
 			<div class="w300" style="padding-right:10px">

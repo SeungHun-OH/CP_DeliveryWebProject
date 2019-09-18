@@ -99,6 +99,7 @@ public class BoardController {
 		System.out.println(deliVO.getWaybill()+"\t\t 테스트");
 		model.addAttribute("deliveryNum",deliVO);
 		return "board/searchView";
+		
 		}catch (Exception e) {
 			
 			return "board/searchView"; 

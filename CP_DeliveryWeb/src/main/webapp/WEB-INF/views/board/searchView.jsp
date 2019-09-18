@@ -21,10 +21,10 @@
 		console.log(url);
 	});	
     </script>
-    <script>
-	function divReload(){  
-      $("#test").load(window.location.href + "#test");
-	}
+	<script>
+	$(window).on('load', function(){ 
+	      $("#test").on(window.location.href + "#test");
+	});
 	</script>
     <style>
       p { margin:20px 0px; }
@@ -37,7 +37,7 @@
           <p>Tab</p>
             <ul class="nav nav-pills nav-justified">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="waybill_tab">운송장 번호로 조회</a>
+                <a class="nav-link active" data-toggle="tab" href="#waybill_tab">운송장 번호로 조회</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#login_Info">고객정보로 조회</a>
@@ -46,28 +46,29 @@
                 <a class="nav-link" data-toggle="tab" href="#res_Num">예약번호로 조회</a>
               </li>
             </ul>
-            <div class="tab-content" id="test">
+            <div class="tab-content">
               <div class="tab-pane fade show active" id="waybill_tab">
                 <h1>운송장 번호로 조회</h1>
+	                <c:when test="${noDeliveryNum == 0}">
+	                	<div>
+		                	<input type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill">
+		                </div>
+		                <div>
+		                	<button id="lookupBtn">조회</button>
+		                </div>
+	                </c:when>
                 <c:choose>
-                <c:when test="${deliveryNum != null}">
-	            	${deliveryNum.waybill}    
-                </c:when>
-                
-                <c:when test="${deliveryNum == null}">
-                	<div>
-                		<h3>해당 운송장이 존재하지 않습니다.</h3>
-                	</div>
-                </c:when>
-                
-                <c:otherwise>
-                	<div>
-	                	<input type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill">
-	                </div>
-	                <div>
-	                	<button id="lookupBtn">조회</button>
-	                </div>
-                </c:otherwise>
+	                <c:when test="${deliveryNum != null}">
+		            	${deliveryNum.waybill}    
+	                </c:when>
+	                
+	                <c:when test="${deliveryNum == null}">
+	                <meta http-equiv="refresh" content="5; url=${pageContext.request.contextPath}/board/search">
+	                	<div>
+	                		<h3>해당 운송장이 존재하지 않습니다.</h3>
+	                		
+	                	</div>
+	                </c:when>
                 </c:choose>
               </div>
               <div class="tab-pane fade" id="login_Info">

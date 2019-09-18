@@ -67,7 +67,7 @@
 	</delete>
 	
 	<select id="search" parameterType="long" resultType="com.delivery.vo.DeliveryVO">
-		SELECT WAYBILL
+		SELECT WAYBILL, RESERVATION, NAME
 		FROM TEST
 		WHERE WAYBILL = #{waybill_Num}
 	</select>

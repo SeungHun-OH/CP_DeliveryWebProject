@@ -2,21 +2,20 @@ package com.delivery.vo;
 
 public class DeliveryVO {
 
-	long waybill_Num;
-	int reservation;
+	long waybill;
+	long reservation;
 	String name;
 	
-	
-	public long getWaybill_Num() {
-		return waybill_Num;
+	public long getWaybill() {
+		return waybill;
 	}
 	public void setWaybill_Num(long waybill_Num) {
-		this.waybill_Num = waybill_Num;
+		this.waybill = waybill_Num;
 	}
-	public int getReservation() {
+	public long getReservation() {
 		return reservation;
 	}
-	public void setReservation(int reservation) {
+	public void setReservation(long reservation) {
 		this.reservation = reservation;
 	}
 	public String getName() {

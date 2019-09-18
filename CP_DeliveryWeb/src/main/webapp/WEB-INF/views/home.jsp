@@ -12,7 +12,7 @@
 		$(document).on('click', '#btnSearch', function(e){
 		e.preventDefault();
 		var url = "${pageContext.request.contextPath}/board/search";
-		url = url + "?waybillNum=" + $('#waybillNum').val();
+		url = url + "?waybill=" + $('#waybill').val();
 		location.href = url;
 		console.log(url);
 	});	
@@ -30,10 +30,9 @@
 		<div class="form-group row justify-content-center">
 
 			<div class="w300" style="padding-right:10px">
-				<input type="text" name="waybillNum" id="waybillNum" maxlength="11" numberOnly="true">
+				<input type="text" name="waybill" id="waybill" maxlength="11" numberOnly="true">
 				<button name="btnSearch" id="btnSearch">검색</button>
 			</div>
-			
 		</div>
 
 		<!-- search{e} -->

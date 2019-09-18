@@ -92,9 +92,16 @@ public class BoardController {
 
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String deliverySearch(HttpServletRequest req,Model model) throws Exception{
-		long num = Long.parseLong(req.getParameter("waybillNum"));
-		model.addAttribute("deliveryNum",service.search(num));
+	public String deliverySearch(HttpServletRequest req,Model model) {
+		try {
+		long num = Long.parseLong(req.getParameter("waybill"));
+		DeliveryVO deliVO = service.search(num); 
+		System.out.println(deliVO.getWaybill()+"\t\t 테스트");
+		model.addAttribute("deliveryNum",deliVO);
 		return "board/searchView";
+		}catch (Exception e) {
+			
+			return "board/searchView"; 
+		}
 	}
 }

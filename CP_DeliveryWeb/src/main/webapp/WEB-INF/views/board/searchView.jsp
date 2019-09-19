@@ -9,6 +9,8 @@
     <title>배송조회</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
     <script>
 	    $(document).on('click', '#lookupBtn', function(e){
 	    	if($("#waybill").val().replace(/\s/g,"").length==0){
@@ -30,10 +32,9 @@
 		});
     </script>
     <script>
-    	function name() {
-    		alert("Test");
-		}
+    	
     </script>
+    
     <style>
       p { margin:20px 0px; }
     </style>
@@ -43,19 +44,19 @@
       <div class="row">
         <div class="col">
           <p>Tab</p>
-            <ul class="nav nav-pills nav-justified">
+            <ul class="nav nav-tabs nav-justified" id="mytab">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#waybill_tab">운송장 번호로 조회</a>
+                <a class="nav-link active" data-toggle="tab" onclick="tab_replace();" href="#waybill_tab">운송장 번호로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#login_Info">고객정보로 조회</a>
+                <a class="nav-link" data-toggle="tab" onclick="tab_replace();" href="#login_Info">고객정보로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#res_Num">예약번호로 조회</a>
+                <a class="nav-link" data-toggle="tab" onclick="tab_replace();" href="#res_Num">예약번호로 조회</a>
               </li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade show active" id="waybill_tab">
+              <div class="tab-pane show active" id="waybill_tab">
                 <h1>운송장 번호로 조회</h1>
 	                
                 <c:choose>
@@ -79,18 +80,35 @@
 	                </c:when>
                 </c:choose>
               </div>
-              <div class="tab-pane fade" id="login_Info">
+              <div class="tab-pane" id="login_Info">
                 <p>Nunc vitae turpis id nibh sodales commodo et non augue. Proin fringilla ex nunc. Integer tincidunt risus ut facilisis tristique.</p>
               </div>
-              <div class="tab-pane fade" id="res_Num">
+              <div class="tab-pane" id="res_Num">
                 <p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut mattis leo, vel fermentum tellus. Sed sagittis rhoncus venenatis. Quisque commodo consectetur faucibus. Aenean eget ultricies justo.</p>
               </div>
             </div>
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   </body>
+	  
+	<script type="text/javascript">
+	//wire up shown event
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	    console.log("tab shown...");
+	    localStorage.setItem('activeTab', $(e.target).attr('href'));
+	});
+	// read hash from page load and change tab
+	var activeTab = localStorage.getItem('activeTab');
+	if(activeTab){
+	    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+	}
+	
+	
+	function tab_replace() {
+		var url = "${pageContext.request.contextPath}/board/search";
+			location.replace(url);
+	}
+	</script> 
+	
 </html>

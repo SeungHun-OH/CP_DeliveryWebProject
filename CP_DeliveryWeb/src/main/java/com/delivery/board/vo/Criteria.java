@@ -1,4 +1,4 @@
-package com.delivery.vo;
+package com.delivery.board.vo;
 
 public class Criteria {
 	

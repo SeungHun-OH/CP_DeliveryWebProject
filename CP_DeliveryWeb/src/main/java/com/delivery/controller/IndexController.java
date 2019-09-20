@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.delivery.board.controller.BoardController;
+
 @Controller
 @RequestMapping("/*")
 public class IndexController {

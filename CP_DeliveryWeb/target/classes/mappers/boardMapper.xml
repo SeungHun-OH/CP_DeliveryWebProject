@@ -16,7 +16,7 @@
    
    </insert>
    
-	<select id="listPage" resultType="com.delivery.vo.BoardVO" parameterType="com.delivery.vo.Criteria">
+	<select id="listPage" resultType="com.delivery.board.vo.BoardVO" parameterType="com.delivery.board.vo.Criteria">
 		SELECT  BNO, 
 		        TITLE, 
 		        CONTENT,
@@ -43,7 +43,7 @@
 	]]>
 	</select>
 	
-	<select id="read" parameterType="int" resultType="com.delivery.vo.BoardVO">
+	<select id="read" parameterType="int" resultType="com.delivery.board.vo.BoardVO">
 		SELECT	BNO
 			  , TITLE
 			  , CONTENT
@@ -53,7 +53,7 @@
 		 WHERE BNO = #{bno}
 	</select>
 	
-    <update id="update" parameterType="com.delivery.vo.BoardVO">
+    <update id="update" parameterType="com.delivery.board.vo.BoardVO">
 		UPDATE MP_BOARD
 		   SET TITLE = #{title}
 		   	   ,CONTENT = #{content}
@@ -66,7 +66,7 @@
 		 WHERE BNO = #{bno}
 	</delete>
 	
-	<select id="search" parameterType="long" resultType="com.delivery.vo.DeliveryVO">
+	<select id="search" parameterType="long" resultType="com.delivery.board.vo.DeliveryVO">
 		SELECT WAYBILL, RESERVATION, NAME
 		FROM TEST
 		WHERE WAYBILL = #{waybill_Num}

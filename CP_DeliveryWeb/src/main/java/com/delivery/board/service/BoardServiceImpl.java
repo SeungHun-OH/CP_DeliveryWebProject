@@ -1,4 +1,4 @@
-package com.delivery.service;
+package com.delivery.board.service;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.delivery.dao.BoardDAO;
-import com.delivery.vo.BoardVO;
-import com.delivery.vo.Criteria;
-import com.delivery.vo.DeliveryVO;
+import com.delivery.board.dao.BoardDAO;
+import com.delivery.board.vo.BoardVO;
+import com.delivery.board.vo.Criteria;
+import com.delivery.board.vo.DeliveryVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {

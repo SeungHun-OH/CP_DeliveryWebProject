@@ -1,4 +1,4 @@
-package com.delivery.dao;
+package com.delivery.board.dao;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.delivery.vo.BoardVO;
-import com.delivery.vo.Criteria;
-import com.delivery.vo.DeliveryVO;
+import com.delivery.board.vo.BoardVO;
+import com.delivery.board.vo.Criteria;
+import com.delivery.board.vo.DeliveryVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {

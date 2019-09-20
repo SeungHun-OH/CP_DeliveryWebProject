@@ -1,6 +1,5 @@
-package com.delivery.controller;
+package com.delivery.board.controller;
 
-import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.delivery.service.BoardService;
-import com.delivery.vo.BoardVO;
-import com.delivery.vo.Criteria;
-import com.delivery.vo.DeliveryVO;
-import com.delivery.vo.PageMaker;
+import com.delivery.board.service.BoardService;
+import com.delivery.board.vo.BoardVO;
+import com.delivery.board.vo.Criteria;
+import com.delivery.board.vo.DeliveryVO;
+import com.delivery.board.vo.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")

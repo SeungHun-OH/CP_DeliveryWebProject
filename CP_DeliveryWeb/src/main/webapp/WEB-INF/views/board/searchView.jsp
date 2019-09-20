@@ -72,7 +72,7 @@
                 	<c:when test="${deliveryNum == null}">
 	               		<meta http-equiv="refresh" content="5; url=${pageContext.request.contextPath}/board/search">
 	                	<div>
-	                		<h3>해당 운송장이 존재하지 않습니다.</h3>
+	                		<h3>해당 운송장이 존재하지 않습니다. </h3>
 	                	</div>
 	                </c:when>
 	                <c:when test="${deliveryNum != null}">
@@ -104,9 +104,8 @@
 	    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
 	}
 	
-	
+	var url = "${pageContext.request.contextPath}/board/search";
 	function tab_replace() {
-		var url = "${pageContext.request.contextPath}/board/search";
 			location.replace(url);
 	}
 	</script> 

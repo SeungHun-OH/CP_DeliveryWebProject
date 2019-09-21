@@ -1,4 +1,4 @@
-package com.delivery.board.vo;
+package com.delivery.board.model;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;

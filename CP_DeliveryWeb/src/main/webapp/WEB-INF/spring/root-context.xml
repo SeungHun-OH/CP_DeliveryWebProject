@@ -35,6 +35,9 @@
     
     <!-- Scan -->
     <context:component-scan base-package="com.delivery.board.service" />
-	<context:component-scan base-package="com.delivery.board.vo" />
-	<context:component-scan base-package="com.delivery.board.dao" />	
+	<context:component-scan base-package="com.delivery.board.model" />
+	<context:component-scan base-package="com.delivery.board.dao" />
+	<context:component-scan base-package="com.delivery.user.service" />
+	<context:component-scan base-package="com.delivery.user.model" />
+	<context:component-scan base-package="com.delivery.user.dao" />	
 </beans>

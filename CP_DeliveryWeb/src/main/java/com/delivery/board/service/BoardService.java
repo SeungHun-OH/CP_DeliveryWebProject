@@ -2,9 +2,9 @@ package com.delivery.board.service;
 
 import java.util.List;
 
-import com.delivery.board.vo.BoardVO;
-import com.delivery.board.vo.Criteria;
-import com.delivery.board.vo.DeliveryVO;
+import com.delivery.board.model.BoardVO;
+import com.delivery.board.model.Criteria;
+import com.delivery.board.model.DeliveryVO;
 
 public interface BoardService {
 

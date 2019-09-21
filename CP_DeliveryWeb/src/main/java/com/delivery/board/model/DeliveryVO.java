@@ -1,4 +1,4 @@
-package com.delivery.board.vo;
+package com.delivery.board.model;
 
 public class DeliveryVO {
 

@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.delivery.board.dao.BoardDAO;
-import com.delivery.board.vo.BoardVO;
-import com.delivery.board.vo.Criteria;
-import com.delivery.board.vo.DeliveryVO;
+import com.delivery.board.model.BoardVO;
+import com.delivery.board.model.Criteria;
+import com.delivery.board.model.DeliveryVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {

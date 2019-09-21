@@ -11,11 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.delivery.board.model.BoardVO;
+import com.delivery.board.model.Criteria;
+import com.delivery.board.model.DeliveryVO;
+import com.delivery.board.model.PageMaker;
 import com.delivery.board.service.BoardService;
-import com.delivery.board.vo.BoardVO;
-import com.delivery.board.vo.Criteria;
-import com.delivery.board.vo.DeliveryVO;
-import com.delivery.board.vo.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")

@@ -52,27 +52,25 @@
 <script>
 	$(document).on('click', '#btnSignup', function(e){
 		e.preventDefault();
-
 		$("#form").submit();
 	});
 	
-	$(document).on('click', '#btnCancle', function(e){
+	$(document).on('click', '#btnReset', function(e){
 		e.preventDefault();
-		
-        $('#user_id').val('');
-		$('#user_name').val('');
-		$('#user_pwd').val('');
-		//$('#pwd2').val('');
-		$('#user_email').val('');
-		//location.href="${pageContext.request.contextPath}/home";
+		if(confirm('초기화 하시겠습니까?')){
+			$( "#form" ).each( function () {
+	            this.reset();
+	        });
+		}else{
+			return false;
+		}
 	});
 </script>
 </head>
 <body>
 
 
-<article>
-	<div class="container  col-md-8" role="main">
+	<div class="container  col-md-10" role="main">
 		<div class="card">
 			<div class="card-header">회원정보 입력</div>
 			<div class="card-body">
@@ -97,7 +95,6 @@
 							<form:input path="user_birth" id="user_birth" class="form-control" placeholder="생년월일을 입력해 주세요" />
 						</div>
 					</div>
-					
 
 					<div class="form-group row">
 						<label for="user_gender" class="col-md-3 col-form-label text-md-right" >성별</label>
@@ -129,18 +126,17 @@
 					
 					<div class="form-group row">
 						<label for="user_addr" class="col-md-3 col-form-label text-md-right">주소</label>
-						<div class="col-md-7">
+						<div class="col-md-7" >
 							<form:input path="user_addr" id="user_addr" class="form-control" readonly="true"/>
 							
 						</div>
-						<div class="col-md-1" style="padding-left: 0px;">
+						<div class="col-md-2">
 							<input class="btn btn-primary" type='button' OnClick='DaumPostcode()' value='주소검색'>
 						</div>
 					</div>
 					
 					<div class="form-group row">
-						<label for="user_addr2" class="col-md-3 col-form-label text-md-right"> </label>
-						<div class="col-md-7">
+						<div class="offset-3 col-md-7">
 							<form:input path="user_addr2" id="user_addr2" class="form-control"/>
 						</div>
 					</div>
@@ -159,10 +155,9 @@
 		</div>
 		<div style="margin-top:10px">
 			<button type="button" class="btn btn-lg btn-primary" id="btnSignup">회원가입</button>
-			<button type="button" class="btn btn-lg btn-primary" id="btnCancel">취소</button>
+			<button type="button" class="btn btn-lg btn-primary" id="btnReset">다시쓰기</button>
 		</div>
 	</div>
 	
-</article>
 </body>
 </html>

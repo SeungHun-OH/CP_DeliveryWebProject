@@ -9,14 +9,15 @@ String user_pwd;
 int user_phone;
 String user_addr;
 String user_addr2;
+String user_email;
+
+
 public String getUser_addr2() {
 	return user_addr2;
 }
 public void setUser_addr2(String user_addr2) {
 	this.user_addr2 = user_addr2;
 }
-String user_email;
-
 public String getUser_id() {
 	return user_id;
 }

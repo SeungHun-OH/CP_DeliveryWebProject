@@ -1,15 +1,19 @@
 package com.delivery.user.model;
 
+import java.util.Date;
+
 public class UserVO {
-String user_id;
-String user_name;
-String user_birth;
-String user_gender;
-String user_pwd;
-int user_phone;
-String user_addr;
-String user_addr2;
-String user_email;
+private String user_id;
+private String user_name;
+private String user_birth;
+private String user_gender;
+private String user_pwd;
+private int user_phone;
+private String user_addr;
+private String user_addr2;
+private String user_email;
+private Date user_joinDate;
+private Date user_loginDate;
 
 
 public String getUser_addr2() {
@@ -65,6 +69,18 @@ public String getUser_email() {
 }
 public void setUser_email(String user_email) {
 	this.user_email = user_email;
+}
+public Date getUser_joinDate() {
+	return user_joinDate;
+}
+public void setUser_joinDate(Date user_joinDate) {
+	this.user_joinDate = user_joinDate;
+}
+public Date getUser_loginDate() {
+	return user_loginDate;
+}
+public void setUser_loginDate(Date user_loginDate) {
+	this.user_loginDate = user_loginDate;
 }
 
 }

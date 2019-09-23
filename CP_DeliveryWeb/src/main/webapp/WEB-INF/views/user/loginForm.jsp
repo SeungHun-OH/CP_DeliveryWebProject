@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-6 login-form">
                     <h3>로그인</h3>
-                    <form action="${pageContext.request.contextPath}/user/login" method="post">
+                    <form action="${pageContext.request.contextPath}/user/loginPost" method="post">
                         <div class="form-group">
                             <input type="text" name="user_id" class="form-control" placeholder="아이디" value="" />
                         </div>

@@ -24,12 +24,13 @@ public class UserController {
 	public String loginGET(@ModelAttribute ("loginDTO") LoginDTO loginDTO) {
 		return "user/loginForm";
 	}
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
 	public void loginPOST(LoginDTO loginDTO, HttpSession httpSession, Model model) throws Exception {
 		UserVO userVO = userService.login(loginDTO);
-		
+		System.out.println("내가 입력한 패스워드 "+loginDTO.getUser_pwd());
+		System.out.println("DB 패스워드 "+userVO.getUser_pwd());
 		if(userVO == null || (loginDTO.getUser_pwd() != userVO.getUser_pwd())){
-			return;
+			return ;
 		}
 		model.addAttribute("user", userVO);
 //		https://doublesprogramming.tistory.com/211 [참고]

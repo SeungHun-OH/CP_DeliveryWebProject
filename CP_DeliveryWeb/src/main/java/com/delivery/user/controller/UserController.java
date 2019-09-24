@@ -27,9 +27,7 @@ public class UserController {
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
 	public void loginPOST(LoginDTO loginDTO, HttpSession httpSession, Model model) throws Exception {
 		UserVO userVO = userService.login(loginDTO);
-		System.out.println("내가 입력한 패스워드 "+loginDTO.getUser_pwd());
-		System.out.println("DB 패스워드 "+userVO.getUser_pwd());
-		if(userVO == null || (loginDTO.getUser_pwd() != userVO.getUser_pwd())){
+		if(userVO == null || !(loginDTO.getUser_pwd().equals(userVO.getUser_pwd()))){
 			return ;
 		}
 		model.addAttribute("user", userVO);
@@ -37,12 +35,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String insertUser(@ModelAttribute("userVO") UserVO userVO) {
+	public String insertUserView(@ModelAttribute("userVO") UserVO userVO) {
 		return "user/signupForm";
 	}
+	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public String insertUserSC(@ModelAttribute UserVO userVO) throws Exception {
 		userService.insertUser(userVO);
-		return "user/signupPost";
+		return "redirect:/";
 	}
+	
+	
 }

@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<!-- <%@ page session="false" %>  -->
+
+
 <html>
-<head>
+<head>ㄴ
 	<title>Home</title>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
@@ -11,7 +12,7 @@
 	<script>
 		$(document).on('click', '#btnSearch', function(e){
 		e.preventDefault();
-		var url = "${pageContext.request.contextPath}/board/search";
+		var url = "${path}/board/search";
 		url = url + "?waybill=" + $('#waybill').val();
 		location.href = url;
 		console.log(url);
@@ -20,8 +21,20 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	메인화면
 </h1>
+<c:if test="${not empty login}">
+	<div>
+	<p>로그인 됨 아이디: ${login.user_id}</p>
+	<p><a href="${path}/user/logout">로그아웃</a></p>
+	</div>
+</c:if>
+<c:if test="${empty login}">
+	<div>
+	<p>로그인 안됨</p>
+	</div>
+</c:if>
+
 		<a href="${pageContext.request.contextPath}/board/search">서치</a>
 <P>  The time on the server is ${serverTime}. </P>
 

@@ -29,7 +29,7 @@
                         <div class="form-group">
                         	<div class="checkbox icheck">
                         		<label>
-                        			<input type="checkbox" name="userCookie"> 로그인 유지
+                        			<input type="checkbox" name="useCookie"> 로그인 유지
                         		</label>
                         	</div>
                         </div>

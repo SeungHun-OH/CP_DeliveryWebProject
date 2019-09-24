@@ -176,6 +176,15 @@
         	<artifactId>hibernate-validator</artifactId>
         	<version>6.0.12.Final</version>
         </dependency>
+        
+        <!-- bcrypy 비밀번호 암호화 -->
+        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+		<dependency>
+		    <groupId>org.mindrot</groupId>
+		    <artifactId>jbcrypt</artifactId>
+		    <version>0.4</version>
+		</dependency>
+		       
 	</dependencies>
     <build>
         <plugins>

@@ -1,5 +1,9 @@
 package com.delivery.user.dao;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,10 +24,28 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectOne("userMapper.login", loginDTO);
 	}
 	
+	@Override
+	public void keepLogin(String user_id, String session_key, Date session_Limit) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("userId", user_id);
+		paramMap.put("sessionKey", session_key);
+		paramMap.put("sessionLimit", session_Limit);
+		System.out.println("자동 로그인 체크");
+		sqlSession.update("userMapper.keepLogin", paramMap);
+	}
+
+
+	@Override
+	public UserVO checkUserWithSessionKey(String value) throws Exception {
+		return sqlSession.selectOne("userMapper.checkUserWithSessionKey", value);
+	}
 	
 	@Override
 	public int insertUser(UserVO userVO) throws Exception {
 		return sqlSession.insert("userMapper.insertUser", userVO);
 	}
+
+
+	
 
 }

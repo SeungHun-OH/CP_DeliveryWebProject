@@ -4,7 +4,7 @@ public class LoginDTO {
 
 	private String user_id;
 	private String user_pwd;
-	private String useCookie;
+	private boolean useCookie;
 	
 	
 	public String getUser_id() {
@@ -19,12 +19,10 @@ public class LoginDTO {
 	public void setUser_pwd(String user_pwd) {
 		this.user_pwd = user_pwd;
 	}
-	public String getUseCookie() {
+	public boolean isUseCookie() {
 		return useCookie;
 	}
-	public void setUseCookie(String useCookie) {
+	public void setUseCookie(boolean useCookie) {
 		this.useCookie = useCookie;
 	}
-	
-	
 }

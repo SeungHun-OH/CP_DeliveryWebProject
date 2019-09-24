@@ -23,13 +23,31 @@
 	</beans:bean>
 	
 	<beans:bean id="loginInterceptor" class="com.delivery.commons.interceptor.LoginInterceptor"/>
+	<beans:bean id="authInterceptor" class="com.delivery.commons.interceptor.AuthInterceptor"/>
+	<beans:bean id="rememberMeInterceptor" class="com.delivery.commons.interceptor.RememberMeInterceptor"/>
+	
 	<interceptors>
-    	<interceptor>     
+		<!-- 로그인 인터셉터   -->
+    	<interceptor>
                   <mapping path="/user/loginPost" /> 
                   <beans:ref bean="loginInterceptor" />
         </interceptor>
+		<!-- 사이트 이동시 로그인 인터셉터   -->
+        <interceptor>
+        	<mapping path="/board/search"/>
+        	<beans:ref bean="authInterceptor" />
+        </interceptor>
+		<!-- 자동로그인 인터셉터  -->
+		<interceptor>
+			<mapping path="/**/"/>
+			<beans:ref bean="rememberMeInterceptor"/>
+		</interceptor>
 	</interceptors>       
 	  
+	
+
+
+	
 	  
 	<context:component-scan base-package="com.delivery.controller" />
 	<context:component-scan base-package="com.delivery.board.controller" />

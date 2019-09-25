@@ -25,6 +25,7 @@
 	<beans:bean id="loginInterceptor" class="com.delivery.commons.interceptor.LoginInterceptor"/>
 	<beans:bean id="authInterceptor" class="com.delivery.commons.interceptor.AuthInterceptor"/>
 	<beans:bean id="rememberMeInterceptor" class="com.delivery.commons.interceptor.RememberMeInterceptor"/>
+	<beans:bean id="loginAfterInterceptor" class="com.delivery.commons.interceptor.LoginAfterInterceptor"/>
 	
 	<interceptors>
 		<!-- 로그인 인터셉터   -->
@@ -42,12 +43,14 @@
 			<mapping path="/**/"/>
 			<beans:ref bean="rememberMeInterceptor"/>
 		</interceptor>
-	</interceptors>       
-	  
-	
-
-
-	
+		<!-- 로그인시 회원가입 방지 인터셉터 -->
+		<interceptor>
+                  <mapping path="/user/login" />
+                  <mapping path="/user/signup" /> 
+                  <beans:ref bean="loginAfterInterceptor" />
+        </interceptor>
+	</interceptors>   
+	    
 	  
 	<context:component-scan base-package="com.delivery.controller" />
 	<context:component-scan base-package="com.delivery.board.controller" />

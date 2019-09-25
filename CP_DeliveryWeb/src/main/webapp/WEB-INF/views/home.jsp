@@ -7,7 +7,7 @@
 	<title>Home</title>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
-		$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
+		$(document).on("keyup", "#waybill", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 	</script>
 	<script>
 		$(document).on('click', '#btnSearch', function(e){
@@ -32,6 +32,7 @@
 <c:if test="${empty login}">
 	<div>
 	<p>로그인 안됨</p>
+	<p><a href="${path}/user/login">로그인</a></p>
 	</div>
 </c:if>
 
@@ -43,7 +44,7 @@
 		<div class="form-group row justify-content-center">
 
 			<div class="w300" style="padding-right:10px">
-				<input type="text" name="waybill" id="waybill" maxlength="11" numberOnly="true">
+				<input type="text" name="waybill" id="waybill" maxlength="11">
 				<button name="btnSearch" id="btnSearch">검색</button>
 			</div>
 		</div>

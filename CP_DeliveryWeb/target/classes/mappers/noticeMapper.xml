@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="noticeMapper">
+  <insert id="create">
+  	INSERT INTO CAP_DELIVERY_NOTICE (
+  		NOTICE_NO
+  		, NOTICE_TITLE
+  		, NOTICE_CONTENT
+  		, NOTICE_REGDATE
+  		, NOTICE_DIVISION
+  	) VALUES (
+  		#{ntc_No}
+  		, #{ntc_Title}
+  		, #{ntc_Content}
+  		, #{ntc_RegDate}
+  		, #{ntc_Division}
+  	)
+  </insert>
+  
+  <select id="read" resultMap="NoticeResultMap">
+  	SELECT
+  		NOTICE_NO
+  		, NOTICE_TITLE
+  		, NOTICE_CONTENT
+  		, NOTICE_REGDATE
+  		, NOTICE_DIVISION
+  	FROM 
+  		CAP_DELIVERY_NOTICE
+  	WHERE 
+  		NOTICE_NO = #{ntc_No}
+  </select>
+  
+  <update id="update">
+  	UPDATE CAP_DELIVERY_NOTICE
+  	SET
+  		NOTICE_TITLE = #{ntc_Title}
+  		, NOTICE_CONTENT = #{ntc_Title}
+  	WHERE
+  		NOTICE_NO = #{ntc_No}
+  </update>
+  	
+  <select id="listAll" resultType="NoticeVO">
+  	<![CDATA[
+	SELECT
+  		NOTICE_NO
+  		, NOTICE_TITLE
+  		, NOTICE_CONTENT
+  		, NOTICE_REGDATE
+  		, NOTICE_DIVISION
+  	FROM 
+  		CAP_DELIVERY_NOTICE
+  	WHERE 
+  		NOTICE_NO = > 0
+  	ORDER BY 
+  		NOTICE_NO DESC, NOTICE_REGDATE DESC
+  	]]>
+  </select>
+  
+  <resultMap type="NoticeVO" id="NoticeResultMap">
+  	<id property="ntc_No" column="NOTICE_NO" />
+  	<result property="ntc_Title" column="NOTICE_TITLE"/>
+  	<result property="ntc_Content" column="NOTICE_CONTENT"/>
+  	<result property="ntc_RegDate" column="NOTICE_REGDATE"/>
+  	<result property="ntc_Division" column="NOTICE_DIVISION"/>
+  </resultMap>
+  
+  </mapper>

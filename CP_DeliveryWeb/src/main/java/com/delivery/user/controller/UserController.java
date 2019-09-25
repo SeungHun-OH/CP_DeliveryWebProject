@@ -39,7 +39,6 @@ public class UserController {
 		}
 		model.addAttribute("user", userVO);
 //		https://doublesprogramming.tistory.com/211 [참고]
-		System.out.println(loginDTO.isUseCookie() + "쿠키 system");
 		if(loginDTO.isUseCookie()) {
 			int amount = 60 * 60 * 24 * 7; // 7일
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));

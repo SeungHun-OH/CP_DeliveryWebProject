@@ -30,7 +30,6 @@ public class UserDaoImpl implements UserDao {
 		paramMap.put("userId", user_id);
 		paramMap.put("sessionKey", session_key);
 		paramMap.put("sessionLimit", session_Limit);
-		System.out.println("자동 로그인 체크");
 		sqlSession.update("userMapper.keepLogin", paramMap);
 	}
 

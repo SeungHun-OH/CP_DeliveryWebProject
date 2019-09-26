@@ -27,12 +27,13 @@ public class NoticeDaoTest {
 		noticeVO.setNtc_Title("글 제목 신규");
 		noticeVO.setNtc_Content("글 내용 신규");
 		noticeVO.setNtc_Division("글 구분 신규");
+		
 		noticeDao.create(noticeVO);
 	}
 	
 	@Test
 	public void testRead() throws Exception {
-		logger.info(noticeDao.read(1).toString());
+		logger.info(noticeDao.read(11).toString());
 	}
 
 	@Test

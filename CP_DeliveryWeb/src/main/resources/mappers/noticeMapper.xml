@@ -4,21 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="noticeMapper">
   <insert id="create">
-<!--   <selectKey keyProperty="seq_id" resultType="int" > -->
-<!--        SELECT STOCKIDSEQUENCE.NEXTVAL AS ID FROM DUAL -->
-<!--    </selectKey> -->
+  <selectKey keyProperty="ntc_No" resultType="int"  order="BEFORE">
+       SELECT CAP_NOTICE_SEQ.NEXTVAL AS ID FROM DUAL
+   </selectKey>
   	INSERT INTO CAP_DELIVERY_NOTICE (
   		NOTICE_NO
   		, NOTICE_TITLE
   		, NOTICE_CONTENT
-  		, NOTICE_REGDATE
   		, NOTICE_DIVISION
   	) VALUES (
-<!--   		#{seq_id} -->
 		#{ntc_No}
   		, #{ntc_Title}
-  		, #{ntc_Content}
-  		, #{ntc_RegDate}
+  		, #{ntc_Content:VARCHAR}
   		, #{ntc_Division}
   	)
   </insert>
@@ -40,11 +37,17 @@
   	UPDATE CAP_DELIVERY_NOTICE
   	SET
   		NOTICE_TITLE = #{ntc_Title}
-  		, NOTICE_CONTENT = #{ntc_Title}
+  		, NOTICE_CONTENT = #{ntc_Content}
   	WHERE
   		NOTICE_NO = #{ntc_No}
   </update>
-  	
+  
+  <delete id="delete">
+  	DELETE FROM CAP_DELIVERY_NOTICE
+  	WHERE
+  		NOTICE_NO = #{ntc_No}
+  </delete>
+  
   <select id="listAll" resultType="NoticeVO">
   	<![CDATA[
 	SELECT
@@ -64,8 +67,8 @@
   
   <resultMap type="NoticeVO" id="NoticeResultMap">
   	<id property="ntc_No" column="NOTICE_NO" />
-  	<result property="ntc_Title" column="NOTICE_TITLE"/>
-  	<result property="ntc_Content" column="NOTICE_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+  	<result property="ntc_Title" column="NOTICE_TITLE" />
+  	<result property="ntc_Content" column="NOTICE_CONTENT" javaType="java.lang.String" jdbcType="CLOB"/>
   	<result property="ntc_RegDate" column="NOTICE_REGDATE"/>
   	<result property="ntc_Division" column="NOTICE_DIVISION"/>
   </resultMap>

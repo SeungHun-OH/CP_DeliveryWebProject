@@ -13,11 +13,7 @@ import com.delivery.board.notice.dao.NoticeDao;
 import com.delivery.board.notice.model.NoticeVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml"
-      })
-
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class NoticeDaoTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(NoticeDaoTest.class);

@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	  <typeAliases>
-	  	<typeAlias type="com.delivery.board.notice.model.NoticeVO" alias="NoticeVO"/>
+	  	<typeAlias type="com.delivery.notice.model.NoticeVO" alias="NoticeVO"/>
 	  </typeAliases>
 </configuration>

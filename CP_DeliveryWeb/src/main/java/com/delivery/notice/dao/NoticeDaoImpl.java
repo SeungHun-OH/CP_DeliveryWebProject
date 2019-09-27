@@ -1,4 +1,4 @@
-package com.delivery.board.notice.dao;
+package com.delivery.notice.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.delivery.board.notice.model.NoticeVO;
+import com.delivery.notice.model.NoticeVO;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao {

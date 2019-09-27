@@ -1,4 +1,4 @@
-package com.delivery.board.notice.model;
+package com.delivery.notice.model;
 
 import java.util.Date;
 
@@ -41,5 +41,13 @@ public class NoticeVO {
 	public void setNtc_Division(String ntc_Division) {
 		this.ntc_Division = ntc_Division;
 	}
+	
+	@Override
+	public String toString() {
+		return "NoticeVO [ntc_No=" + ntc_No + ", ntc_Title=" + ntc_Title + ", ntc_Content=" + ntc_Content
+				+ ", ntc_RegDate=" + ntc_RegDate + ", ntc_Division=" + ntc_Division + "]";
+	}
+	
+	
 	
 }

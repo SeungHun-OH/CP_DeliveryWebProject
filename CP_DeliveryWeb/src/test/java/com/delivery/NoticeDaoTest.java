@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.delivery.board.notice.dao.NoticeDao;
-import com.delivery.board.notice.model.NoticeVO;
+import com.delivery.notice.dao.NoticeDao;
+import com.delivery.notice.model.NoticeVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -27,7 +27,6 @@ public class NoticeDaoTest {
 		noticeVO.setNtc_Title("글 제목 신규");
 		noticeVO.setNtc_Content("글 내용 신규");
 		noticeVO.setNtc_Division("글 구분 신규");
-		
 		noticeDao.create(noticeVO);
 	}
 	

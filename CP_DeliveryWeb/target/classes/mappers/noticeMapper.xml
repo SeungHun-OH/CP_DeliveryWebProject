@@ -15,7 +15,7 @@
   	) VALUES (
 		#{ntc_No}
   		, #{ntc_Title}
-  		, #{ntc_Content:VARCHAR}
+  		, #{ntc_Content}
   		, #{ntc_Division}
   	)
   </insert>
@@ -38,6 +38,7 @@
   	SET
   		NOTICE_TITLE = #{ntc_Title}
   		, NOTICE_CONTENT = #{ntc_Content}
+  		, NOTICE_DIVISION = #{ntc_Division}
   	WHERE
   		NOTICE_NO = #{ntc_No}
   </update>
@@ -48,7 +49,7 @@
   		NOTICE_NO = #{ntc_No}
   </delete>
   
-  <select id="listAll" resultType="NoticeVO">
+  <select id="listAll" resultMap="NoticeResultMap">
   	<![CDATA[
 	SELECT
   		NOTICE_NO
@@ -59,7 +60,7 @@
   	FROM 
   		CAP_DELIVERY_NOTICE
   	WHERE 
-  		NOTICE_NO = > 0
+  		NOTICE_NO > 0
   	ORDER BY 
   		NOTICE_NO DESC, NOTICE_REGDATE DESC
   	]]>

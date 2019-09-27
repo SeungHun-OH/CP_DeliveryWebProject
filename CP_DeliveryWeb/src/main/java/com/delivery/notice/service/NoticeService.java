@@ -1,11 +1,10 @@
-package com.delivery.board.notice.dao;
+package com.delivery.notice.service;
 
 import java.util.List;
 
-import com.delivery.board.notice.model.NoticeVO;
+import com.delivery.notice.model.NoticeVO;
 
-public interface NoticeDao {
-
+public interface NoticeService {
 	void create(NoticeVO noticeVO) throws Exception;
 	NoticeVO read(Integer ntc_No) throws Exception;
 	void update(NoticeVO noticeVO) throws Exception;

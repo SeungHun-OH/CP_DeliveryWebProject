@@ -1,4 +1,4 @@
-package com.delivery.board.notice.service;
+package com.delivery.notice.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.delivery.board.notice.dao.NoticeDao;
-import com.delivery.board.notice.model.NoticeVO;
+import com.delivery.notice.dao.NoticeDao;
+import com.delivery.notice.model.NoticeVO;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {

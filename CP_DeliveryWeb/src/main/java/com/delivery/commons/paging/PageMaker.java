@@ -14,10 +14,6 @@ public class PageMaker {
 	private boolean next;
 	private boolean prev;
 	
-	public void setCri(Criteria criteria) {
-		this.criteria = criteria;
-	}
-	
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -42,7 +38,7 @@ public class PageMaker {
 		return displayPageNum;
 	}
 	
-	public Criteria getCri() {
+	public Criteria getCriteria() {
 		return criteria;
 	}
 	 

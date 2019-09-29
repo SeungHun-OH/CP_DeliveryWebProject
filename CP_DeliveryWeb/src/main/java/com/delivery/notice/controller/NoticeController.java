@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,31 +42,35 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
+	public String read(@RequestParam("noticeNo") int noticeNo, @ModelAttribute("criteria") Criteria criteria, Model model) throws Exception {
 		LOGGER.info("read ...");
 		model.addAttribute("notice", noticeService.read(noticeNo));
 		return "/notice/readView";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String modifyGET(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
+	public String modifyGET(@RequestParam("noticeNo") int noticeNo, @ModelAttribute("criteria") Criteria criteria, Model model) throws Exception {
 		LOGGER.info("modify GET ...");
 		model.addAttribute("notice", noticeService.read(noticeNo));
 		return "/notice/modifyView";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modifyPOST(NoticeVO noticeVO, RedirectAttributes redirectAttributes) throws Exception {
+	public String modifyPOST(NoticeVO noticeVO, Criteria criteria, RedirectAttributes redirectAttributes) throws Exception {
 		LOGGER.info("modify POST ...");
 		noticeService.update(noticeVO);
+		redirectAttributes.addAttribute("page", criteria.getPage());
+		redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
 		redirectAttributes.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/notice/list";
 	}
 	
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String remove(@RequestParam("noticeNo") int noticeNo, RedirectAttributes redirectAttributes) throws Exception {
+	public String remove(@RequestParam("noticeNo") int noticeNo, Criteria criteria, RedirectAttributes redirectAttributes) throws Exception {
 		LOGGER.info("remove ...");
 		noticeService.delete(noticeNo);
+		redirectAttributes.addAttribute("page", criteria.getPage());
+		redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");
 		return "redirect:/notice/list";
 	}

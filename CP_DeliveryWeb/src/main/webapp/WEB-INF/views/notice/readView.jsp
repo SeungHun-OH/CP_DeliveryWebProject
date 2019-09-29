@@ -23,6 +23,8 @@
 	<div class="footer">
 	<form role="form" method="post">
 		<input type="hidden" name="noticeNo" value="${notice.ntc_No}">
+		<input type="hidden" name="page" value="${criteria.page}">
+		<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 	</form>
 		<button type="submit" class="listBtn">목록</button>
 		<button type="submit" class="modBtn">수정</button>
@@ -46,7 +48,9 @@
 			});
 			
 			$(".listBtn").on("click", function () {
-				self.location = "/notice/list"
+				formObj.attr("method", "get");
+				formObj.attr("action", "/notice/list");
+				formObj.submit();
 			});
 		});
 	</script>

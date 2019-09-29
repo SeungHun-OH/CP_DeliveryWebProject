@@ -37,7 +37,7 @@
 			<tr>
 				<td>${notice.ntc_No}</td>
 				<td>${notice.ntc_Division}</td>
-				<td><a href="${path}/notice/read?noticeNo=${notice.ntc_No}">${notice.ntc_Title}</a></td>
+				<td><a href="read${pageMaker.makeQuery(pageMaker.criteria.page)}&noticeNo=${notice.ntc_No}">${notice.ntc_Title}</a></td>
 				<td><fmt:formatDate value="${notice.ntc_RegDate}" pattern="YYYY년 M월 d일"/></td>
 			</tr>
 			</c:forEach>

@@ -14,7 +14,6 @@
 		<h3>게시글 수정</h3>
 	</div>
 	<div class="body">
-		<input type="hidden" name="ntc_No" value="${notice.ntc_No}">
 		<div>
 			<label for="ntc_Title">제목</label>
 			<input id="ntc_Title" name="ntc_Title" placeholder="제목을 입력해주세요." value="${notice.ntc_Title}">
@@ -37,8 +36,9 @@
 		<button type="submit" class="modBtn">수정</button>
 		<button type="button" class="cancelBtn">취소</button>
 	</div>
-	
-
+	<input type="hidden" name="ntc_No" value="${notice.ntc_No}">
+	<input type="hidden" name="page" value="${criteria.page}">
+	<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 </form>
 	<script>
 		$(document).ready(function () {
@@ -55,7 +55,7 @@
 			});
 			
 			$(".listBtn").on("click", function () {
-				self.location = "/notice/list"
+				self.location = "/notice/list?page=${criteria.page}&perPageNum=${criteria.perPageNum}";
 			});
 		});
 	</script>

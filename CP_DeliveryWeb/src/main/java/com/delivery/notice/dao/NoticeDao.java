@@ -2,6 +2,7 @@ package com.delivery.notice.dao;
 
 import java.util.List;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.notice.model.NoticeVO;
 
 public interface NoticeDao {
@@ -11,4 +12,5 @@ public interface NoticeDao {
 	void update(NoticeVO noticeVO) throws Exception;
 	void delete(Integer ntc_No) throws Exception;
 	List<NoticeVO> listAll() throws Exception;
+	List<NoticeVO> listCriteria(Criteria criteria) throws Exception;
 }

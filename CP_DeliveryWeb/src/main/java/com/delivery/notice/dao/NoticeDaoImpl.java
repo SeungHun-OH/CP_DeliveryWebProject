@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.notice.model.NoticeVO;
 
 @Repository
@@ -38,6 +39,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public List<NoticeVO> listAll() throws Exception {
 		return sqlSession.selectList("noticeMapper.listAll");
+	}
+
+	@Override
+	public List<NoticeVO> listCriteria(Criteria criteria) throws Exception {
+		return sqlSession.selectList("noticeMapper.listCriteria", criteria);
 	}
 
 }

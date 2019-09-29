@@ -66,6 +66,24 @@
   	]]>
   </select>
   
+  <select id="listCriteria" resultMap="NoticeResultMap">
+  <![CDATA[
+	SELECT * 
+	  FROM(
+	        SELECT ROWNUM AS RNUM, A.*
+	            FROM ( SELECT * 
+	                    FROM 
+	                        CAP_DELIVERY_NOTICE
+	                    WHERE 
+	                        NOTICE_NO > 0
+	                    ORDER BY 
+	                    NOTICE_NO DESC, NOTICE_REGDATE DESC ) A
+	         WHERE ROWNUM <= #{rowEnd}
+	      )
+ 	WHERE RNUM > #{rowStart}
+  	]]>
+  </select>
+  
   <resultMap type="NoticeVO" id="NoticeResultMap">
   	<id property="ntc_No" column="NOTICE_NO" />
   	<result property="ntc_Title" column="NOTICE_TITLE" />

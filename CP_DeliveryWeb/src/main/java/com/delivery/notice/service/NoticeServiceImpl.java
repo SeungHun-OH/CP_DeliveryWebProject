@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.notice.dao.NoticeDao;
 import com.delivery.notice.model.NoticeVO;
 
@@ -38,6 +39,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<NoticeVO> listAll() throws Exception {
 		return noticeDao.listAll();
+	}
+
+	@Override
+	public List<NoticeVO> listCriteria(Criteria criteria) throws Exception {
+		return noticeDao.listCriteria(criteria);
 	}
 
 }

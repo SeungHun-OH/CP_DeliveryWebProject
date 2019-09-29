@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.delivery.commons.paging.Criteria;
+import com.delivery.commons.paging.PageMaker;
 import com.delivery.notice.model.NoticeVO;
 import com.delivery.notice.service.NoticeService;
 
@@ -36,13 +38,6 @@ public class NoticeController {
 		noticeService.create(noticeVO);
 		redirectAttributes.addFlashAttribute("msg", "regSuccess");
 		return "redirect:/notice/list";
-	}
-	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String list(Model model) throws Exception {
-		LOGGER.info("list ...");
-		model.addAttribute("notices", noticeService.listAll());
-		return "/notice/listView";
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
@@ -73,5 +68,19 @@ public class NoticeController {
 		noticeService.delete(noticeNo);
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");
 		return "redirect:/notice/list";
+	}
+	
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String listCriteria(Model model, Criteria criteria) throws Exception {
+		LOGGER.info("listCriteria ...");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(noticeService.listCount(criteria));
+		
+		model.addAttribute("notices", noticeService.listCriteria(criteria));
+		model.addAttribute("pageMaker",pageMaker);	
+		
+		return "/notice/listView";
 	}
 }

@@ -42,6 +42,11 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	public int listCount(Criteria criteria) throws Exception {
+		return noticeDao.listCount(criteria);
+	}
+	
+	@Override
 	public List<NoticeVO> listCriteria(Criteria criteria) throws Exception {
 		return noticeDao.listCriteria(criteria);
 	}

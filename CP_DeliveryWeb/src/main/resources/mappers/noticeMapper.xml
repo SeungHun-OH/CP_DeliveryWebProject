@@ -66,6 +66,14 @@
   	]]>
   </select>
   
+  	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(NOTICE_NO)
+		  FROM CAP_DELIVERY_NOTICE
+		 WHERE NOTICE_NO > 0
+	]]>
+	</select>
+  
   <select id="listCriteria" resultMap="NoticeResultMap">
   <![CDATA[
 	SELECT * 
@@ -80,7 +88,7 @@
 	                    NOTICE_NO DESC, NOTICE_REGDATE DESC ) A
 	         WHERE ROWNUM <= #{rowEnd}
 	      )
- 	WHERE RNUM > #{rowStart}
+ 	WHERE RNUM >= #{rowStart}
   	]]>
   </select>
   

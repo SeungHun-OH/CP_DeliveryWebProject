@@ -40,12 +40,12 @@ public class Criteria {
 	}
 	
 	public int getRowStart() {
-		rowStart = ((page - 1) * perPageNum);
+		rowStart = ((page - 1) * perPageNum) + 1;
 		return rowStart;
 	}
 	
 	public int getRowEnd() {
-		rowEnd = rowStart + perPageNum;
+		rowEnd = rowStart + perPageNum - 1;
 		return rowEnd;
 	}
 

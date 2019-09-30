@@ -81,7 +81,14 @@
                 </c:choose>
               </div>
               <div class="tab-pane" id="login_Info">
-                <p>Nunc vitae turpis id nibh sodales commodo et non augue. Proin fringilla ex nunc. Integer tincidunt risus ut facilisis tristique.</p>
+                <h1>고객 정보로 조회</h1>
+                <div>
+                	<input type="text" placeholder="예: 홍길동" id="user_name" name="user_name">
+                	<input type="text" placeholder="예: abcd@example.com" id="user_email" name="user_email">
+                </div>
+                <div>
+                	<button id="lookupBtn">조회</button>
+                </div>
               </div>
               <div class="tab-pane" id="res_Num">
                 <p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut mattis leo, vel fermentum tellus. Sed sagittis rhoncus venenatis. Quisque commodo consectetur faucibus. Aenean eget ultricies justo.</p>

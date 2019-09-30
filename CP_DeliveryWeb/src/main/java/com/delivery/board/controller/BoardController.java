@@ -25,6 +25,12 @@ public class BoardController {
 	@Inject
 	BoardService service;
 
+	
+	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
+	public String reservationGET() {
+		return "board/reservationView";
+	}
+	
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {

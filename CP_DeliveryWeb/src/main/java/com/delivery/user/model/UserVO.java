@@ -8,7 +8,7 @@ private String user_name;
 private String user_birth;
 private String user_gender;
 private String user_pwd;
-private int user_phone;
+private String user_phone;
 private String user_addr;
 private String user_addr2;
 private String user_email;
@@ -52,10 +52,10 @@ public String getUser_pwd() {
 public void setUser_pwd(String user_pwd) {
 	this.user_pwd = user_pwd;
 }
-public int getUser_phone() {
+public String getUser_phone() {
 	return user_phone;
 }
-public void setUser_phone(int user_phone) {
+public void setUser_phone(String user_phone) {
 	this.user_phone = user_phone;
 }
 public String getUser_addr() {

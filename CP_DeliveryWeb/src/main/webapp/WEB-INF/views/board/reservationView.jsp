@@ -20,7 +20,7 @@
 				 </div>
 				 <div class="form-group">
 				    <label for="se_name">이름</label>
-				    <input type="text" class="form-control" id="se_name" name="se_name" placeholder="보내는 사람 이름">
+				    <input type="text" class="form-control" id="se_name" name="se_name" placeholder="보내는 사람 이름" <c:if test="${returns}">value="${returns.re_name}</c:if>>
 				 </div>
 				 <div class="form-group">
 				    <label for="se_phone">연락처1</label>
@@ -120,6 +120,9 @@
 				 <div class="form-group">
 				 	<label for="item_farePrice">예상운임</label>
 				    <input type="text" class="form-control" id="item_farePrice" name="item_farePrice" placeholder="예상운임">
+				 </div>
+				 <div class="form-group">
+				 <button class="btn" type="submit">예약신청</button>
 				 </div>
 			</div>
 		</div>

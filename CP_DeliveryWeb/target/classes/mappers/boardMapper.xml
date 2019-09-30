@@ -9,4 +9,70 @@
 		FROM TEST
 		WHERE WAYBILL = #{waybill_Num}
 	</select>
+	
+  <insert id="reserve" >
+  	INSERT INTO CAP_DELIVERY_RESERVATION (
+  		RES_SE_NAME
+  		, RES_SE_PHONE
+  		, RES_SE_PHONE2
+  		, RES_SE_ADDR
+  		, RES_SE_ADDR2
+  		, RES_SE_EMAIL
+  		, RES_SE_REQ
+  		, RES_SE_REQCONT
+  		, RES_RE_NAME
+  		, RES_RE_PHONE
+  		, RES_RE_PHONE2
+  		, RES_RE_ADDR
+  		, RES_RE_ADDR2
+  		, ITEM_NAME
+  		, ITEM_QUANTITY
+  		, ITEM_WEIGHT
+  		, ITEM_FARE
+  		, ITEM_FAREPRICE)
+  	 VALUES (
+  	 	#{se_name}
+		, #{se_phone}
+		, #{se_phone2}
+		, #{se_addr}
+		, #{se_addr2}
+		, #{se_email}
+		, #{se_req}
+		, #{se_reqContents}
+		, #{re_name}
+		, #{re_phone}
+		, #{re_phone2}
+		, #{re_addr}
+		, #{re_addr2}
+		, #{item_name}
+		, #{item_price}
+		, #{item_weight}
+		, #{item_fare}
+		, #{item_farePrice}
+  	 )
+  </insert>
+	
+	<resultMap type="ReservationVO" id="ResResultMap">
+		<result property="se_name" column="RES_SE_NAME" />
+		<result property="se_phone" column="RES_SE_PHONE" />
+		<result property="se_phone2" column="RES_SE_PHONE2" />
+		<result property="se_addr" column="RES_SE_ADDR" />
+		<result property="se_addr2" column="RES_SE_ADDR2" />
+		<result property="se_email" column="RES_SE_EMAIL" />
+		<result property="se_resDate" column="RES_RESDATE" />
+		<result property="se_req" column="RES_SE_REQ" />
+		<result property="re_name" column="RES_RE_PHONE" />
+		<result property="re_phone" column="RES_RE_PHONE2" />
+		<result property="re_phone2" column="RES_RE_ADDR" />
+		<result property="re_addr" column="RES_RE_ADDR2" />
+		<result property="re_addr2" column="ITEM_NAME" />
+		<result property="item_price" column="ITEM_FARE" />
+		<result property="item_name" column="ITEM_QUANTITY" />
+		<result property="item_weight" column="ITEM_WEIGHT" />
+		<result property="item_fare" column="ITEM_FARE" />
+		<result property="item_farePrice" column="ITEM_FAREPRICE" />
+		<result property="res_number" column="RES_NUMBER" />
+		<result property="item_price" column="ITEM_PRICE" />
+	  	<result property="se_reqContents" column="RES_SE_REQCONT" javaType="java.lang.String" jdbcType="CLOB"/>
+	</resultMap>
 </mapper>

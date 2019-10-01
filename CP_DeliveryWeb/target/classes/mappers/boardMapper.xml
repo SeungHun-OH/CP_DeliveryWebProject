@@ -17,6 +17,7 @@
   		, RES_SE_PHONE2
   		, RES_SE_ADDR
   		, RES_SE_ADDR2
+  		, RES_RESDATE
   		, RES_SE_EMAIL
   		, RES_SE_REQ
   		, RES_SE_REQCONT
@@ -36,6 +37,7 @@
 		, #{se_phone2}
 		, #{se_addr}
 		, #{se_addr2}
+		, #{se_resDate}
 		, #{se_email}
 		, #{se_req}
 		, #{se_reqContents}

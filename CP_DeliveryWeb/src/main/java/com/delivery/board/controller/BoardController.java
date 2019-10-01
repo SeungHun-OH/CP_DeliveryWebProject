@@ -8,10 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.delivery.board.model.DeliveryVO;
+import com.delivery.board.model.ReservationVO;
 import com.delivery.board.service.BoardService;
 
 
@@ -32,7 +34,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
-	public String reservationPOST() {
+	public String reservationPOST(ReservationVO reservationVO) throws Exception {
+		System.out.println(reservationVO.toString());
+		service.reserve(reservationVO);
 		return "redirect:/";
 	}
 	

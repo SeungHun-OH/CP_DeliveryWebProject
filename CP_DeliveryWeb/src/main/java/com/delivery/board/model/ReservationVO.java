@@ -1,6 +1,6 @@
 package com.delivery.board.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class ReservationVO {
 	private String se_name;
@@ -9,7 +9,7 @@ public class ReservationVO {
 	private String se_addr;
 	private String se_addr2;
 	private String se_email;
-	private Date se_resDate;
+	private String se_resDate;
 	private String se_req;
 	private String se_reqContents;
 	private String re_name;
@@ -19,7 +19,7 @@ public class ReservationVO {
 	private String re_addr2;
 	private String item_name;
 	private int item_price;
-	private String item_weight;
+	private int item_weight;
 	private String item_fare;
 	private int item_farePrice;
 	private long res_number;
@@ -61,10 +61,13 @@ public class ReservationVO {
 	public void setSe_email(String se_email) {
 		this.se_email = se_email;
 	}
-	public Date getSe_resDate() {
+	public String getSe_resDate() {
 		return se_resDate;
 	}
-	public void setSe_resDate(Date se_resDate) {
+	public void setSe_resDate(String se_resDate) {
+		Calendar cal =  Calendar.getInstance();
+		String year = Integer.toString(cal.get(cal.YEAR));
+		se_resDate=year.substring(2)+"년"+se_resDate;
 		this.se_resDate = se_resDate;
 	}
 	public String getSe_req() {
@@ -121,10 +124,10 @@ public class ReservationVO {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
-	public String getItem_weight() {
+	public int getItem_weight() {
 		return item_weight;
 	}
-	public void setItem_weight(String item_weight) {
+	public void setItem_weight(int item_weight) {
 		this.item_weight = item_weight;
 	}
 	public String getItem_fare() {

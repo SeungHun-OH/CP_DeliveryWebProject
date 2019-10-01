@@ -31,6 +31,11 @@ public class BoardController {
 		return "board/reservationView";
 	}
 	
+	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
+	public String reservationPOST() {
+		return "redirect:/";
+	}
+	
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {

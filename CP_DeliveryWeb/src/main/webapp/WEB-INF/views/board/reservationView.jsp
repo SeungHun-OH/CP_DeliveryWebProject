@@ -138,11 +138,20 @@ window.onload = function addOption(){
 					 </div>
 					 <div class="form-group">
 					 	<label for="item_price">물품가격</label>
-					    <input type="text" class="form-control" id="item_price" name="item_price" placeholder="물품가격">
+					    <input type="number" class="form-control" id="item_price" name="item_price" placeholder="물품가격">
+					 </div>
+					 <div class="form-group">
+					 	<label for="item_count">물품수량</label>
+					    <input type="number" class="form-control" id="item_count" name="item_count" placeholder="개수를 입력해주세요">
 					 </div>
 					 <div class="form-group">
 					    <label for="se_req">부피</label>
-					    <input type="text" class="form-control" id="item_weight" name="item_weight" max="40" placeholder="부피">
+					    <select class="form-control" name="item_weight">
+							<option selected="selected">극소형 (2kg 이하)</option>
+							<option>소형 (5kg 이하)</option>
+							<option>중형 (15kg 이하)</option>
+							<option>대형 (25kg 이하)</option>
+						</select>
 					 </div>
 					 <div class="form-group">
 					    <label for="item_fare">운임구분</label>

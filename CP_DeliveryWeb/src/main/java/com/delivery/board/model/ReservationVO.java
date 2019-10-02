@@ -19,7 +19,8 @@ public class ReservationVO {
 	private String re_addr2;
 	private String item_name;
 	private int item_price;
-	private int item_weight;
+	private int item_count;
+	private String item_weight;
 	private String item_fare;
 	private int item_farePrice;
 	private long res_number;
@@ -124,10 +125,16 @@ public class ReservationVO {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
-	public int getItem_weight() {
+	public int getItem_count() {
+		return item_count;
+	}
+	public void setItem_count(int item_count) {
+		this.item_count = item_count;
+	}
+	public String getItem_weight() {
 		return item_weight;
 	}
-	public void setItem_weight(int item_weight) {
+	public void setItem_weight(String item_weight) {
 		this.item_weight = item_weight;
 	}
 	public String getItem_fare() {

@@ -91,10 +91,10 @@ public class NoticeDaoTest {
 		reservationVO.setRe_addr2("받는 상세 주소 테스트");
 		reservationVO.setItem_name("물건 이름 테스트");
 		reservationVO.setItem_price(12000);
-		reservationVO.setItem_weight(1);
+		reservationVO.setItem_weight("극소");
 		reservationVO.setItem_fare("착불");
 		reservationVO.setItem_farePrice(2500);
-		
+		reservationVO.setSe_resDate("");
 		boardDao.reserve(reservationVO);
 	}
 

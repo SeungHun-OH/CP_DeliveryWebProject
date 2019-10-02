@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!-- 외부 API 다운 (다음 주소 찾기) -->
 <script type="text/javascript">
 window.onload = function addOption(){
     var now = new Date();
@@ -51,6 +52,64 @@ window.onload = function addOption(){
 	}
 }
 </script>
+<script>
+    function DaumPostcode(chk) {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+  
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+                var addrId = '';
+                var addrId2 = '';
+				
+                if (chk == 'se'){
+                	addrId = 'se_addr';
+          		  	addrId2 = 'se_addr2';
+                } else if (chk=='re'){
+               	    addrId = 're_addr';
+               	    addrId2 = 're_addr2';
+                } 
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById(addrId).value = fullAddr;
+
+                document.getElementById(addrId2).value = "";
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById(addrId2).focus();
+                
+            }
+        }).open();
+    }
+</script>
+<!--  <script>		// 운임비 구하는 스크립트
+    function calc() {
+    //var val1 = $("#val1").val(); // input 값을 가져올 때 사용하는 방식
+    var cnt = $("#item_count").val();
+    var weight = $("#item_weight option:selected").val(); 
+    var farePrice = weight * cnt;
+    alert("총 가격: "+ farePrice);
+    $("#item_farePrice").val(farePrice);    // result 값을 input에 넣을 때 사용하는 방식
+    }
+</script> -->
 </head>
 <body>
 	<div class="container  col-md-10" role="main">
@@ -75,6 +134,7 @@ window.onload = function addOption(){
 					 </div>
 					 <div class="form-group">
 					    <label for="se_addr">주소</label>
+					    <input class="btn btn-primary" type="button" OnClick="DaumPostcode('se')" id="se_addrBtn" value='주소검색'>
 					    <input type="text" class="form-control" id="se_addr" name="se_addr" placeholder="주소">
 					 </div>
 					 <div class="form-group">
@@ -123,6 +183,7 @@ window.onload = function addOption(){
 					 </div>
 					 	 <div class="form-group">
 					    <label for="re_addr">주소</label>
+					    <input class="btn btn-primary" type="button" OnClick="DaumPostcode('re')" id="re_addrBtn" value='주소검색'>
 					    <input type="text" class="form-control" id="re_addr" name="re_addr" placeholder="주소">
 					 </div>
 					 <div class="form-group">

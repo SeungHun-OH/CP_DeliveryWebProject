@@ -27,7 +27,8 @@
   		, RES_RE_ADDR
   		, RES_RE_ADDR2
   		, ITEM_NAME
-  		, ITEM_QUANTITY
+  		, ITEM_PRICE
+  		, RES_CNT
   		, ITEM_WEIGHT
   		, ITEM_FARE
   		, ITEM_FAREPRICE)
@@ -48,6 +49,7 @@
 		, #{re_addr2}
 		, #{item_name}
 		, #{item_price}
+		, #{res_count}
 		, #{item_weight}
 		, #{item_fare}
 		, #{item_farePrice}
@@ -75,6 +77,7 @@
 		<result property="item_farePrice" column="ITEM_FAREPRICE" />
 		<result property="res_number" column="RES_NUMBER" />
 		<result property="item_price" column="ITEM_PRICE" />
+		<result property="res_count" column="RES_CNT" />
 	  	<result property="se_reqContents" column="RES_SE_REQCONT" javaType="java.lang.String" jdbcType="CLOB"/>
 	</resultMap>
 </mapper>

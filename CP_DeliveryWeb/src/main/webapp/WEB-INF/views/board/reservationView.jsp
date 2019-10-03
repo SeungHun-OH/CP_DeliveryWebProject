@@ -39,7 +39,7 @@ window.onload = function addOption(){
 	 
 	for(var i=today.getDay(), j=1; i<5; i++,j++){
 	    reserveDate.setDate(reserveDate.getDate()+1);
-	 valArr[j-1] = (reserveDate.getMonth()+1)+"월"+(reserveDate.getDate())+"일";
+	 valArr[j-1] = (reserveDate.getMonth()+1)+'월'+(reserveDate.getDate())+'일';
 	}
 	  
 	var objSel = document.getElementById("se_resDate");
@@ -92,7 +92,7 @@ window.onload = function addOption(){
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById(addrId).value = fullAddr;
 
-                document.getElementById(addrId2).value = "";
+                document.getElementById(addrId2).value = '';
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById(addrId2).focus();
                 
@@ -100,16 +100,19 @@ window.onload = function addOption(){
         }).open();
     }
 </script>
-<!--  <script>		// 운임비 구하는 스크립트
+<script>		// 운임비 구하는 스크립트
     function calc() {
     //var val1 = $("#val1").val(); // input 값을 가져올 때 사용하는 방식
-    var cnt = $("#item_count").val();
-    var weight = $("#item_weight option:selected").val(); 
-    var farePrice = weight * cnt;
-    alert("총 가격: "+ farePrice);
-    $("#item_farePrice").val(farePrice);    // result 값을 input에 넣을 때 사용하는 방식
+    var cnt = $('#res_count').val();
+    if(cnt == ''){
+    	alert("개수를 입력해주세요");
+    	return false;
     }
-</script> -->
+    var weight = $('#item_weight option:selected').val(); 
+    var farePrice = weight * cnt;
+    $('#item_farePrice').val(farePrice);    // result 값을 input에 넣을 때 사용하는 방식
+    }
+</script>
 </head>
 <body>
 	<div class="container  col-md-10" role="main">
@@ -134,7 +137,7 @@ window.onload = function addOption(){
 					 </div>
 					 <div class="form-group">
 					    <label for="se_addr">주소</label>
-					    <input class="btn btn-primary" type="button" OnClick="DaumPostcode('se')" id="se_addrBtn" value='주소검색'>
+					    <button class="btn btn-primary"  type="button" onclick="DaumPostcode('se')" id="se_addrBtn">주소검색</button>
 					    <input type="text" class="form-control" id="se_addr" name="se_addr" placeholder="주소">
 					 </div>
 					 <div class="form-group">
@@ -143,7 +146,7 @@ window.onload = function addOption(){
 					 </div>
 					 <div class="form-group">
 					    <label for="se_email">이메일</label>
-					    <input type="text" class="form-control" id="se_email" name="se_email" placeholder="보내는 사람 이름">
+					    <input type="text" class="form-control" id="se_email" name="se_email" placeholder="보내는 사람 이메일">
 					 </div>
 					 <div class="form-group">
 					    <label for="se_resDate">방문희망일</label>
@@ -183,7 +186,7 @@ window.onload = function addOption(){
 					 </div>
 					 	 <div class="form-group">
 					    <label for="re_addr">주소</label>
-					    <input class="btn btn-primary" type="button" OnClick="DaumPostcode('re')" id="re_addrBtn" value='주소검색'>
+					    <button class="btn btn-primary"  type="button" onclick="DaumPostcode('re')" id="re_addrBtn">주소검색</button>
 					    <input type="text" class="form-control" id="re_addr" name="re_addr" placeholder="주소">
 					 </div>
 					 <div class="form-group">
@@ -202,16 +205,16 @@ window.onload = function addOption(){
 					    <input type="number" class="form-control" id="item_price" name="item_price" placeholder="물품가격">
 					 </div>
 					 <div class="form-group">
-					 	<label for="item_count">물품수량</label>
-					    <input type="number" class="form-control" id="item_count" name="item_count" placeholder="개수를 입력해주세요">
+					 	<label for="res_count">물품수량</label>
+					    <input type="number" class="form-control" id="res_count" name="res_count" placeholder="개수를 입력해주세요">
 					 </div>
 					 <div class="form-group">
 					    <label for="se_req">부피</label>
-					    <select class="form-control" name="item_weight">
-							<option selected="selected">극소형 (2kg 이하)</option>
-							<option>소형 (5kg 이하)</option>
-							<option>중형 (15kg 이하)</option>
-							<option>대형 (25kg 이하)</option>
+					    <select class="form-control" name="item_weight" id="item_weight">
+							<option selected="selected" value="4000">극소형 (2kg 이하)</option>
+							<option value="6000">소형 (5kg 이하)</option>
+							<option value="7000">중형 (15kg 이하)</option>
+							<option value="8000">대형 (25kg 이하)</option>
 						</select>
 					 </div>
 					 <div class="form-group">
@@ -222,8 +225,9 @@ window.onload = function addOption(){
 						</select>
 					 </div>
 					 <div class="form-group">
-					 	<label for="item_farePrice">예상운임</label>
-					    <input type="text" class="form-control" id="item_farePrice" name="item_farePrice" placeholder="예상운임">
+					 	<label>예상운임</label>
+					 	<button class="btn btn-primary"  type="button" onclick="calc()" id="item_farebtn">예산운임 계산</button>
+					    <input type="text" class="form-control" id="item_farePrice" name="item_farePrice" placeholder="예상운임" readonly="readonly">
 					 </div>
 					 <div class="form-group">
 					 <button class="btn" type="submit">예약신청</button>

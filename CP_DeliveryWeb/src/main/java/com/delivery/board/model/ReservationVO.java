@@ -19,7 +19,7 @@ public class ReservationVO {
 	private String re_addr2;
 	private String item_name;
 	private int item_price;
-	private int item_count;
+	private int res_count;
 	private String item_weight;
 	private String item_fare;
 	private int item_farePrice;
@@ -125,17 +125,31 @@ public class ReservationVO {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
-	public int getItem_count() {
-		return item_count;
+	public int getRes_count() {
+		return res_count;
 	}
-	public void setItem_count(int item_count) {
-		this.item_count = item_count;
+	public void setRes_count(int res_count) {
+		this.res_count = res_count;
 	}
 	public String getItem_weight() {
 		return item_weight;
 	}
-	public void setItem_weight(String item_weight) {
-		this.item_weight = item_weight;
+	public void setItem_weight(int item_weight) {
+		switch (item_weight) {
+		case 4000:
+			this.item_weight = "극소형 (2kg 이하)";
+			break;
+		case 6000:
+			this.item_weight = "소형 (5kg 이하)";
+			break;
+		case 7000:
+			this.item_weight = "중형 (15kg 이하)";
+			break;
+		case 8000:
+			this.item_weight = "대형 (25kg 이하)";
+			break;
+		}
+		
 	}
 	public String getItem_fare() {
 		return item_fare;

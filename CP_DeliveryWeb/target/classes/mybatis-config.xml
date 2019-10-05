@@ -6,5 +6,8 @@
 	  <typeAliases>
 	  	<typeAlias type="com.delivery.notice.model.NoticeVO" alias="NoticeVO"/>
 	  	<typeAlias type="com.delivery.board.model.ReservationVO" alias="ReservationVO"/>
+	  	<typeAlias type="com.delivery.board.model.DeliveryVO" alias="DeliveryVO"/>
+	  	<typeAlias type="com.delivery.board.model.SearchDTO" alias="SearchDTO"/>
+	  	
 	  </typeAliases>
 </configuration>

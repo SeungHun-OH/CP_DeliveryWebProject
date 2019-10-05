@@ -66,9 +66,11 @@ public class ReservationVO {
 		return se_resDate;
 	}
 	public void setSe_resDate(String se_resDate) {
-		Calendar cal =  Calendar.getInstance();
-		String year = Integer.toString(cal.get(cal.YEAR));
-		se_resDate=year.substring(2)+"년"+se_resDate;
+		if(!se_resDate.contains("년")) {
+			Calendar cal =  Calendar.getInstance();
+			String year = Integer.toString(cal.get(cal.YEAR));
+			se_resDate=year.substring(2)+"년"+se_resDate;
+		}
 		this.se_resDate = se_resDate;
 	}
 	public String getSe_req() {
@@ -150,6 +152,9 @@ public class ReservationVO {
 			break;
 		}
 		
+	}
+	public void setItem_weight(String item_weight) {
+		this.item_weight = item_weight;
 	}
 	public String getItem_fare() {
 		return item_fare;

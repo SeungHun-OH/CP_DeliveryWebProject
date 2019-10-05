@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!-- 외부 API 다운 (다음 주소 찾기) -->
@@ -50,6 +50,50 @@ window.onload = function addOption(){
 		objOption.value = valArr[i];
 		objSel.options.add(objOption);
 	}
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#sr_waybill').unbind('click').click(function (e) {
+		e.preventDefault();
+		waybillSearch();
+	});
+});
+
+function waybillSearch() {
+	var sendData = JSON.stringify({waybill_Num:$('#waybill').val(), phone_Num:$('#phone').val()});
+	$.ajax({
+		type : 'post',
+		url : "/board/lookupReserve",
+		data : sendData,
+		dataType : 'json',
+		contentType:"application/json;charset=UTF-8",
+		success : function (data) {
+			alert("조회 완료");
+			var attrArr = new Array ('se_name','se_phone','se_phone2','se_addr','se_addr2','re_name','re_phone','re_phone2','re_addr','re_addr2','item_name','item_price','res_count');
+			var valArr = new Array();
+			var count = 0;
+			$.each(data.reservationVO, function(key,value){
+				if(key==attrArr[count]){
+					valArr[count] = value;
+					count++;
+				}
+			});
+			attrArr = new Array ('re_name','re_phone','re_phone2','re_addr','re_addr2','se_name','se_phone','se_phone2','se_addr','se_addr2','item_name','item_price','res_count');
+			for(var i=0; i<attrArr.length; i++){
+				$('input[name='+attrArr[i]+']').attr('value',valArr[i]);
+			}
+			$('#item_weight option:contains('+data.reservationVO.item_weight+')').prop('selected', 'selected');
+			//$("#selectBox option").filter(function() {return this.text == 'searchText';}).prop('selected', 'selected');
+
+		},
+		error : function (request,status,error) {
+			alert('서버가 응답하지 않습니다. \n다시 시도해주시기 바랍니다.');
+		 console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	
+	});
+	
 }
 </script>
 <script>
@@ -117,15 +161,27 @@ window.onload = function addOption(){
 <body>
 	<div class="container  col-md-10" role="main">
 		<div class="card">
-			<div class="card-header">택배예약</div>
+			<div class="card-header">반품예약</div>
 			<div class="card-body">
+				<div>
+				 	<h1>원 운송장 번호 조회</h1>
+				 	<div class="form-group">
+				 		<label for="waybill_Num">원운송장 번호</label>
+				 		<input type="text" class="form-control" id="waybill" name="waybill" placeholder="원운송장 번호" >
+				 	</div>
+				 	<div class="form-group">
+				 		<label for="phone">받는 분 번호</label>
+				 		<input type="text" class="form-control" id="phone" name="phone" placeholder="받는 분 전화번호" >
+				 		<button class="btn btn-primary"  type="button" id="sr_waybill">조회</button>
+				 	</div>
+				 </div>
 				 <div>
 				 	<h1>보내는 분</h1>
 				 </div>
 				 <form action="${path}/board/reservation" method="post">
 					 <div class="form-group">
 					    <label for="se_name">이름</label>
-					    <input type="text" class="form-control" id="se_name" name="se_name" placeholder="보내는 사람 이름" <c:if test="${returns}">value="${returns.re_name}</c:if>>
+					    <input type="text" class="form-control" id="se_name" name="se_name" placeholder="보내는 사람 이름">
 					 </div>
 					 <div class="form-group">
 					    <label for="se_phone">연락처1</label>
@@ -218,16 +274,19 @@ window.onload = function addOption(){
 						</select>
 					 </div>
 					 <div class="form-group">
-					    <label for="item_fare">운임구분</label>
-					    <select class="form-control" name="item_fare">
-							<option>선불</option>
-							<option>착불</option>
-						</select>
-					 </div>
-					 <div class="form-group">
-					 	<label>예상운임</label>
-					 	<button class="btn btn-primary"  type="button" onclick="calc()" id="item_farebtn">예산운임 계산</button>
-					    <input type="text" class="form-control" id="item_farePrice" name="item_farePrice" placeholder="예상운임" readonly="readonly">
+					 	<h6>운임구분</h6>
+					    <div class="custom-control custom-radio">
+				          <input type="radio" class="custom-control-input" name="item_fare" id="item_ip1" value="선불">
+				          <label class="custom-control-label" for="item_ip1">선불</label>
+				        </div>
+				        <div class="custom-control custom-radio">
+				          <input type="radio" class="custom-control-input" name="item_fare" id="item_ip2" value="착불">
+				          <label class="custom-control-label" for="item_ip2">착불</label>
+				        </div>
+				        <div class="custom-control custom-radio">
+				          <input type="radio" class="custom-control-input" name="item_fare" id="item_ip3" value="신용">
+				          <label class="custom-control-label" for="item_ip3">신용</label>
+				        </div>
 					 </div>
 					 <div class="form-group">
 					 <button class="btn" type="submit">예약신청</button>

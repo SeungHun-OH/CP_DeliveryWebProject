@@ -4,12 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
 
-	<select id="search" parameterType="long" resultType="com.delivery.board.model.DeliveryVO">
+	<select id="search" parameterType="long" resultType="DeliveryVO">
 		SELECT WAYBILL, RESERVATION, NAME
 		FROM TEST
 		WHERE WAYBILL = #{waybill_Num}
 	</select>
 	
+	<select id="lookupReserve" resultMap="ResResultMap" parameterType="SearchDTO">
+		SELECT RES_SE_NAME
+	        , RES_SE_PHONE
+	        , RES_SE_PHONE2
+	        , RES_SE_ADDR
+	        , RES_SE_ADDR2
+	        , RES_RE_NAME
+	        , RES_RE_PHONE
+	        , RES_RE_PHONE2
+	        , RES_RE_ADDR
+	        , RES_RE_ADDR2
+	        , ITEM_NAME
+	        , ITEM_PRICE
+	        , ITEM_WEIGHT
+	        , RES_CNT
+		FROM 
+			CAP_DELIVERY_RESERVATION c, TEST t
+		WHERE
+			c.res_number = (SELECT RES_NUMBER FROM TEST WHERE waybill = #{waybill_Num}) and (c.res_re_phone = #{phone_Num} or c.res_re_phone2 = #{phone_Num})
+	</select>
   <insert id="reserve" >
   	INSERT INTO CAP_DELIVERY_RESERVATION (
   		RES_SE_NAME
@@ -65,13 +85,13 @@
 		<result property="se_email" column="RES_SE_EMAIL" />
 		<result property="se_resDate" column="RES_RESDATE" />
 		<result property="se_req" column="RES_SE_REQ" />
-		<result property="re_name" column="RES_RE_PHONE" />
-		<result property="re_phone" column="RES_RE_PHONE2" />
-		<result property="re_phone2" column="RES_RE_ADDR" />
-		<result property="re_addr" column="RES_RE_ADDR2" />
-		<result property="re_addr2" column="ITEM_NAME" />
-		<result property="item_price" column="ITEM_FARE" />
-		<result property="item_name" column="ITEM_QUANTITY" />
+		<result property="re_name" column="RES_RE_NAME" />
+		<result property="re_phone" column="RES_RE_PHONE" />
+		<result property="re_phone2" column="RES_RE_PHONE2" />
+		<result property="re_addr" column="RES_RE_ADDR" />
+		<result property="re_addr2" column="RES_RE_ADDR2" />
+		<result property="item_price" column="ITEM_PRICE" />
+		<result property="item_name" column="ITEM_NAME" />
 		<result property="item_weight" column="ITEM_WEIGHT" />
 		<result property="item_fare" column="ITEM_FARE" />
 		<result property="item_farePrice" column="ITEM_FAREPRICE" />

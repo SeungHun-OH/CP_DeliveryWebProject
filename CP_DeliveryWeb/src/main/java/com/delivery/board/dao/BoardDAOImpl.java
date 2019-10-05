@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.delivery.board.model.DeliveryVO;
 import com.delivery.board.model.ReservationVO;
+import com.delivery.board.model.SearchDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -23,6 +24,12 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void reserve(ReservationVO reservationVO) throws Exception {
 		sqlSession.insert("boardMapper.reserve", reservationVO); 
+	}
+
+
+	@Override
+	public ReservationVO lookupReserve(SearchDTO searchDTO) throws Exception {
+		return sqlSession.selectOne("boardMapper.lookupReserve",searchDTO);
 	}
 	
 }

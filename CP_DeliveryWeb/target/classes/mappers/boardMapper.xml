@@ -25,6 +25,7 @@
 	        , ITEM_PRICE
 	        , ITEM_WEIGHT
 	        , RES_CNT
+	        , ITEM_FAREPRICE
 		FROM 
 			CAP_DELIVERY_RESERVATION c, TEST t
 		WHERE

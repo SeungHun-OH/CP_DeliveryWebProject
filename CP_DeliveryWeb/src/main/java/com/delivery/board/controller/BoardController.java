@@ -40,7 +40,6 @@ public class BoardController {
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
 	public String reservationPOST(ReservationVO reservationVO) throws Exception {
-		System.out.println(reservationVO.toString());
 		service.reserve(reservationVO);
 		return "redirect:/";
 	}
@@ -50,15 +49,22 @@ public class BoardController {
 		return "board/returnView";
 	}
 	
+	@RequestMapping(value = "/return", method = RequestMethod.POST)
+	public String returnPOST(ReservationVO reservationVO) throws Exception{
+		service.reserve(reservationVO);
+		return "redirect:/";
+	}
+	
+	//returnView ajax 선언부
 	@ResponseBody
 	@RequestMapping(value = "/lookupReserve", method = RequestMethod.POST)
 	public HashMap<String, Object> returnPOST(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ReservationVO reservationVO = service.lookupReserve(searchDTO);
-		System.out.println(reservationVO.toString());
 		map.put("reservationVO",reservationVO);
 		return map;  
 	}
+	
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {

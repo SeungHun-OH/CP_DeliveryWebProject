@@ -69,23 +69,27 @@ function waybillSearch() {
 		dataType : 'json',
 		contentType:"application/json;charset=UTF-8",
 		success : function (data) {
-			alert("조회 완료");
-			var attrArr = new Array ('se_name','se_phone','se_phone2','se_addr','se_addr2','re_name','re_phone','re_phone2','re_addr','re_addr2','item_name','item_price','res_count');
-			var valArr = new Array();
-			var count = 0;
-			$.each(data.reservationVO, function(key,value){
-				if(key==attrArr[count]){
-					valArr[count] = value;
-					count++;
+			if(!data == null){
+				alert("조회 완료");
+				console.log(data);
+				var attrArr = new Array ('se_name','se_phone','se_phone2','se_addr','se_addr2','re_name','re_phone','re_phone2','re_addr','re_addr2','item_name','item_price','res_count','item_farePrice');
+				var valArr = new Array();
+				var count = 0;
+				$.each(data.reservationVO, function(key,value){
+					if(key==attrArr[count]){
+						valArr[count] = value;
+						count++;
+					}
+				});
+				attrArr = new Array ('re_name','re_phone','re_phone2','re_addr','re_addr2','se_name','se_phone','se_phone2','se_addr','se_addr2','item_name','item_price','res_count','item_farePrice');
+				for(var i=0; i<attrArr.length; i++){
+					$('input[name='+attrArr[i]+']').attr('value',valArr[i]);
 				}
-			});
-			attrArr = new Array ('re_name','re_phone','re_phone2','re_addr','re_addr2','se_name','se_phone','se_phone2','se_addr','se_addr2','item_name','item_price','res_count');
-			for(var i=0; i<attrArr.length; i++){
-				$('input[name='+attrArr[i]+']').attr('value',valArr[i]);
+				$('#item_weight option:contains('+data.reservationVO.item_weight+')').prop('selected', 'selected');
+				$('#item_farePrice').val(data.reservationVO.item_farePrice);
+			} else {
+				alert("검색된 정보가 없습니다. 확인 후 다시 입력해 주시기 바랍니다. ");
 			}
-			$('#item_weight option:contains('+data.reservationVO.item_weight+')').prop('selected', 'selected');
-			//$("#selectBox option").filter(function() {return this.text == 'searchText';}).prop('selected', 'selected');
-
 		},
 		error : function (request,status,error) {
 			alert('서버가 응답하지 않습니다. \n다시 시도해주시기 바랍니다.');
@@ -142,19 +146,6 @@ function waybillSearch() {
                 
             }
         }).open();
-    }
-</script>
-<script>		// 운임비 구하는 스크립트
-    function calc() {
-    //var val1 = $("#val1").val(); // input 값을 가져올 때 사용하는 방식
-    var cnt = $('#res_count').val();
-    if(cnt == ''){
-    	alert("개수를 입력해주세요");
-    	return false;
-    }
-    var weight = $('#item_weight option:selected').val(); 
-    var farePrice = weight * cnt;
-    $('#item_farePrice').val(farePrice);    // result 값을 input에 넣을 때 사용하는 방식
     }
 </script>
 </head>
@@ -288,6 +279,7 @@ function waybillSearch() {
 				          <label class="custom-control-label" for="item_ip3">신용</label>
 				        </div>
 					 </div>
+					 <input type="hidden" id="item_farePrice" name="item_farePrice" value="">
 					 <div class="form-group">
 					 <button class="btn" type="submit">예약신청</button>
 					 </div>

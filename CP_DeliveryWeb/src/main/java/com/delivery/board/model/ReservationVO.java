@@ -136,25 +136,25 @@ public class ReservationVO {
 	public String getItem_weight() {
 		return item_weight;
 	}
-	public void setItem_weight(int item_weight) {
-		switch (item_weight) {
-		case 4000:
-			this.item_weight = "극소형 (2kg 이하)";
-			break;
-		case 6000:
-			this.item_weight = "소형 (5kg 이하)";
-			break;
-		case 7000:
-			this.item_weight = "중형 (15kg 이하)";
-			break;
-		case 8000:
-			this.item_weight = "대형 (25kg 이하)";
-			break;
-		}
-		
-	}
 	public void setItem_weight(String item_weight) {
-		this.item_weight = item_weight;
+		if(!item_weight.contains("형")) {
+			switch (item_weight) {
+			case "4000":
+				this.item_weight = "극소형 (2kg 이하)";
+				break;
+			case "6000":
+				this.item_weight = "소형 (5kg 이하)";
+				break;
+			case "7000":
+				this.item_weight = "중형 (15kg 이하)";
+				break;
+			case "8000":
+				this.item_weight = "대형 (25kg 이하)";
+				break;
+			}
+		}else {
+			this.item_weight = item_weight;
+		}
 	}
 	public String getItem_fare() {
 		return item_fare;

@@ -22,30 +22,55 @@
 			var resultList = new Array();
 			$.ajax({
 				type : 'post',
-				url : "/board/lookupWaybill",
+				url : '/board/lookupWaybill',
 				data : JSON.stringify({waybill_Num:$('#waybill').val()}),
 				dataType : 'json',
-				contentType:"application/json;charset=UTF-8",
+				contentType:'application/json;charset=UTF-8',
 				success : function (data) {
-					alert('성공');
-				
-				$.each(data.result, function(key, value){
-					if(value != null){
-						$('#result:last').append('<td>'+value+'</td>');
-					}
-				});
-
-				$.each(data.resultList, function(index1){
-					var index2 = 0;
-					var val = null;
-					$.each(data.resultList[index1], function(key,value){
-						if(index2 > 4){
-							val+='<td>'+value+'</td>';
+					if(data != null){
+						alert('성공');
+						if($('#step_img').length>0 == false){
+							$("#infoResult").append('<tr><th>운송장 번호</th><th>보내는 분</th><th>받는 분</th><th>상품 정보</th><th>수량</th></tr><tr id="result"></tr>');
 						}
-						index2++;
-					});
-					$('#resultList:last').append('<tr>'+val+'</tr>');
-				});
+						var columnTd_Cnt = $("#result td").length;
+						var row_Cnt = $("#resultList tr").length;
+						if(columnTd_Cnt > 0){
+							$("#result td").remove();
+						}
+						if(row_Cnt > 0){
+							$("#resultList tr").remove();
+						}
+							
+						$.each(data.result, function(key, value){
+							if(value != null){
+								$('#result').append('<td>'+value+'</td>');
+							}
+						});
+						
+						if($('#step_img').length>0 == false){
+							$('#infoResult').after('<img alt="배송단계" id="step_img" src="${pageContext.request.contextPath}/webresources/img/delivery_step_info_7.jpg">');
+						}
+						if($('#stateBar').length>0 == false){
+					    	$('#stateResult').append('<tr id="stateBar"><th>단계</th><th>처리</th><th>상품상태</th><th>담당 점소</th></tr>');
+						}
+						$('#stateResult').append('<tbody id="resultList"></tbody>');
+		
+						$.each(data.resultList, function(index1){
+							var index2 = 0;
+							var val = null;
+							$.each(data.resultList[index1], function(key,value){
+								if(index2 > 4){
+									val+='<td>'+value+'</td>';
+								}
+								index2++;
+							});
+							$('#resultList').append('<tr>'+val+'</tr>');
+						});
+					} else {
+						console.log(data);
+						alert('실패');
+						//추후에 조회된 내역이 없을때 div나 태그를 append하는 거 만들어야함
+					}
 				},
 				error : function (request,status,error) {
 					alert('실패');
@@ -109,28 +134,9 @@
 		            	${deliveryNum.waybill}
 	                </c:when>
                 </c:choose>
-                <table class="table">
-                	<tr>
-                		<th>운송장 번호</th>
-                		<th>보내는 분</th>
-                		<th>받는 분</th>
-                		<th>상품 정보</th>
-                		<th>수량</th>
-                	</tr>
-                	<tr id="result">
-					<!-- 여기다 내용 출력 -->
-                	</tr>
+                <table class="table" id="infoResult">
                 </table>
-                <img alt="배송단계" src="${pageContext.request.contextPath}/webresources/img/delivery_step_info_7.jpg">
-                <table class="table">
-                	<tr>
-                		<th>단계</th>
-                		<th>처리</th>
-                		<th>상품상태</th>
-                		<th>담당 점소</th>
-                	</tr>
-                	<tbody id="resultList">
-                	</tbody>
+                <table class="table" id="stateResult">
                 </table>
               </div>
               <div class="tab-pane" id="login_Info">
@@ -151,9 +157,10 @@
       </div>
     </div>
     <script>
-    function refresh(){  
-          $("#waybill_tab").load(window.location.href + "#waybill_tab");
-    }
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    	var tab = $(e.target).attr('href');
+    		$('#waybill_tab').load('${pageContext.request.contextPath}/board/search' +  ' #waybill_tab');
+    });
     </script>
   </body>
 	  

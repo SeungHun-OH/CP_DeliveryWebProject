@@ -69,7 +69,7 @@ function waybillSearch() {
 		dataType : 'json',
 		contentType:"application/json;charset=UTF-8",
 		success : function (data) {
-			if(!data == null){
+			if(data != null){
 				alert("조회 완료");
 				console.log(data);
 				var attrArr = new Array ('se_name','se_phone','se_phone2','se_addr','se_addr2','re_name','re_phone','re_phone2','re_addr','re_addr2','item_name','item_price','res_count','item_farePrice');

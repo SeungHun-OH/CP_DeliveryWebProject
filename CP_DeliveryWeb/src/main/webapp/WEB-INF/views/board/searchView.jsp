@@ -7,9 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>배송조회</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     
     <script>
 	    $(document).on('click', '#lookupBtn', function(e){
@@ -19,20 +19,50 @@
 				return false;
 			}
 			e.preventDefault();
-			var url = "${pageContext.request.contextPath}/board/search";
-			var trim_num = $('#waybill').val().replace(/ /gi, '');
-			if(trim_num.length!=11){
-				alert("숫자 11자리를 입력해주세요");
-				$("#waybill").focus();
-				return false;
-			}
-			url = url + "?waybill=" + trim_num;
-			location.href = url;
-			console.log(url);
+			var resultList = new Array();
+			$.ajax({
+				type : 'post',
+				url : "/board/lookupWaybill",
+				data : JSON.stringify({waybill_Num:$('#waybill').val()}),
+				dataType : 'json',
+				contentType:"application/json;charset=UTF-8",
+				success : function (data) {
+					alert('성공');
+				
+				$.each(data.result, function(key, value){
+					if(value != null){
+						$('#result:last').append('<td>'+value+'</td>');
+					}
+				});
+
+				$.each(data.resultList, function(index1){
+					var index2 = 0;
+					var val = null;
+					$.each(data.resultList[index1], function(key,value){
+						if(index2 > 4){
+							val+='<td>'+value+'</td>';
+						}
+						index2++;
+					});
+					$('#resultList:last').append('<tr>'+val+'</tr>');
+				});
+				},
+				error : function (request,status,error) {
+					alert('실패');
+				}
+			
+			});
+// 			var url = "${pageContext.request.contextPath}/board/search";
+// 			var trim_num = $('#waybill').val().replace(/ /gi, '');
+// 			if(trim_num.length!=11){
+// 				alert("숫자 11자리를 입력해주세요");
+// 				$("#waybill").focus();
+// 				return false;
+// 			}
+// 			url = url + "?waybill=" + trim_num;
+// 			location.href = url;
+// 			console.log(url);
 		});
-    </script>
-    <script>
-    	
     </script>
     
     <style>
@@ -46,13 +76,13 @@
           <p>Tab</p>
             <ul class="nav nav-tabs nav-justified" id="mytab">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" onclick="tab_replace();" href="#waybill_tab">운송장 번호로 조회</a>
+                <a class="nav-link active" data-toggle="tab" href="#waybill_tab">운송장 번호로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" onclick="tab_replace();" href="#login_Info">고객정보로 조회</a>
+                <a class="nav-link" data-toggle="tab" href="#login_Info">고객정보로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" onclick="tab_replace();" href="#res_Num">예약번호로 조회</a>
+                <a class="nav-link" data-toggle="tab" href="#res_Num">예약번호로 조회</a>
               </li>
             </ul>
             <div class="tab-content">
@@ -76,9 +106,32 @@
 	                	</div>
 	                </c:when>
 	                <c:when test="${deliveryNum != null}">
-		            	${deliveryNum.waybill}    
+		            	${deliveryNum.waybill}
 	                </c:when>
                 </c:choose>
+                <table class="table">
+                	<tr>
+                		<th>운송장 번호</th>
+                		<th>보내는 분</th>
+                		<th>받는 분</th>
+                		<th>상품 정보</th>
+                		<th>수량</th>
+                	</tr>
+                	<tr id="result">
+					<!-- 여기다 내용 출력 -->
+                	</tr>
+                </table>
+                <img alt="배송단계" src="${pageContext.request.contextPath}/webresources/img/delivery_step_info_7.jpg">
+                <table class="table">
+                	<tr>
+                		<th>단계</th>
+                		<th>처리</th>
+                		<th>상품상태</th>
+                		<th>담당 점소</th>
+                	</tr>
+                	<tbody id="resultList">
+                	</tbody>
+                </table>
               </div>
               <div class="tab-pane" id="login_Info">
                 <h1>고객 정보로 조회</h1>
@@ -97,9 +150,14 @@
         </div>
       </div>
     </div>
+    <script>
+    function refresh(){  
+          $("#waybill_tab").load(window.location.href + "#waybill_tab");
+    }
+    </script>
   </body>
 	  
-	<script type="text/javascript">
+<!-- <script type="text/javascript">
 	//wire up shown event
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	    console.log("tab shown...");
@@ -116,6 +174,6 @@
 		var url = "${pageContext.request.contextPath}/board/search";
 			location.replace(url);
 	}
-	</script> 
+	</script>  --> 
 	
 </html>

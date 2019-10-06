@@ -3,6 +3,7 @@ package com.delivery.board.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.delivery.board.model.DeliveryVO;
 import com.delivery.board.model.ReservationVO;
 import com.delivery.board.model.SearchDTO;
+import com.delivery.board.model.SearchResultVO;
 import com.delivery.board.service.BoardService;
 
 
@@ -58,17 +61,30 @@ public class BoardController {
 	//returnView ajax 선언부
 	@ResponseBody
 	@RequestMapping(value = "/lookupReserve", method = RequestMethod.POST)
-	public HashMap<String, Object> returnPOST(@RequestBody SearchDTO searchDTO) throws Exception {
+	public HashMap<String, Object> reserveAjaxPOST(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ReservationVO reservationVO = service.lookupReserve(searchDTO);
 		map.put("reservationVO",reservationVO);
 		return map;  
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/lookupWaybill", method = RequestMethod.POST)
+	public HashMap<String, Object> searchWaybillAjaxGET(@RequestBody SearchDTO searchDTO) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println("운송장 번호			"+searchDTO.getWaybill_Num());
+		List<SearchResultVO> searchList = service.searchListResult(searchDTO);
+		SearchResultVO searchResultVO = service.searchResult(searchDTO);
+		map.put("result",searchResultVO);
+		map.put("resultList",searchList);
+		return map; 
+	}
+	
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {
 		logger.info("search");
+		
 		if(req.getParameter("waybill") != null) {
 			long num = Long.parseLong(req.getParameter("waybill"));
 				if (service.search(num) != null) {

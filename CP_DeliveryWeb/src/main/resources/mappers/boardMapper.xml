@@ -31,51 +31,78 @@
 		WHERE
 			c.res_number = (SELECT RES_NUMBER FROM TEST WHERE waybill = #{waybill_Num}) and (c.res_re_phone = #{phone_Num} or c.res_re_phone2 = #{phone_Num})
 	</select>
-  <insert id="reserve" >
-  	INSERT INTO CAP_DELIVERY_RESERVATION (
-  		RES_SE_NAME
-  		, RES_SE_PHONE
-  		, RES_SE_PHONE2
-  		, RES_SE_ADDR
-  		, RES_SE_ADDR2
-  		, RES_RESDATE
-  		, RES_SE_EMAIL
-  		, RES_SE_REQ
-  		, RES_SE_REQCONT
-  		, RES_RE_NAME
-  		, RES_RE_PHONE
-  		, RES_RE_PHONE2
-  		, RES_RE_ADDR
-  		, RES_RE_ADDR2
-  		, ITEM_NAME
-  		, ITEM_PRICE
-  		, RES_CNT
-  		, ITEM_WEIGHT
-  		, ITEM_FARE
-  		, ITEM_FAREPRICE)
-  	 VALUES (
-  	 	#{se_name}
-		, #{se_phone}
-		, #{se_phone2}
-		, #{se_addr}
-		, #{se_addr2}
-		, #{se_resDate}
-		, #{se_email}
-		, #{se_req}
-		, #{se_reqContents}
-		, #{re_name}
-		, #{re_phone}
-		, #{re_phone2}
-		, #{re_addr}
-		, #{re_addr2}
-		, #{item_name}
-		, #{item_price}
-		, #{res_count}
-		, #{item_weight}
-		, #{item_fare}
-		, #{item_farePrice}
-  	 )
-  </insert>
+	
+	<insert id="reserve" >
+		INSERT INTO CAP_DELIVERY_RESERVATION (
+			RES_SE_NAME
+			, RES_SE_PHONE
+			, RES_SE_PHONE2
+			, RES_SE_ADDR
+			, RES_SE_ADDR2
+			, RES_RESDATE
+			, RES_SE_EMAIL
+			, RES_SE_REQ
+			, RES_SE_REQCONT
+			, RES_RE_NAME
+			, RES_RE_PHONE
+			, RES_RE_PHONE2
+			, RES_RE_ADDR
+			, RES_RE_ADDR2
+			, ITEM_NAME
+			, ITEM_PRICE
+			, RES_CNT
+			, ITEM_WEIGHT
+			, ITEM_FARE
+			, ITEM_FAREPRICE)
+		 VALUES (
+		 	#{se_name}
+			, #{se_phone}
+			, #{se_phone2}
+			, #{se_addr}
+			, #{se_addr2}
+			, #{se_resDate}
+			, #{se_email}
+			, #{se_req}
+			, #{se_reqContents}
+			, #{re_name}
+			, #{re_phone}
+			, #{re_phone2}
+			, #{re_addr}
+			, #{re_addr2}
+			, #{item_name}
+			, #{item_price}
+			, #{res_count}
+			, #{item_weight}
+			, #{item_fare}
+			, #{item_farePrice}
+		 )
+	</insert>
+	
+	<select id="searchListResult" resultMap="SearchResultMap">
+		SELECT 
+			l.delivery_step
+			, l.process_time
+			, l.product_status
+			, l.charge_place
+		FROM 
+			test t INNER JOIN cap_delivery_reservation r ON t.reservation = r.res_number 
+    		INNER JOIN cap_delivery_list l ON t.waybill = l.waybill_number
+		WHERE
+			 t.waybill = #{waybill_Num}
+	</select>
+	<select id="searchResult" resultMap="SearchResultMap">
+		SELECT 
+			distinct t.waybill
+			, r.res_se_name
+			, r.res_re_name
+			, r.item_name
+			, r.res_cnt
+		FROM 
+			test t INNER JOIN cap_delivery_reservation r ON t.reservation = r.res_number 
+	    	INNER JOIN cap_delivery_list l ON t.waybill = l.waybill_number
+		WHERE 
+			t.waybill = #{waybill_Num}
+	</select>
 	
 	<resultMap type="ReservationVO" id="ResResultMap">
 		<result property="se_name" column="RES_SE_NAME" />
@@ -100,5 +127,17 @@
 		<result property="item_price" column="ITEM_PRICE" />
 		<result property="res_count" column="RES_CNT" />
 	  	<result property="se_reqContents" column="RES_SE_REQCONT" javaType="java.lang.String" jdbcType="CLOB"/>
+	</resultMap>
+	
+	<resultMap type="SearchResultVO" id="SearchResultMap">
+		<result property="waybill_Num" column="waybill" />
+		<result property="sender" column="res_se_name" />
+		<result property="receiver" column="res_re_name" />
+		<result property="product_Name" column="item_name" />
+		<result property="quantity" column="res_cnt" />
+		<result property="step" column="delivery_step" />
+		<result property="process_Time" column="process_time" />
+		<result property="product_Status" column="product_status" />
+		<result property="charge_Place" column="charge_place" />
 	</resultMap>
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.delivery.board.dao.BoardDAO;
 import com.delivery.board.model.ReservationVO;
+import com.delivery.board.model.SearchDTO;
 import com.delivery.notice.dao.NoticeDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -72,30 +73,36 @@ public class NoticeDaoTest {
 //		}
 //	}
 	
+//	@Test
+//	public void testReserve() throws Exception {
+//		ReservationVO reservationVO = new ReservationVO();
+//
+//		reservationVO.setSe_name("보내는사람 이름");
+//		reservationVO.setSe_phone("01045451212");
+//		reservationVO.setSe_phone2("01065651818");
+//		reservationVO.setSe_addr("보내는 사람 주소 테스트");
+//		reservationVO.setSe_addr2("보내는 사람 상세 주소 테스트");
+//		reservationVO.setSe_email("test@naver.com");
+//		reservationVO.setSe_req("잘 배송해주세요");
+//		reservationVO.setSe_reqContents("추가 요청입니다");
+//		reservationVO.setRe_name("받는 사람 이름");
+//		reservationVO.setRe_phone("01048424584");
+//		reservationVO.setRe_phone2("01071718264");
+//		reservationVO.setRe_addr("받는 주소 테스트");
+//		reservationVO.setRe_addr2("받는 상세 주소 테스트");
+//		reservationVO.setItem_name("물건 이름 테스트");
+//		reservationVO.setItem_price(12000);
+//		reservationVO.setItem_weight("극소");
+//		reservationVO.setItem_fare("착불");
+//		reservationVO.setItem_farePrice(2500);
+//		reservationVO.setSe_resDate("");
+//		boardDao.reserve(reservationVO);
+//	}
 	@Test
-	public void testReserve() throws Exception {
-		ReservationVO reservationVO = new ReservationVO();
-
-		reservationVO.setSe_name("보내는사람 이름");
-		reservationVO.setSe_phone("01045451212");
-		reservationVO.setSe_phone2("01065651818");
-		reservationVO.setSe_addr("보내는 사람 주소 테스트");
-		reservationVO.setSe_addr2("보내는 사람 상세 주소 테스트");
-		reservationVO.setSe_email("test@naver.com");
-		reservationVO.setSe_req("잘 배송해주세요");
-		reservationVO.setSe_reqContents("추가 요청입니다");
-		reservationVO.setRe_name("받는 사람 이름");
-		reservationVO.setRe_phone("01048424584");
-		reservationVO.setRe_phone2("01071718264");
-		reservationVO.setRe_addr("받는 주소 테스트");
-		reservationVO.setRe_addr2("받는 상세 주소 테스트");
-		reservationVO.setItem_name("물건 이름 테스트");
-		reservationVO.setItem_price(12000);
-		reservationVO.setItem_weight("극소");
-		reservationVO.setItem_fare("착불");
-		reservationVO.setItem_farePrice(2500);
-		reservationVO.setSe_resDate("");
-		boardDao.reserve(reservationVO);
+	public void testSearch() throws Exception {
+		SearchDTO searchDTO = new SearchDTO();
+		searchDTO.setWaybill_Num(11111111111L);
+		boardDao.searchResult(searchDTO);
 	}
 
 

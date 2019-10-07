@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.delivery.board.model.DeliveryVO;
@@ -72,11 +71,12 @@ public class BoardController {
 	@RequestMapping(value = "/lookupWaybill", method = RequestMethod.POST)
 	public HashMap<String, Object> searchWaybillAjaxGET(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println("운송장 번호			"+searchDTO.getWaybill_Num());
 		List<SearchResultVO> searchList = service.searchListResult(searchDTO);
 		SearchResultVO searchResultVO = service.searchResult(searchDTO);
-		map.put("result",searchResultVO);
-		map.put("resultList",searchList);
+		if(searchResultVO != null && searchList != null) {
+			map.put("result",searchResultVO);
+			map.put("resultList",searchList);
+		}
 		return map; 
 	}
 	

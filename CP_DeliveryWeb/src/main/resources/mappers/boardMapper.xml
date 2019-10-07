@@ -88,7 +88,9 @@
 			test t INNER JOIN cap_delivery_reservation r ON t.reservation = r.res_number 
     		INNER JOIN cap_delivery_list l ON t.waybill = l.waybill_number
 		WHERE
-			 t.waybill = #{waybill_Num}
+			t.waybill = #{waybill_Num}
+		ORDER BY 
+			l.process_time
 	</select>
 	<select id="searchResult" resultMap="SearchResultMap">
 		SELECT 

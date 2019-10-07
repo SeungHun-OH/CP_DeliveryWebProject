@@ -18,6 +18,12 @@
 				$("#waybill").focus();
 				return false;
 			}
+	    	var trim_num = $('#waybill').val().replace(/ /gi, '');
+			if(trim_num.length!=11){
+				alert("숫자 11자리를 입력해주세요");
+				$("#waybill").focus();
+				return false;
+			}
 			e.preventDefault();
 			var resultList = new Array();
 			$.ajax({
@@ -27,19 +33,26 @@
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
 				success : function (data) {
-					if(data != null){
+					if(jQuery.isEmptyObject(data) == true){
+							alert('실패');
+							//추후에 조회된 내역이 없을때 div나 태그를 append하는 거 만들어야함
+							$("#noSearch").empty();
+							$('#noSearch').append('<h1>조회된 내역이 없습니다.</h1>');
+					} else {
 						alert('성공');
-						if($('#step_img').length>0 == false){
+						console.log(data);
+// 						if($('#infoResult tr').length>0 == false){
+							$("#infoResult").empty();
 							$("#infoResult").append('<tr><th>운송장 번호</th><th>보내는 분</th><th>받는 분</th><th>상품 정보</th><th>수량</th></tr><tr id="result"></tr>');
-						}
-						var columnTd_Cnt = $("#result td").length;
-						var row_Cnt = $("#resultList tr").length;
-						if(columnTd_Cnt > 0){
-							$("#result td").remove();
-						}
-						if(row_Cnt > 0){
-							$("#resultList tr").remove();
-						}
+// 						}
+// 						var columnTd_Cnt = $("#result td").length;
+// 						var row_Cnt = $("#resultList tr").length;
+// 						if(columnTd_Cnt > 0){
+// 							$("#result td").remove();
+// 						}
+// 						if(row_Cnt > 0){
+// 							$("#resultList tr").remove();
+// 						}
 							
 						$.each(data.result, function(key, value){
 							if(value != null){
@@ -66,10 +79,6 @@
 							});
 							$('#resultList').append('<tr>'+val+'</tr>');
 						});
-					} else {
-						console.log(data);
-						alert('실패');
-						//추후에 조회된 내역이 없을때 div나 태그를 append하는 거 만들어야함
 					}
 				},
 				error : function (request,status,error) {

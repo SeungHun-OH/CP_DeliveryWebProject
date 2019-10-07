@@ -22,13 +22,15 @@ public class SearchResultVO {
 		return sender;
 	}
 	public void setSender(String sender) {
-		this.sender = sender;
+		String val = (sender.charAt(0)+"*");
+		this.sender = val;
 	}
 	public String getReceiver() {
 		return receiver;
 	}
 	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+		String val = (receiver.charAt(0)+"*");
+		this.receiver = val;
 	}
 	public String getProduct_Name() {
 		return product_Name;

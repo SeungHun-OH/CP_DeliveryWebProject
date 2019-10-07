@@ -33,39 +33,28 @@
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
 				success : function (data) {
-					if(jQuery.isEmptyObject(data) == true){
-							alert('실패');
-							//추후에 조회된 내역이 없을때 div나 태그를 append하는 거 만들어야함
-							$("#noSearch").empty();
-							$('#noSearch').append('<h1>조회된 내역이 없습니다.</h1>');
+					if(jQuery.isEmptyObject(data)){
+							alert('조회된 결과가 없습니다.');
+							$("#infoDiv").empty();
+							$('#stepImg').empty();
+							$('#stateDiv').empty();
+							$('#infoDiv').append('<h1>조회된 내역이 없습니다.</h1>');
 					} else {
 						alert('성공');
 						console.log(data);
-// 						if($('#infoResult tr').length>0 == false){
-							$("#infoResult").empty();
-							$("#infoResult").append('<tr><th>운송장 번호</th><th>보내는 분</th><th>받는 분</th><th>상품 정보</th><th>수량</th></tr><tr id="result"></tr>');
-// 						}
-// 						var columnTd_Cnt = $("#result td").length;
-// 						var row_Cnt = $("#resultList tr").length;
-// 						if(columnTd_Cnt > 0){
-// 							$("#result td").remove();
-// 						}
-// 						if(row_Cnt > 0){
-// 							$("#resultList tr").remove();
-// 						}
-							
+						
+						$("#infoDiv").empty();
+						$("#infoDiv").append('<table class="table" id="infoResult"><tr><th>운송장 번호</th><th>보내는 분</th><th>받는 분</th><th>상품 정보</th><th>수량</th></tr><tr id="result"></tr></table>');
+
 						$.each(data.result, function(key, value){
 							if(value != null){
 								$('#result').append('<td>'+value+'</td>');
 							}
 						});
-						
-						if($('#step_img').length>0 == false){
-							$('#infoResult').after('<img alt="배송단계" id="step_img" src="${pageContext.request.contextPath}/webresources/img/delivery_step_info_7.jpg">');
-						}
-						if($('#stateBar').length>0 == false){
-					    	$('#stateResult').append('<tr id="stateBar"><th>단계</th><th>처리</th><th>상품상태</th><th>담당 점소</th></tr>');
-						}
+						$('#stepImg').empty();
+						$('#stepImg').append('<img alt="배송단계" id="step_img" src="${pageContext.request.contextPath}/webresources/img/delivery_step_info_7.jpg">');
+						$('#stateDiv').empty();
+					    $('#stateDiv').append('<table class="table" id="stateResult"><tr id="stateBar"><th>단계</th><th>처리</th><th>상품상태</th><th>담당 점소</th></tr></table>');
 						$('#stateResult').append('<tbody id="resultList"></tbody>');
 		
 						$.each(data.resultList, function(index1){
@@ -143,10 +132,9 @@
 		            	${deliveryNum.waybill}
 	                </c:when>
                 </c:choose>
-                <table class="table" id="infoResult">
-                </table>
-                <table class="table" id="stateResult">
-                </table>
+                <div id="infoDiv"></div>
+                <div id="stepImg"></div>
+                <div id="stateDiv"></div>
               </div>
               <div class="tab-pane" id="login_Info">
                 <h1>고객 정보로 조회</h1>

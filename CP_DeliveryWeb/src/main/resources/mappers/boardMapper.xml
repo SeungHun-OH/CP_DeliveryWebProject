@@ -27,9 +27,10 @@
 	        , RES_CNT
 	        , ITEM_FAREPRICE
 		FROM 
-			CAP_DELIVERY_RESERVATION c, TEST t
-		WHERE
-			c.res_number = (SELECT RES_NUMBER FROM TEST WHERE waybill = #{waybill_Num}) and (c.res_re_phone = #{phone_Num} or c.res_re_phone2 = #{phone_Num})
+			CAP_DELIVERY_RESERVATION c INNER JOIN TEST t
+        ON c.res_number = t.reservation
+        WHERE
+            t.waybill = #{waybill_Num} and (c.res_re_phone = #{phone_Num} or c.res_re_phone2 = #{phone_Num})
 	</select>
 	
 	<insert id="reserve" >

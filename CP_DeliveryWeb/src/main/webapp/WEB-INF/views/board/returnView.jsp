@@ -69,7 +69,9 @@ function waybillSearch() {
 		dataType : 'json',
 		contentType:"application/json;charset=UTF-8",
 		success : function (data) {
-			if(data != null){
+			if(jQuery.isEmptyObject(data)) {
+					alert("검색된 정보가 없습니다. 확인 후 다시 입력해 주시기 바랍니다. ");
+			} else{
 				alert("조회 완료");
 				console.log(data);
 				var attrArr = new Array ('se_name','se_phone','se_phone2','se_addr','se_addr2','re_name','re_phone','re_phone2','re_addr','re_addr2','item_name','item_price','res_count','item_farePrice');
@@ -87,8 +89,6 @@ function waybillSearch() {
 				}
 				$('#item_weight option:contains('+data.reservationVO.item_weight+')').prop('selected', 'selected');
 				$('#item_farePrice').val(data.reservationVO.item_farePrice);
-			} else {
-				alert("검색된 정보가 없습니다. 확인 후 다시 입력해 주시기 바랍니다. ");
 			}
 		},
 		error : function (request,status,error) {

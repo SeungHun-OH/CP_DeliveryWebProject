@@ -57,13 +57,15 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
-	//returnView ajax 선언부
+	//returnView ajax �꽑�뼵遺�
 	@ResponseBody
 	@RequestMapping(value = "/lookupReserve", method = RequestMethod.POST)
 	public HashMap<String, Object> reserveAjaxPOST(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ReservationVO reservationVO = service.lookupReserve(searchDTO);
-		map.put("reservationVO",reservationVO);
+		if(reservationVO != null) {
+			map.put("reservationVO",reservationVO);
+		}
 		return map;  
 	}
 	
@@ -80,7 +82,7 @@ public class BoardController {
 		return map; 
 	}
 	
-	// 운송장 검색
+	// �슫�넚�옣 寃��깋
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {
 		logger.info("search");

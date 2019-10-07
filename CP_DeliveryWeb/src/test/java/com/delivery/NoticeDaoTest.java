@@ -101,8 +101,10 @@ public class NoticeDaoTest {
 	@Test
 	public void testSearch() throws Exception {
 		SearchDTO searchDTO = new SearchDTO();
-		searchDTO.setWaybill_Num(11111111111L);
-		boardDao.searchResult(searchDTO);
+		searchDTO.setUser_name("구유지");
+		searchDTO.setUser_email("hgj@naver.com");
+		logger.info("로그입니다."+searchDTO);
+		boardDao.searchListResult(searchDTO);
 	}
 
 

@@ -57,7 +57,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
-	//returnView ajax �꽑�뼵遺�
+	//returnView ajax 선언부
 	@ResponseBody
 	@RequestMapping(value = "/lookupReserve", method = RequestMethod.POST)
 	public HashMap<String, Object> reserveAjaxPOST(@RequestBody SearchDTO searchDTO) throws Exception {
@@ -70,8 +70,8 @@ public class BoardController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/lookupWaybill", method = RequestMethod.POST)
-	public HashMap<String, Object> searchWaybillAjaxGET(@RequestBody SearchDTO searchDTO) throws Exception {
+	@RequestMapping(value = "/lookupSearch", method = RequestMethod.POST)
+	public HashMap<String, Object> lookupSearchAjaxPOST(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<SearchResultVO> searchList = service.searchListResult(searchDTO);
 		SearchResultVO searchResultVO = service.searchResult(searchDTO);
@@ -82,7 +82,8 @@ public class BoardController {
 		return map; 
 	}
 	
-	// �슫�넚�옣 寃��깋
+	
+	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {
 		logger.info("search");

@@ -10,26 +10,13 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    
     <script>
-	    $(document).on('click', '#lookupBtn', function(e){
-	    	if($("#waybill").val().replace(/\s/g,"").length==0){
-				alert("운송장번호를 입력해주세요");
-				$("#waybill").focus();
-				return false;
-			}
-	    	var trim_num = $('#waybill').val().replace(/ /gi, '');
-			if(trim_num.length!=11){
-				alert("숫자 11자리를 입력해주세요");
-				$("#waybill").focus();
-				return false;
-			}
-			e.preventDefault();
+    	$.fn.ajaxConnection = function(sendData) {
 			var resultList = new Array();
 			$.ajax({
 				type : 'post',
-				url : '/board/lookupWaybill',
-				data : JSON.stringify({waybill_Num:$('#waybill').val()}),
+				url : '/board/lookupSearch',
+				data : sendData,
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
 				success : function (data) {
@@ -74,20 +61,36 @@
 					alert('실패');
 				}
 			
-			});
-// 			var url = "${pageContext.request.contextPath}/board/search";
-// 			var trim_num = $('#waybill').val().replace(/ /gi, '');
-// 			if(trim_num.length!=11){
-// 				alert("숫자 11자리를 입력해주세요");
-// 				$("#waybill").focus();
-// 				return false;
-// 			}
-// 			url = url + "?waybill=" + trim_num;
-// 			location.href = url;
-// 			console.log(url);
+			});		
+		}
+    </script>
+    <script>
+	    $(document).on('click', '#btnWaybillNumLookup', function(e){
+	    	if($("#waybill").val().replace(/\s/g,"").length==0){
+				alert("운송장번호를 입력해주세요");
+				$("#waybill").focus();
+				return false;
+			}
+	    	var trim_num = $('#waybill').val().replace(/ /gi, '');
+			if(trim_num.length!=11){
+				alert("숫자 11자리를 입력해주세요");
+				$("#waybill").focus();
+				return false;
+			}
+			e.preventDefault();
+			var sendData = JSON.stringify({waybill_Num:$('#waybill').val()});
+			$.fn.ajaxConnection(sendData);
 		});
     </script>
-    
+    <script type="text/javascript">
+    	$(document).on('click', '#btnUserInfoLookup', function(e){
+    		
+    		e.preventDefault();
+    		var sendData = JSON.stringify({user_name:$('#user_name').val(), user_email:$('#user_email').val()});
+    		$.fn.ajaxConnection(sendData);
+
+    	});
+    </script>
     <style>
       p { margin:20px 0px; }
     </style>
@@ -118,7 +121,7 @@
 			                	<input type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill">
 			                </div>
 			                <div>
-			                	<button id="lookupBtn">조회</button>
+			                	<button id="btnWaybillNumLookup">조회</button>
 			                </div>
 		            </c:when>
 	            
@@ -143,7 +146,7 @@
                 	<input type="text" placeholder="예: abcd@example.com" id="user_email" name="user_email">
                 </div>
                 <div>
-                	<button id="lookupBtn">조회</button>
+                	<button id="btnUserInfoLookup">조회</button>
                 </div>
               </div>
               <div class="tab-pane" id="res_Num">

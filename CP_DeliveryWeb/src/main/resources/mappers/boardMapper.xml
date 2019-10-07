@@ -88,12 +88,20 @@
 		FROM 
 			test t INNER JOIN cap_delivery_reservation r ON t.reservation = r.res_number 
     		INNER JOIN cap_delivery_list l ON t.waybill = l.waybill_number
+    	<choose>
+    	<when test="waybill_Num != 0">
 		WHERE
 			t.waybill = #{waybill_Num}
+		</when>
+		<when test="user_name != null and user_email != null">
+		WHERE
+			r.res_se_name = #{user_name} and r.res_se_email = #{user_email}
+		</when>
+		</choose>
 		ORDER BY 
 			l.process_time
 	</select>
-	<select id="searchResult" resultMap="SearchResultMap">
+	<select id="searchResult" parameterType="SearchDTO" resultMap="SearchResultMap">
 		SELECT 
 			distinct t.waybill
 			, r.res_se_name
@@ -103,8 +111,16 @@
 		FROM 
 			test t INNER JOIN cap_delivery_reservation r ON t.reservation = r.res_number 
 	    	INNER JOIN cap_delivery_list l ON t.waybill = l.waybill_number
+	    <choose>
+	    <when test="waybill_Num != 0">
 		WHERE 
 			t.waybill = #{waybill_Num}
+		</when>
+		<when test="user_name != null and user_email != null">
+		WHERE
+			r.res_se_name = #{user_name} and r.res_se_email = #{user_email}
+		</when>
+		</choose>
 	</select>
 	
 	<resultMap type="ReservationVO" id="ResResultMap">

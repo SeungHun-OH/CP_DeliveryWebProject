@@ -82,13 +82,18 @@
 			$.fn.ajaxConnection(sendData);
 		});
     </script>
-    <script type="text/javascript">
+    <script>
     	$(document).on('click', '#btnUserInfoLookup', function(e){
-    		
     		e.preventDefault();
     		var sendData = JSON.stringify({user_name:$('#user_name').val(), user_email:$('#user_email').val()});
     		$.fn.ajaxConnection(sendData);
-
+    	});
+    </script>
+    <script>
+    	$(document).on('click', '#btnResNumLookup', function(e){
+    		e.preventDefault();
+    		var sendData = JSON.stringify({reservation_Num:$('#reservation_Num').val()});
+    		$.fn.ajaxConnection(sendData);
     	});
     </script>
     <style>
@@ -105,10 +110,10 @@
                 <a class="nav-link active" data-toggle="tab" href="#waybill_tab">운송장 번호로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#login_Info">고객정보로 조회</a>
+                <a class="nav-link" data-toggle="tab" href="#userInfo_tab">고객정보로 조회</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#res_Num">예약번호로 조회</a>
+                <a class="nav-link" data-toggle="tab" href="#resNum_tab">예약번호로 조회</a>
               </li>
             </ul>
             <div class="tab-content">
@@ -135,11 +140,8 @@
 		            	${deliveryNum.waybill}
 	                </c:when>
                 </c:choose>
-                <div id="infoDiv"></div>
-                <div id="stepImg"></div>
-                <div id="stateDiv"></div>
               </div>
-              <div class="tab-pane" id="login_Info">
+              <div class="tab-pane" id="userInfo_tab">
                 <h1>고객 정보로 조회</h1>
                 <div>
                 	<input type="text" placeholder="예: 홍길동" id="user_name" name="user_name">
@@ -149,38 +151,28 @@
                 	<button id="btnUserInfoLookup">조회</button>
                 </div>
               </div>
-              <div class="tab-pane" id="res_Num">
-                <p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut mattis leo, vel fermentum tellus. Sed sagittis rhoncus venenatis. Quisque commodo consectetur faucibus. Aenean eget ultricies justo.</p>
+              <div class="tab-pane" id="resNum_tab">
+                <h1>예약 정보로 조회</h1>
+                <input type="text" placeholder="예약번호 12자리 입력" id="reservation_Num" name="reservation_Num">
+                <div>
+                	<button id="btnResNumLookup">조회</button>
+                </div>
               </div>
             </div>
+            <div id="infoDiv"></div>
+            <div id="stepImg"></div>
+            <div id="stateDiv"></div>
         </div>
       </div>
     </div>
     <script>
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     	var tab = $(e.target).attr('href');
-    		$('#waybill_tab').load('${pageContext.request.contextPath}/board/search' +  ' #waybill_tab');
+    	$("#infoDiv").empty();
+		$('#stepImg').empty();
+		$('#stateDiv').empty();
+		$("input[type='text']").val('');
     });
     </script>
   </body>
-	  
-<!-- <script type="text/javascript">
-	//wire up shown event
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	    console.log("tab shown...");
-	    localStorage.setItem('activeTab', $(e.target).attr('href'));
-	});
-	// read hash from page load and change tab
-	var activeTab = localStorage.getItem('activeTab');
-	if(activeTab){
-	    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
-	}
-	
-	
-	function tab_replace() {
-		var url = "${pageContext.request.contextPath}/board/search";
-			location.replace(url);
-	}
-	</script>  --> 
-	
 </html>

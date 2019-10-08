@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.delivery.board.model.DeliveryVO;
 import com.delivery.board.model.ReservationVO;
 import com.delivery.board.model.SearchDTO;
 import com.delivery.board.model.SearchResultVO;
@@ -26,7 +25,7 @@ import com.delivery.board.service.BoardService;
 
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/board")
 public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);

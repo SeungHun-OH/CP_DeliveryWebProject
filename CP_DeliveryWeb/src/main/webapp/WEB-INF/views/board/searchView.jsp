@@ -10,6 +10,26 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			let searchParams = new URLSearchParams(window.location.search)
+			history.replaceState({}, null, location.pathname);
+			if(searchParams.has('waybill')){
+				let param = searchParams.get('waybill');
+				var sendData = JSON.stringify({waybill_Num:param});
+				$.fn.ajaxConnection(sendData);
+// 				$(window).on("beforeunload", function() {
+// 					setTimeout(test,0)
+// 				}); //페이지 이동 감지 메소드
+			}
+			
+		});
+	</script>
+	<script>
+	function test() {
+		history.replaceState({}, null, location.pathname);	//url 파라미터 제거
+	}
+	</script>
     <script>
     	$.fn.ajaxConnection = function(sendData) {
 			var resultList = new Array();
@@ -27,7 +47,6 @@
 							$('#stateDiv').empty();
 							$('#infoDiv').append('<h1>조회된 내역이 없습니다.</h1>');
 					} else {
-						alert('성공');
 						console.log(data);
 						
 						$("#infoDiv").empty();
@@ -56,6 +75,7 @@
 							$('#resultList').append('<tr>'+val+'</tr>');
 						});
 					}
+					alert('성공');
 				},
 				error : function (request,status,error) {
 					alert('실패');
@@ -119,27 +139,12 @@
             <div class="tab-content">
               <div class="tab-pane show active" id="waybill_tab">
                 <h1>운송장 번호로 조회</h1>
-	                
-                <c:choose>
-	                <c:when test="${deliveryNum == '0'}">
-		                	<div>
-			                	<input type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill">
-			                </div>
-			                <div>
-			                	<button id="btnWaybillNumLookup">조회</button>
-			                </div>
-		            </c:when>
-	            
-                	<c:when test="${deliveryNum == null}">
-	               		<meta http-equiv="refresh" content="5; url=${pageContext.request.contextPath}/board/search">
-	                	<div>
-	                		<h3>해당 운송장이 존재하지 않습니다.</h3>
-	                	</div>
-	                </c:when>
-	                <c:when test="${deliveryNum != null}">
-		            	${deliveryNum.waybill}
-	                </c:when>
-                </c:choose>
+	            <div>
+		        	<input type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill">
+                </div>
+                <div>
+	               	<button id="btnWaybillNumLookup">조회</button>
+                </div>
               </div>
               <div class="tab-pane" id="userInfo_tab">
                 <h1>고객 정보로 조회</h1>

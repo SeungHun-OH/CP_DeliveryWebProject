@@ -3,6 +3,8 @@ package com.delivery.commons.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.delivery.commons.util.MediaUtils;
 import com.delivery.commons.util.UploadFileUtils;
@@ -47,11 +50,18 @@ public class UploadController {
     // 업로드한 파일은 MultipartFile 변수에 저장됨
     @ResponseBody // json 형식으로 리턴
     @RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
-        // 업로드한 파일 정보와 Http 상태 코드를 함께 리턴
-    	logger.info("파일 네임 메소드 : "+file.getOriginalFilename());
-    	logger.info("파일 바이트 메소드 : "+file.getBytes());
-        return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
+    public ResponseEntity<String> uploadAjax(MultipartHttpServletRequest mtfRequest) throws Exception {
+    	List<MultipartFile> fileList = mtfRequest.getFiles("file");
+    	String result="";
+    	// 업로드한 파일 정보와 Http 상태 코드를 함께 리턴
+//    	logger.info("파일 네임 메소드 : "+file.getOriginalFilename());
+//    	logger.info("파일 바이트 메소드 : "+file.getBytes());
+    	for(MultipartFile mf : fileList) {
+    		logger.info("파일이름 : "+mf.getOriginalFilename()+"          바이트 : "+ mf.getBytes());
+    		result+=(UploadFileUtils.uploadFile(uploadPath, mf.getOriginalFilename(), mf.getBytes()))+"^";
+    	}
+    	result = result.substring(0, result.length()-1);
+    	return new ResponseEntity<>(result, HttpStatus.OK);
     }
  
     // 이미지 표시 기능

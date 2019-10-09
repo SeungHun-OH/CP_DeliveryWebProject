@@ -36,11 +36,14 @@ $(function(){
         //첨부파일 배열
         var files=event.originalEvent.dataTransfer.files;
         console.log(files);
-        var file=files[0]; //첫번째 첨부파일
-        console.log(file.name);
+        
         //AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
         var formData=new FormData();
-        formData.append("file",file); //폼에 file 변수 추가
+        var file=files[0]; //첫번째 첨부파일
+        alert(files.length);
+        for(var i=0; i<files.length; i++){
+        	formData.append("file",files[i]); //폼에 file 변수 추가	
+        }
         //서버에 파일 업로드(백그라운드에서 실행됨)
         // contentType: false => multipart/form-data로 처리됨
         $.ajax({
@@ -48,24 +51,28 @@ $(function(){
             type: "post",
             url: "/upload/uploadAjax",
             data: formData,
-            dataType: "text",
             processData: false,
             contentType: false,
             success: function(data,status,req){
-                console.log("data:"+data); //업로드된 파일 이름
+            	console.log("data:"+data); //업로드된 파일 이름
                 console.log("status:"+status); //성공,실패 여부
                 console.log("req:"+req.status);//요청코드값
+                var arr = data.split('^');
+                console.log(arr);
+                $.each(arr, function(index,item) {
+					console.log('인덱스: '+index+' 아이템 :'+item);					
+				
                 var str="";
-                if(checkImageType(data)){ //이미지 파일
-					str="<div><a href='${path}/upload/displayFile?fileName="+getImageLink(data)+"'>";
-					str+="<img src='${path}/upload/displayFile?fileName="+data+"'></a>"; 
+                if(checkImageType(item)){ //이미지 파일
+					str="<div><a href='${path}/upload/displayFile?fileName="+getImageLink(item)+"'>";
+					str+="<img src='${path}/upload/displayFile?fileName="+item+"'></a>"; 
                 }else{ //이미지가 아닌 경우
                     str="<div>";
-					str+="<a href='${path}/upload/displayFile?fileName="+data+"'>"+getOriginalName(data)+"</a>";
+					str+="<a href='${path}/upload/displayFile?fileName="+item+"'>"+getOriginalName(item)+"</a>";
                 }
-                str+="<span data-src="+data+">[삭제]</span></div>";
-                console.log(data);
+                str+="<span data-src="+item+">[삭제]</span></div>";
                 $(".uploadedList").append(str);
+                })
             }
         });
     }); //fileDrop 함수
@@ -155,9 +162,8 @@ $(function(){
 				 	<td></td>
 			 	</tr>
 			 </table>
-			 <div class="fileDrop">
+			 <div class="fileDrop"></div>
 			 <div class="uploadedList"></div>
-			 </div>
 			 
 	</div>
 </body>

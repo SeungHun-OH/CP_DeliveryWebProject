@@ -11,13 +11,18 @@
 <style>
 .fileDrop {
     width: 100%;
-    height: 200px;
+    height: 210px;
     border: 1px dotted blue;
 }
 small {
     margin-left:3px;
     font-weight: bold;
     color: gray;
+}
+.uploadedList > div {
+	width:50%;
+	float:left;
+	text-align: center;
 }
 </style>
 <script>
@@ -32,15 +37,24 @@ $(function(){
         //drop이 될 때 기본 효과를 막음
         //기본 효과를 막지 않으면 드래그시에 브라우저에서 이미지파일이 열려버림
         event.preventDefault();
-        var blank_pattem = /^\s+|\s+$/g;
         //첨부파일 배열
         var files=event.originalEvent.dataTransfer.files;
         console.log(files);
+        if(files.length>2){
+        	alert('파일은 한번에 두개만 올릴 수 있습니다!');
+        	return false;
+        }
+        
+        if($(".uploadedList div").length == 1 && files.length>1){
+        	alert('파일을 하나만 더 올릴 수 있습니다!');
+        	return false;
+        } else if ($(".uploadedList div").length == 2) {
+        	alert('파일이 이미 두개입니다.');
+        	return false;
+        }
         
         //AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
         var formData=new FormData();
-        var file=files[0]; //첫번째 첨부파일
-        alert(files.length);
         for(var i=0; i<files.length; i++){
         	formData.append("file",files[i]); //폼에 file 변수 추가	
         }
@@ -59,18 +73,19 @@ $(function(){
                 console.log("req:"+req.status);//요청코드값
                 var arr = data.split('^');
                 console.log(arr);
+                
+                
                 $.each(arr, function(index,item) {
 					console.log('인덱스: '+index+' 아이템 :'+item);					
-				
                 var str="";
                 if(checkImageType(item)){ //이미지 파일
-					str="<div><a href='${path}/upload/displayFile?fileName="+getImageLink(item)+"'>";
+                	str="<div><a href='${path}/upload/displayFile?fileName="+getImageLink(item)+"'>";
 					str+="<img src='${path}/upload/displayFile?fileName="+item+"'></a>"; 
                 }else{ //이미지가 아닌 경우
                     str="<div>";
-					str+="<a href='${path}/upload/displayFile?fileName="+item+"'>"+getOriginalName(item)+"</a>";
+					str+="<a href='${path}/upload/displayFile?fileName='"+item+">"+getOriginalName(item)+"</a>";
                 }
-                str+="<span data-src="+item+">[삭제]</span></div>";
+                str+="<span data-src="+item+">[X]</span></div>";
                 $(".uploadedList").append(str);
                 })
             }
@@ -161,9 +176,15 @@ $(function(){
 				 	<td>파일첨부</td>
 				 	<td></td>
 			 	</tr>
+			 	<tr>
+			 	<td colspan="2">
+				 	<div class="fileDrop">
+				 	<div class="uploadedList"></div>
+				 	</div>
+			 	</td>
+			 	</tr>
 			 </table>
-			 <div class="fileDrop"></div>
-			 <div class="uploadedList"></div>
+			 
 			 
 	</div>
 </body>

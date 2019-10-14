@@ -13,4 +13,10 @@ public class SupportController {
 	public String inquiryGET () {
 		return "/support/inquiryView";
 	}
+	
+	@RequestMapping(value = "/inquiry", method=RequestMethod.GET)
+	public String inquiryPOST () {
+		
+		return null;
+	}
 }

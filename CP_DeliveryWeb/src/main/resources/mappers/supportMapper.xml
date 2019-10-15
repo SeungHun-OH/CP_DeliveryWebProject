@@ -6,7 +6,7 @@
   
   	<insert id="insert">
   		<selectKey keyProperty="inquiryNo" resultType="int"  order="BEFORE">
-       		SELECT CAP_INQUIRY_SEQ.NEXTVAL AS ID FROM DUAL
+       		SELECT CAP_INQUIRY_SEQ.NEXTVAL AS FROM DUAL
    		</selectKey>
    		INSERT INTO CAP_DELIVERY_INQUIRY (
    											INQUIRY_NO
@@ -33,11 +33,10 @@
   	</insert>
   	
   	<insert id="insertFile">
-  	<selectKey keyProperty="fileNo" resultType="int"  order="BEFORE">
-       		SELECT CAP_INQUIRY_SEQ.CURRVAR AS ID FROM DUAL
+   	<selectKey keyProperty="fileNo,inquiryNo" resultType="int"  order="BEFORE">
+       		SELECT FILE_NO as fileNo,CAP_INQUIRY_SEQ.CURRVAL AS inquiryNo
+			FROM(SELECT COALESCE(MAX(FILE_NO),+1) as FILE_NO FROM CAP_DELIVERY_INQUIRY_FILE);
    	</selectKey>
-   	<selectKey keyProperty="inquiryNo" resultType="int"  order="BEFORE">
-       		SELECT CAP_INQUIRY_SEQ.CURRVAR AS ID FROM DUAL
-   	</selectKey>
+   	
   	</insert>
   </mapper>

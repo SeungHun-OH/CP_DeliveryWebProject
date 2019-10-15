@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.delivery.commons.util.MediaUtils;
 import com.delivery.commons.util.UploadFileUtils;
+import com.google.gson.Gson;
 
 @RequestMapping("/upload")
 @Controller
@@ -51,17 +52,25 @@ public class UploadController {
     @ResponseBody // json 형식으로 리턴
     @RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public ResponseEntity<String> uploadAjax(MultipartHttpServletRequest mtfRequest) throws Exception {
+//    	List<MultipartFile> fileList = mtfRequest.getFiles("file");
+    	ResponseEntity<String> entity = null;
     	List<MultipartFile> fileList = mtfRequest.getFiles("file");
-    	String result="";
+
+    	List<String> result = new ArrayList<String>();
+//    	HashMap<String, List<String>> map = new HashMap<String, List<String>>();
     	// 업로드한 파일 정보와 Http 상태 코드를 함께 리턴
 //    	logger.info("파일 네임 메소드 : "+file.getOriginalFilename());
 //    	logger.info("파일 바이트 메소드 : "+file.getBytes());
-    	for(MultipartFile mf : fileList) {
-    		logger.info("파일이름 : "+mf.getOriginalFilename()+"          바이트 : "+ mf.getBytes());
-    		result+=(UploadFileUtils.uploadFile(uploadPath, mf.getOriginalFilename(), mf.getBytes()))+"^";
-    	}
-    	result = result.substring(0, result.length()-1);
-    	return new ResponseEntity<>(result, HttpStatus.OK);
+    	for(MultipartFile file : fileList) {
+    		logger.info("파일이름 : "+file.getOriginalFilename()+"          바이트 : "+ file.getBytes());
+    		result.add(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()));
+//    		map.put("fileLocation", result);
+    	} 
+    	String json = new Gson().toJson(result); 
+    	System.out.println("json 출력    "+ json);
+    	entity = new ResponseEntity<String>(json, HttpStatus.CREATED);
+    	return entity;
+//    	return null;
     }
  
     // 이미지 표시 기능

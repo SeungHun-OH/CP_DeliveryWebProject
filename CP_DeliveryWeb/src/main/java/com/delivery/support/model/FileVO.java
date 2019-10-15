@@ -2,7 +2,7 @@ package com.delivery.support.model;
 
 public class FileVO {
 
-	private int fileNo;
+	private int fileNo = 0;
 	private int inquiryNo;
 	private String fileName;
 	

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script
@@ -66,6 +66,7 @@ small {
 
 							//AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
 							var formData = new FormData();
+// 							formData.append("file", files[0]); //폼에 file 변수 추가
 							for (var i = 0; i < files.length; i++) {
 								formData.append("file", files[i]); //폼에 file 변수 추가	
 							}
@@ -76,28 +77,30 @@ small {
 									type : "post",
 									url : "/upload/uploadAjax",
 									data : formData,
+									dataType : "json",
 									processData : false,
 									contentType : false,
 									success : function(data, status, req) {
 										console.log("data:" + data); //업로드된 파일 이름
 										console.log("status:" + status); //성공,실패 여부
 										console.log("req:" + req.status);//요청코드값
-										var arr = data.split('^');
-										console.log(arr);
-	
-										$.each( arr, function(index, item) { 
-											console.log('인덱스: '+ index+ ' 아이템 :' + item);
+										var obj = eval(data);
+										alert(obj);
+										for(var item in obj){
+											console.log(obj[item]);
 											var str = "";
-											if (checkImageType(item)) { //이미지 파일
-												str = "<div><a href='${path}/upload/displayFile?fileName="+ getImageLink(item)+ "'>";
-												str += "<img src='${path}/upload/displayFile?fileName="+ item + "'></a>";
+											if (checkImageType(obj[item])) { //이미지 파일
+												str = "<div><a href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
+												str += "<img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></a>";
+												console.log(str);
 											} else { //이미지가 아닌 경우
 												str = "<div>";
-												str += "<a href='${path}/upload/displayFile?fileName='"+ item+ ">"+ getOriginalName(item)+ "</a>";
+												str += "<a href='${path}/upload/displayFile?fileName='"+ obj[item] + "'>"+ getOriginalName(obj[item])+ "</a>";
+												console.log(str);
 											}
-											str += "<span data-src="+item+">[X]</span></div>";
+											str += "<span data-src="+obj[item]+">[X]</span></div>";
 											$(".uploadedList").append(str);
-										})
+										}
 									}
 								});
 						}); //fileDrop 함수

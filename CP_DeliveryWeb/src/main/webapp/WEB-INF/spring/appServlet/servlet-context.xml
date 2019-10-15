@@ -74,6 +74,7 @@
 	<context:component-scan base-package="com.delivery.user.controller" />
 	<context:component-scan base-package="com.delivery.support.controller" />
 	<context:component-scan base-package="com.delivery.commons.controller" />
+	<context:component-scan base-package="com.delivery.support.controller" />
 	
 		
 	

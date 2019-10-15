@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="supportMapper">
+  
+  	<insert id="insert">
+  		<selectKey keyProperty="inquiryNo" resultType="int"  order="BEFORE">
+       		SELECT CAP_INQUIRY_SEQ.NEXTVAL AS ID FROM DUAL
+   		</selectKey>
+   		INSERT INTO CAP_DELIVERY_INQUIRY (
+   											INQUIRY_NO
+   											, WAYBILL_NUM
+   											, NAME
+   											, PHONE
+   											, INQUIRY_TYPE
+   											, ADDRESS
+   											, ADDRESS2
+   											, PRODUCT_NAME
+   											, TITLE
+   											, CONTENT)
+   											VALUES (
+   											#{inquiryNo}
+   											, #{waybillNum}
+   											, #{name}
+   											, #{phone}
+   											, #{inquiryType}
+   											, #{addr}
+   											, #{addr2}
+   											, #{productName}
+   											, #{title}
+   											, #{content})
+  	</insert>
+  	
+  	<insert id="insertFile">
+  	<selectKey keyProperty="fileNo" resultType="int"  order="BEFORE">
+       		SELECT CAP_INQUIRY_SEQ.CURRVAR AS ID FROM DUAL
+   	</selectKey>
+   	<selectKey keyProperty="inquiryNo" resultType="int"  order="BEFORE">
+       		SELECT CAP_INQUIRY_SEQ.CURRVAR AS ID FROM DUAL
+   	</selectKey>
+  	</insert>
+  </mapper>

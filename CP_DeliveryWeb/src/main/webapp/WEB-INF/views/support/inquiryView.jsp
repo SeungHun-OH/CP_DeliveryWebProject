@@ -213,8 +213,9 @@ small {
 				<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세주소">
 			</div>
 			<div class="form-group">
-				<label for="selectType">유형</label> <select name="selectType"
-					class="form-control"><option value="" selected="selected">배송확인</option>
+				<label for="selectType">유형</label> 
+				<select name="inquiryType" class="form-control">
+					<option value="배송확인" selected="selected">배송확인</option>
 					<option value="배송지연">배송지연</option>
 					<option value="반품확인">반품확인</option>
 					<option value="반품지연">반품지연</option>
@@ -222,19 +223,20 @@ small {
 					<option value="불친절">불친절</option>
 					<option value="사고처리">사고처리</option>
 					<option value="기타">기타</option>
-					<option value="제안">제안</option></select>
+					<option value="제안">제안</option>
+				</select>
 			</div>
 			<div class="form-group">
-				<label for="productName">물품명</label> <input type="text"
-					id="productName" name="productName" class="form-control">
+				<label for="productName">물품명</label>
+				<input type="text" id="productName" name="productName" class="form-control">
 			</div>
 			<div class="form-group">
-				<label for="title">제목</label> <input type="text" id="title"
-					name="title" class="form-control">
+				<label for="title">제목</label>
+				<input type="text" id="title" name="title" class="form-control">
 			</div>
 			<div class="form-group">
-				<label for="content">내용</label> <input type="text" id="content"
-					name="content" class="form-control">
+			<label for="content">내용</label>
+			<input type="text" id="content" name="content" class="form-control">
 			</div>
 			<div class="form-group">
 				<label>파일</label>

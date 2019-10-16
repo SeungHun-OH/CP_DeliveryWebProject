@@ -3,6 +3,7 @@ package com.delivery.support.model;
 public class FileVO {
 
 	private int fileNo = 0;
+	private String fileLocation;
 	private int inquiryNo;
 	private String fileName;
 	
@@ -25,4 +26,17 @@ public class FileVO {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	public String getFileLocation() {
+		return fileLocation;
+	}
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
+	}
+	@Override
+	public String toString() {
+		return "FileVO [fileNo=" + fileNo + ", fileLocation=" + fileLocation + ", inquiryNo=" + inquiryNo
+				+ ", fileName=" + fileName + "]";
+	}
+	
+	
 }

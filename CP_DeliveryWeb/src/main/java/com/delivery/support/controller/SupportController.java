@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.delivery.support.model.FileVO;
 import com.delivery.support.model.InquiryVO;
 import com.delivery.support.service.SupportService;
 
@@ -22,8 +23,9 @@ public class SupportController {
 	}
 	
 	@RequestMapping(value = "/inquiry", method=RequestMethod.POST)
-	public String inquiryPOST (InquiryVO inquiryVO) {
-		supportService.insertInquiry(inquiryVO);
+	public String inquiryPOST (InquiryVO inquiryVO, String fileLocation) {
+		//supportService.insertInquiry(inquiryVO);
+		System.out.println("이거실행"+fileLocation);
 		return null;
 	}
 }

@@ -15,7 +15,7 @@
 <style>
 .fileDrop {
 	width: 100%;
-	height: 210px;
+	height: 180px;
 	border: 1px dotted blue;
 }
 
@@ -30,6 +30,12 @@ small {
 	float: left;
 	text-align: center;
 }
+.file-image {
+	vertical-align: middle;
+}
+.file-text {
+	text-align: center;
+}
 </style>
 <script>
 	$(function() {
@@ -40,72 +46,72 @@ small {
 			//drop영역에 들어가고, 드롭영역에 드래그 되고있을때의 기본 효과를 막음
 			event.preventDefault();
 		});
-		$(".fileDrop")
-				.on(
-						"drop",
-						function(event) {
-							//drop이 될 때 기본 효과를 막음
-							//기본 효과를 막지 않으면 드래그시에 브라우저에서 이미지파일이 열려버림
-							event.preventDefault();
-							//첨부파일 배열
-							var files = event.originalEvent.dataTransfer.files;
-							console.log(files);
-							if (files.length > 2) {
-								alert('파일은 한번에 두개만 올릴 수 있습니다!');
-								return false;
-							}
+		$(".fileDrop").on("drop", function(event) {
+			//drop이 될 때 기본 효과를 막음
+			//기본 효과를 막지 않으면 드래그시에 브라우저에서 이미지파일이 열려버림
+			event.preventDefault();
+			//첨부파일 배열
+			var files = event.originalEvent.dataTransfer.files;
+			console.log(files);
+			
+			if (files.length > 2) {
+				alert('파일은 한번에 두개만 올릴 수 있습니다!');
+				return false;
+			}
 
-							if ($(".uploadedList div").length == 1
-									&& files.length > 1) {
-								alert('파일을 하나만 더 올릴 수 있습니다!');
-								return false;
-							} else if ($(".uploadedList div").length == 2) {
-								alert('파일이 이미 두개입니다.');
-								return false;
-							}
+			if ($(".uploadedList div").length == 1
+					&& files.length > 1) {
+				alert('파일을 하나만 더 올릴 수 있습니다!');
+				return false;
+			
+			} else if ($(".uploadedList div").length == 2) {
+				alert('파일이 이미 두개입니다.');
+				return false;
+			}
+			
 
-							//AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
-							var formData = new FormData();
-// 							formData.append("file", files[0]); //폼에 file 변수 추가
-							for (var i = 0; i < files.length; i++) {
-								formData.append("file", files[i]); //폼에 file 변수 추가	
-							}
-							//서버에 파일 업로드(백그라운드에서 실행됨)
-							// contentType: false => multipart/form-data로 처리됨
-							$.ajax({	
-									//AjaxUploadController에 post방식으로 넘어감
-									type : "post",
-									url : "/upload/uploadAjax",
-									data : formData,
-									dataType : "json",
-									processData : false,
-									contentType : false,
-									success : function(data, status, req) {
-										console.log("data:" + data); //업로드된 파일 이름
-										console.log("status:" + status); //성공,실패 여부
-										console.log("req:" + req.status);//요청코드값
-										var obj = eval(data);
-										alert(obj);
-										for(var item in obj){
-											console.log(obj[item]);
-											var str = "";
-											if (checkImageType(obj[item])) { //이미지 파일
-												str = "<div><a href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
-												str += "<img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></a>";
-												console.log(str);
-											} else { //이미지가 아닌 경우
-												str = "<div>";
-												str += "<a href='${path}/upload/displayFile?fileName='"+ obj[item] + "'>"+ getOriginalName(obj[item])+ "</a>";
-												console.log(str);
-											}
-											str += "<span data-src="+obj[item]+">[X]</span></div>";
-											$(".uploadedList").append(str);
-										}
-									}
-								});
-						}); //fileDrop 함수
+			//AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
+			var formData = new FormData();
+			for (var i = 0; i < files.length; i++) {
+				if(checkImageType(files[i].name)){
+					formData.append("file", files[i]); //폼에 file 변수 추가
+				}else {
+					alert("첨부파일 형식을 확인해 주십시오.")
+					return false;
+				}
+			}
+			//서버에 파일 업로드(백그라운드에서 실행됨)
+			// contentType: false => multipart/form-data로 처리됨
+			$.ajax({	
+					//AjaxUploadController에 post방식으로 넘어감
+					type : "post",
+					url : "/upload/uploadAjax",
+					data : formData,
+					dataType : "json",
+					processData : false,
+					contentType : false,
+					success : function(data, status, req) {
+						console.log("data:" + data); //업로드된 파일 이름
+						console.log("status:" + status); //성공,실패 여부
+						console.log("req:" + req.status);//요청코드값
+						var obj = eval(data);
+						for(var item in obj){
+							console.log(obj[item]);
+							var str = "<span>";
+							str = "<li><input type='hidden' name='fileLocation' value='"+ obj[item] + "'>"
+							str += "<span><img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></span>";
+							str += "<div class='file-info'><a href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
+							str += getOriginalName(obj[item])+"</a>"
+							str += "<a name='fileLocation' href='"+obj[item]+"' class='delBtn'>[X]</a></div></li>";
+							$(".uploadedList").append(str);
+							
+						}
+					}
+				});
+		}); //fileDrop 함수
 		//첨부파일 삭제 함수
-		$(".uploadedList").on("click", "span", function(event) {
+		$(document).on("click", ".delBtn", function(event) {
+			event.preventDefault();
 			//현재 클릭한 태그
 			var that = $(this);
 			//data: "fileName="+$(this).attr("data-src"),
@@ -113,23 +119,21 @@ small {
 				url : "${path}/upload/deleteFile",
 				type : "post",
 				data : {
-					fileName : $(this).attr("data-src")
+					fileName : $(this).attr("href")
 				},
 				dataType : "text",
 				success : function(result) {
 					if (result == "deleted") {
-						that.parent("div").remove();
+						that.parents("li").remove();
 					}
 				}
 			});
 		});
 
 		function getOriginalName(fileName) {
-			if (checkImageType(fileName)) { //이미지 파일이면 skip
-				return;
-			}
-			var idx = fileName.indexOf("_") + 1; //uuid를 제외한 파일이름
-			return fileName.substr(idx);
+			var subFileName = fileName.substr(14);
+			var idx = subFileName.indexOf("_") + 1
+			return subFileName.substr(idx);
 		}
 		function getImageLink(fileName) {
 			if (!checkImageType(fileName)) {//이미지 파일이 아니면 skip
@@ -185,6 +189,13 @@ small {
 			}
 		}).open();
 	}
+</script>
+<script>
+$(document).ready(function(){
+	$('#formSub').submit(function () {
+	 var 
+	return false;
+})
 </script>
 </head>
 <body>
@@ -245,11 +256,12 @@ small {
 				<label>파일</label>
 			</div>
 			<div class="form-group">
-				<div class="fileDrop">
-					<div class="uploadedList"></div>
-				</div>
+				<div class="fileDrop"></div>
+				<ul class="uploadedList"></ul>
 			</div>
-			<button class="btn" type="submit">예약신청</button>
+			<div class="form-group">
+			<button class="btn" id="formSub" type="submit">예약신청</button>
+			</div>
 			</form>
 		</div>
 	</div>

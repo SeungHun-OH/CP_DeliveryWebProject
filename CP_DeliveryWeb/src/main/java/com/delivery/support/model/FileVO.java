@@ -1,18 +1,29 @@
 package com.delivery.support.model;
 
+import java.util.Arrays;
+
 public class FileVO {
 
 	private int fileNo = 0;
+	private String[] fileLocationArr;
 	private String fileLocation;
 	private int inquiryNo;
+	private String[] fileNameArr;
 	private String fileName;
-	
-	
+	private long[] fileSizeArr;
+	private long fileSize;
+		
 	public int getFileNo() {
 		return fileNo;
 	}
 	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
+	}
+	public String[] getFileLocationArr() {
+		return fileLocationArr;
+	}
+	public void setFileLocationArr(String[] fileLocationArr) {
+		this.fileLocationArr = fileLocationArr;
 	}
 	public int getInquiryNo() {
 		return inquiryNo;
@@ -20,11 +31,17 @@ public class FileVO {
 	public void setInquiryNo(int inquiryNo) {
 		this.inquiryNo = inquiryNo;
 	}
-	public String getFileName() {
-		return fileName;
+	public String[] getFileNameArr() {
+		return fileNameArr;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFileNameArr(String[] fileNameArr) {
+		this.fileNameArr = fileNameArr;
+	}
+	public long[] getFileSizeArr() {
+		return fileSizeArr;
+	}
+	public void setFileSizeArr(long[] fileSizeArr) {
+		this.fileSizeArr = fileSizeArr;
 	}
 	public String getFileLocation() {
 		return fileLocation;
@@ -32,11 +49,24 @@ public class FileVO {
 	public void setFileLocation(String fileLocation) {
 		this.fileLocation = fileLocation;
 	}
-	@Override
-	public String toString() {
-		return "FileVO [fileNo=" + fileNo + ", fileLocation=" + fileLocation + ", inquiryNo=" + inquiryNo
-				+ ", fileName=" + fileName + "]";
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "FileVO [fileNo=" + fileNo + ", fileLocationArr=" + Arrays.toString(fileLocationArr) + ", fileLocation="
+				+ fileLocation + ", inquiryNo=" + inquiryNo + ", fileNameArr=" + Arrays.toString(fileNameArr)
+				+ ", fileName=" + fileName + ", fileSizeArr=" + Arrays.toString(fileSizeArr) + ", fileSize=" + fileSize
+				+ "]";
+	}
 }

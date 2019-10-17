@@ -5,5 +5,5 @@ import com.delivery.support.model.InquiryVO;
 
 public interface SupportDao {
 
-	void insertInquiry(InquiryVO inquiryVO);
+	void insertInquiry(InquiryVO inquiryVO, FileVO fileVO);
 }

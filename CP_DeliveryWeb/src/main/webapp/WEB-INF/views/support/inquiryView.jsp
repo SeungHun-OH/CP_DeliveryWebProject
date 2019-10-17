@@ -72,9 +72,11 @@ small {
 
 			//AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
 			var formData = new FormData();
+			var fileSize = new Array();
 			for (var i = 0; i < files.length; i++) {
 				if(checkImageType(files[i].name)){
 					formData.append("file", files[i]); //폼에 file 변수 추가
+					fileSize[i] = files[i].size;
 				}else {
 					alert("첨부파일 형식을 확인해 주십시오.")
 					return false;
@@ -95,16 +97,19 @@ small {
 						console.log("status:" + status); //성공,실패 여부
 						console.log("req:" + req.status);//요청코드값
 						var obj = eval(data);
+						var index = 0;
 						for(var item in obj){
 							console.log(obj[item]);
 							var str = "<span>";
-							str = "<li><input type='hidden' name='fileLocation' value='"+ obj[item] + "'>"
+							str = "<li><input type='hidden' name='fileLocationArr' value='"+ obj[item] + "'>"
+							str += "<input type='hidden' name='fileSizeArr' value='"+ fileSize[index] + "'>"
+							str += "<input type='hidden' name='fileNameArr' value='"+ getOriginalName(obj[item]) + "'>"
 							str += "<span><img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></span>";
 							str += "<div class='file-info'><a href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
 							str += getOriginalName(obj[item])+"</a>"
 							str += "<a name='fileLocation' href='"+obj[item]+"' class='delBtn'>[X]</a></div></li>";
 							$(".uploadedList").append(str);
-							
+							index++;
 						}
 					}
 				});

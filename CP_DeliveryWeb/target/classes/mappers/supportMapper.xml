@@ -32,11 +32,21 @@
    											, #{content})
   	</insert>
   	
-  	<insert id="insertFile">
-   	<selectKey keyProperty="fileNo,inquiryNo" resultType="int"  order="BEFORE">
-       		SELECT FILE_NO as fileNo,CAP_INQUIRY_SEQ.CURRVAL AS inquiryNo
-			FROM(SELECT COALESCE(MAX(FILE_NO),+1) as FILE_NO FROM CAP_DELIVERY_INQUIRY_FILE);
+  	<insert id="insertFile" parameterType="FileVO" useGeneratedKeys="false">
+   	<selectKey keyProperty="fileNo" resultType="int"  order="BEFORE">
+       		SELECT COALESCE(MAX(FILE_NO),0)+1 as fileNo FROM CAP_DELIVERY_INQUIRY_FILE
    	</selectKey>
-   	
+   			INSERT INTO CAP_DELIVERY_INQUIRY_FILE (
+   											INQUIRY_NO
+   											, FILE_NO
+   											, FILE_NAME
+   											, FILE_LOACTION
+   											, FILE_SIZE)
+   											VALUES (
+   											CAP_INQUIRY_SEQ.CURRVAL
+   											, #{fileNo}
+   											, #{fileName}
+   											, #{fileLocation}
+   											, #{fileSize})
   	</insert>
   </mapper>

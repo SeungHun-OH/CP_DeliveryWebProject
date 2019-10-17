@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.delivery.commons.util.MediaUtils;
 import com.delivery.commons.util.UploadFileUtils;
+import com.delivery.support.service.SupportService;
 import com.google.gson.Gson;
 
 @RequestMapping("/upload")
@@ -33,7 +35,7 @@ public class UploadController {
     private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
     
 //    @Inject
-//    BoardService boardService;
+//    private SupportService supportService;
  
     // 업로드 디렉토리 servlet-context.xml에 설정되어 있음
     
@@ -126,7 +128,7 @@ public class UploadController {
         //원본 파일 삭제(이미지이면 썸네일 삭제)
         new File(uploadPath+fileName.replace('/',File.separatorChar)).delete();
         //레코드 삭제
-//        boardService.deleteFile(fileName); 
+//        supportService.deleteFile(fileName); 
         
         return new ResponseEntity<String>("deleted",HttpStatus.OK);
     }

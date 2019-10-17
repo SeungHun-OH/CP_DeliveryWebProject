@@ -29,4 +29,9 @@ public class SupportDaoImpl implements SupportDao{
 		
 	}
 
+	@Override
+	public void deleteFile(String fileLocation) {
+		sqlSession.delete("supportMapper.deleteFile",fileLocation);
+	}
+
 }

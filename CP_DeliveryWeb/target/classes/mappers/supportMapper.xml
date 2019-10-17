@@ -40,7 +40,7 @@
    											INQUIRY_NO
    											, FILE_NO
    											, FILE_NAME
-   											, FILE_LOACTION
+   											, FILE_LOCATION
    											, FILE_SIZE)
    											VALUES (
    											CAP_INQUIRY_SEQ.CURRVAL
@@ -49,4 +49,8 @@
    											, #{fileLocation}
    											, #{fileSize})
   	</insert>
+  	
+  	<delete id="deleteFile">
+  		DELETE FROM CAP_DELIVERY_INQUIRY_FILE WHERE FILE_LOCATION = #{fileLocation}
+  	</delete>
   </mapper>

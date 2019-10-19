@@ -15,18 +15,23 @@ public class SupportDaoImpl implements SupportDao{
 	@Inject
 	private SqlSession sqlSession;
 	
+	@Override
+	public void insertInquiry(InquiryVO inquiryVO) {
+		sqlSession.insert("supportMapper.insert",inquiryVO);
+	}
+	
 	@Transactional
 	@Override
 	public void insertInquiry(InquiryVO inquiryVO, FileVO fileVO) {
 		sqlSession.insert("supportMapper.insert",inquiryVO);
-		for(int i=0; i<fileVO.getFileNameArr().length; i++) {
-//			fileVO.setFileLocation();
-			fileVO.setFileName(fileVO.getFileNameArr()[i]);
-			fileVO.setFileLocation(fileVO.getFileLocationArr()[i]);
-			fileVO.setFileSize(fileVO.getFileSizeArr()[i]);
-			sqlSession.insert("supportMapper.insertFile",fileVO);
+		if(fileVO != null){
+			for(int i=0; i<fileVO.getFileNameArr().length; i++) {
+				fileVO.setFileName(fileVO.getFileNameArr()[i]);
+				fileVO.setFileLocation(fileVO.getFileLocationArr()[i]);
+				fileVO.setFileSize(fileVO.getFileSizeArr()[i]);
+				sqlSession.insert("supportMapper.insertFile",fileVO);
+			}
 		}
-		
 	}
 
 	@Override

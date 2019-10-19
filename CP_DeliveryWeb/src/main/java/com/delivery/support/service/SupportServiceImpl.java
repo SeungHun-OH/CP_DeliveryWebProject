@@ -24,4 +24,9 @@ public class SupportServiceImpl implements SupportService {
 		supportDao.deleteFile(fileLoaction);
 	}
 
+	@Override
+	public void insertInquiry(InquiryVO inquiryVO) {
+		supportDao.insertInquiry(inquiryVO);
+	}
+
 }

@@ -218,12 +218,18 @@ $(document).ready(function($) {
 		}).open();
 	}
 </script>
-<!-- script>
+<script>
 $(document).ready(function(){
-	$('#formSub').submit(function () {
-	 
-})
-</script>-->
+	$('#inquiryForm').submit(function () {
+		if($(".uploadedList div").length > 0){
+			$("#inquiryForm").attr("action", "${path}/support/inquiryF");
+		}else{
+			$("#inquiryForm").attr("action", "${path}/support/inquiry");
+		}
+		$("#formSub").submit;
+	});
+});
+</script>
 </head>
 <body class="content-wrapper">
 	<div class="container  col-md-10" role="main">
@@ -231,7 +237,7 @@ $(document).ready(function(){
 			<div>
 				<h1>고객 문의</h1>
 			</div>
-			<form action="${path}/support/inquiry" method="post">
+			<form method="post" id="inquiryForm">
 			<div class="form-group">
 				<label for="waybillNum">운송장번호</label>
 				<input type="text" id="waybillNum" name="waybillNum" placeholder="운송장번호를 입력해주세요" class="form-control">

@@ -46,6 +46,13 @@ public class SupportController {
 	@RequestMapping(value = "/inquiry", method=RequestMethod.POST)
 	public String inquiryPOST (InquiryVO inquiryVO, FileVO fileVO) {
 		System.out.println("이거실행 "+fileVO.toString());
+		supportService.insertInquiry(inquiryVO);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/inquiryF", method=RequestMethod.POST)
+	public String inquiryFilePOST (InquiryVO inquiryVO, FileVO fileVO) {
+		System.out.println("이거실행 "+fileVO.toString());
 		supportService.insertInquiry(inquiryVO, fileVO);
 		return "redirect:/";
 	}

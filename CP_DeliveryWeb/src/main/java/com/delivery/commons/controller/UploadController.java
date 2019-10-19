@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -25,7 +26,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.delivery.commons.util.MediaUtils;
 import com.delivery.commons.util.UploadFileUtils;
-import com.delivery.support.service.SupportService;
 import com.google.gson.Gson;
 
 @RequestMapping("/upload")
@@ -53,16 +53,16 @@ public class UploadController {
     // 업로드한 파일은 MultipartFile 변수에 저장됨
     @ResponseBody // json 형식으로 리턴
     @RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public ResponseEntity<String> uploadAjax(MultipartHttpServletRequest mtfRequest) throws Exception {
+    public ResponseEntity<String> uploadAjax(MultipartHttpServletRequest mtfRequest, HttpSession session) throws Exception {
     	ResponseEntity<String> entity = null;
     	List<MultipartFile> fileList = mtfRequest.getFiles("file");
-
     	List<String> result = new ArrayList<String>();
     	// 업로드한 파일 정보와 Http 상태 코드를 함께 리턴
     	for(MultipartFile file : fileList) {
     		logger.info("파일이름 : "+file.getOriginalFilename()+"          바이트 : "+ file.getBytes());
     		result.add(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()));
-    	} 
+    	}
+    	session.setAttribute("fileName", result);
     	String json = new Gson().toJson(result); 
     	System.out.println("json 출력    "+ json);
     	entity = new ResponseEntity<String>(json, HttpStatus.CREATED);

@@ -11,6 +11,8 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link rel="stylesheet" href="${path}/webresources/lightbox/css/lightbox.css"/>
+<script src="${path}/webresources/lightbox/js/lightbox.js" ></script>
 <!-- 외부 API 다운 (다음 주소 찾기) -->
 <style>
 .fileDrop {
@@ -25,22 +27,41 @@ small {
 	color: gray;
 }
 
-.uploadedList>div {
-	width: 50%;
+.fileDrop {
+	padding-top: 80px;
+	text-align: center;
+}
+.uploadedList li {
+	list-style-type: none;
 	float: left;
-	text-align: center;
 }
-.file-image {
-	vertical-align: middle;
-}
-.file-text {
-	text-align: center;
+.uploadedList:after {
+	content: "";
+    display: block;
+    clear: both;
 }
 </style>
+<script>
+$(document).ready(function($) {
+    var checkload = true;
+    $("#formSub").click(function () {
+        checkload = false;
+    });
+    
+    $(window).on("beforeunload", function () {
+    	if (checkload == true)
+        	return "페이지를 나가시겠습니까?";
+    });
+	
+});
+</script>
 <script>
 	$(function() {
 		//이벤트 설정시에는 jquery의 .on()을 사용한다.
 		//드래그 기본 효과를 막음
+	$(".content-wrapper").on("dragenter dragover drop", function (event){
+			event.preventDefault();
+		});
 		
 	$(".fileDrop").on("dragenter dragover", function(event) {
 			//drop영역에 들어가고, 드롭영역에 드래그 되고있을때의 기본 효과를 막음
@@ -105,7 +126,7 @@ small {
 							str += "<input type='hidden' name='fileSizeArr' value='"+ fileSize[index] + "'>"
 							str += "<input type='hidden' name='fileNameArr' value='"+ getOriginalName(obj[item]) + "'>"
 							str += "<span><img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></span>";
-							str += "<div class='file-info'><a href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
+							str += "<div class='file-info'><a data-lightbox='uploadImages' href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
 							str += getOriginalName(obj[item])+"</a>"
 							str += "<a name='fileLocation' href='"+obj[item]+"' class='delBtn'>[X]</a></div></li>";
 							$(".uploadedList").append(str);
@@ -118,6 +139,7 @@ small {
 		$(document).on("click", ".delBtn", function(event) {
 			event.preventDefault();
 			//현재 클릭한 태그
+			if(confirm("삭제하시겠습니까? 삭제된 파일은 복구할 수 없습니다.")){
 			var that = $(this);
 			//data: "fileName="+$(this).attr("data-src"),
 			$.ajax({
@@ -133,6 +155,7 @@ small {
 					}
 				}
 			});
+			}
 		});
 
 		function getOriginalName(fileName) {
@@ -195,15 +218,14 @@ small {
 		}).open();
 	}
 </script>
-<script>
+<!-- script>
 $(document).ready(function(){
 	$('#formSub').submit(function () {
-	 var 
-	return false;
+	 
 })
-</script>
+</script>-->
 </head>
-<body>
+<body class="content-wrapper">
 	<div class="container  col-md-10" role="main">
 		<div class="card-body">
 			<div>
@@ -261,7 +283,9 @@ $(document).ready(function(){
 				<label>파일</label>
 			</div>
 			<div class="form-group">
-				<div class="fileDrop"></div>
+				<div class="fileDrop">
+					<i>이미지를 드래그 해주세요.</i>
+				</div>
 				<ul class="uploadedList"></ul>
 			</div>
 			<div class="form-group">

@@ -81,7 +81,7 @@
 					alert('실패');
 				}
 			
-			});		
+			});
 		}
     </script>
     <script>

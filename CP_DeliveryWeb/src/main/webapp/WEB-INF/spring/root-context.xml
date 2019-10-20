@@ -51,5 +51,8 @@
 	<context:component-scan base-package="com.delivery.user.dao" />
 	<context:component-scan base-package="com.delivery.support.service" />
 	<context:component-scan base-package="com.delivery.support.model" />
-	<context:component-scan base-package="com.delivery.support.dao" />	
+	<context:component-scan base-package="com.delivery.support.dao" />
+	<context:component-scan base-package="com.delivery.mypage.service" />
+	<context:component-scan base-package="com.delivery.mypage.model" />
+	<context:component-scan base-package="com.delivery.mypage.dao" />		
 </beans>

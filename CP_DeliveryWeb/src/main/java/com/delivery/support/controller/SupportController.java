@@ -29,7 +29,6 @@ public class SupportController {
 	
 	@RequestMapping(value = "/inquiry", method=RequestMethod.GET)
 	public String inquiryGET (HttpSession session) {
-		
 		if(session.getAttribute("fileName") != null) {
 			List<String> fileNameArr = (ArrayList<String>) session.getAttribute("fileName");
 			for(String fileName : fileNameArr) {
@@ -44,16 +43,16 @@ public class SupportController {
 	}
 	
 	@RequestMapping(value = "/inquiry", method=RequestMethod.POST)
-	public String inquiryPOST (InquiryVO inquiryVO, FileVO fileVO) {
-		System.out.println("이거실행 "+fileVO.toString());
+	public String inquiryPOST (InquiryVO inquiryVO, FileVO fileVO,HttpSession session) {
 		supportService.insertInquiry(inquiryVO);
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/inquiryF", method=RequestMethod.POST)
-	public String inquiryFilePOST (InquiryVO inquiryVO, FileVO fileVO) {
-		System.out.println("이거실행 "+fileVO.toString());
+	public String inquiryFilePOST (InquiryVO inquiryVO, FileVO fileVO,HttpSession session) {
 		supportService.insertInquiry(inquiryVO, fileVO);
+		if(session.getAttribute("fileName") != null)
+			session.removeAttribute("fileName");
 		return "redirect:/";
 	}
 }

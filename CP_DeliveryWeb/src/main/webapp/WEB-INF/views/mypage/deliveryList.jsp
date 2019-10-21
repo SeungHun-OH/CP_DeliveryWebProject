@@ -19,7 +19,7 @@
 	.hasDatepicker{cursor: pointer;}
 </style>
 <body>
-<div class="container  col-md-10" role="main">
+<div class="container col-md-10" role="main">
 	<h1>배송내역</h1>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons">
 		<label class="btn btn-light" for="mr-1">
@@ -51,10 +51,40 @@
 </div>
 </body>
 <script>
+$(window).load(function(){
+	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
+	$.fn.ajaxConnection(sendData);
+});
 $(function() {
+		$.fn.ajaxConnection = function(sendData) {
+			$.ajax({
+				type : 'post',
+				url : '/mypage/lookuplist',
+				data : sendData,
+				dataType : 'json',
+				contentType:'application/json;charset=UTF-8',
+				success : function (data) {
+					console.log(data);
+					$('.lookupList').remove();
+					$.each(data.result, function(index1){
+					var index2 = 0;
+					var val = '';
+					$.each(data.result[index1], function(key,value){
+						$('tableHeader').after(val+='<td>'+value+'</td>');
+					});
+					$('#tableHeader').after('<tr class="lookupList">'+val+'</tr>');
+				});
+				},
+				error : function (request,status,error) {
+					alert('실패');
+				}
+			});
+		}
+		
+	
        	$('label.btn.btn-light').on('change',function(){
 			if($('input[name="momentRadio"]:checked').val() == '1week'){
-				alert("1주");
+				alert("1주일");
 	             $('#datepicker').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	             $('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 			}else if($('input[name="momentRadio"]:checked').val() == '1month'){
@@ -115,29 +145,7 @@ $(function() {
 
            $('#lookupBtn').click(function() {
            	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
-           	$.ajax({
-   				type : 'post',
-   				url : '/mypage/lookuplist',
-   				data : sendData,
-   				dataType : 'json',
-   				contentType:'application/json;charset=UTF-8',
-   				success : function (data) {
-   					alert("성공");
-   					console.log(data);
-   					$('.lookupList').remove();
-   					$.each(data.result, function(index1){
-						var index2 = 0;
-						var val = '';
-						$.each(data.result[index1], function(key,value){
-							$('tableHeader').after(val+='<td>'+value+'</td>');
-						});
-						$('#tableHeader').after('<tr class="lookupList">'+val+'</tr>');
-					});
-   				},
-   				error : function (request,status,error) {
-   					alert('실패');
-   				}
-   			});
+           	$.fn.ajaxConnection(sendData);
  		});
 });
 </script>

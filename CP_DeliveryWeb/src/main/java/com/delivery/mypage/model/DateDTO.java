@@ -11,9 +11,13 @@ public class DateDTO {
 		return startDate;
 	}
 	public void setStartDate(String startDate) {
+		if(startDate.equals(""))
+			startDate = null;
 		this.startDate = startDate;
 	}
 	public String getEndDate() {
+		if(endDate.equals(""))
+			endDate = null;
 		return endDate;
 	}
 	public void setEndDate(String endDate) {
@@ -32,4 +36,9 @@ public class DateDTO {
 		this.phone = phone;
 	}
 	
+	@Override
+	public String toString() {
+		return "DateDTO [startDate=" + startDate + ", endDate=" + endDate + ", loginName=" + loginName + ", phone="
+				+ phone + "]";
+	}
 }

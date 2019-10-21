@@ -1,5 +1,6 @@
 package com.delivery.mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,19 +36,20 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping(value="/lookuplist", method=RequestMethod.POST)
-	public String ajaxListPOST(HttpSession httpSession, @RequestBody DateDTO dateDTO) {
+	public HashMap<String, Object> ajaxListPOST(HttpSession httpSession, @RequestBody DateDTO dateDTO) {
 		logger.info("보낸 date값 "+dateDTO.getStartDate()+":"+dateDTO.getEndDate());
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		if(httpSession.getAttribute("login")!= null) {
 			Object object = httpSession.getAttribute("login");
 			UserVO userVO = (UserVO) object;
-			System.out.println(userVO.toString());
 			dateDTO.setLoginName(userVO.getUser_name());
 			dateDTO.setPhone(userVO.getUser_phone());
 			List<LookUpVO> lookupList = mypageService.lookuplist(dateDTO);
 			for(LookUpVO i : lookupList) {
 				System.out.println("출력:  "+i.toString());
 			}
+			map.put("result", lookupList);
 		}
-		return null;
+		return map;
 	}
 }

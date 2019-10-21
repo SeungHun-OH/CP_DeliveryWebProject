@@ -130,7 +130,8 @@ $(function() {
    				dataType : 'json',
    				contentType:'application/json;charset=UTF-8',
    				success : function (data) {
-   					alert("성공"+data);
+   					alert("성공");
+   					console.log(data);
    				},
    				error : function (request,status,error) {
    					alert('실패');

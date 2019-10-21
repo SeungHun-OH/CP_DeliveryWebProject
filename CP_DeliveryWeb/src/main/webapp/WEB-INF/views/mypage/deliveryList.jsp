@@ -38,20 +38,13 @@
     From: <input type="text" id="datepicker">
     ~ <input type="text" id="datepicker2">
  	<button type="button" class="btn btn-info" id="lookupBtn">조회</button>
-	<table class="table">
-		<tr>
+	<table class="table" id="lookupTable">
+		<tr id="tableHeader">
 			<th>상품이름</th>
 			<th>송장번호</th>
 			<th>보내는 분</th>
 			<th>배송일자</th>
 			<th>배송상태</th>
-		</tr>
-		<tr>
-			<td>사과</td>
-			<td>229292929</td>
-			<td>권*</td>
-			<td>2019-10-08</td>
-			<td>배송중</td>
 		</tr>
 	</table>
 
@@ -122,7 +115,6 @@ $(function() {
 
            $('#lookupBtn').click(function() {
            	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
-           	alert(sendData);
            	$.ajax({
    				type : 'post',
    				url : '/mypage/lookuplist',
@@ -132,6 +124,15 @@ $(function() {
    				success : function (data) {
    					alert("성공");
    					console.log(data);
+   					$('.lookupList').remove();
+   					$.each(data.result, function(index1){
+						var index2 = 0;
+						var val = '';
+						$.each(data.result[index1], function(key,value){
+							$('tableHeader').after(val+='<td>'+value+'</td>');
+						});
+						$('#tableHeader').after('<tr class="lookupList">'+val+'</tr>');
+					});
    				},
    				error : function (request,status,error) {
    					alert('실패');

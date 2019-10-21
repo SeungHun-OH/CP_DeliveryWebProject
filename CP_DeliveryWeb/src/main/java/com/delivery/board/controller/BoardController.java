@@ -31,7 +31,7 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Inject
-	BoardService service;
+	private BoardService service;
 
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)

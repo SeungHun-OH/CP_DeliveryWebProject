@@ -65,7 +65,7 @@
 		
 						$.each(data.resultList, function(index1){
 							var index2 = 0;
-							var val = null;
+							var val = '';
 							$.each(data.resultList[index1], function(key,value){
 								if(index2 > 4){
 									val+='<td>'+value+'</td>';

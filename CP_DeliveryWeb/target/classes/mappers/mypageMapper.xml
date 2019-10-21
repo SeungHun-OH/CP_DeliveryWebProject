@@ -16,7 +16,7 @@
        <if test="startDate != null and endDate != null">
     	<![CDATA[
         AND process_time >= TO_DATE(#{startDate},'YYYY-MM-DD')
-        AND process_time <  TO_DATE(#{endDate},'YYYY-MM-DD')
+        AND process_time <  TO_DATE(#{endDate},'YYYY-MM-DD')+1
    		]]></if>
     ORDER BY l.PROCESS_TIME
     

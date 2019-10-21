@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.delivery.board.model.DeliveryVO;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 import com.delivery.mypage.service.MypageService;
@@ -51,5 +53,13 @@ public class MypageController {
 			map.put("result", lookupList);
 		}
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/detail", method=RequestMethod.POST)
+	public String ajaxDetailPOST(@RequestBody DeliveryVO deliveryVO) {
+		logger.info("운송장번호:    "+deliveryVO.getWaybill());
+		
+		return null;
 	}
 }

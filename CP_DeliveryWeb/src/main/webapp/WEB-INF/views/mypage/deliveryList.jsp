@@ -47,10 +47,52 @@
 			<th>배송상태</th>
 		</tr>
 	</table>
-
 </div>
+<!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">상세정보</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <table class="table">
+        	<tr id="infoTr">
+        		<th>운송장번호</th>
+        		<th>보내는 분</th>
+        		<th>받는 분</th>
+        		<th>상품 정보</th>
+        		<th>수량</th>
+        	</tr>
+        </table>
+        <table class="table">
+        	<tr id="stepTr">
+	       		<th>단계</th>
+	       		<th>처리</th>
+	       		<th>상품상태</th>
+	       		<th>담당점소</th>
+        	</tr>
+        </table>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 <script>
+function modalShow(e) {
+	var sendData = JSON.stringify({waybill:e.getAttribute('id')});
+	console.log(sendData);
+	$.fn.ajaxConnectionDetail(sendData);
+// 	$("#myModal").modal('show');
+}
 $(window).load(function(){
 	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
 	$.fn.ajaxConnection(sendData);
@@ -69,11 +111,31 @@ $(function() {
 					$.each(data.result, function(index1){
 					var index2 = 0;
 					var val = '';
+					var waybillNum = '';
 					$.each(data.result[index1], function(key,value){
-						$('tableHeader').after(val+='<td>'+value+'</td>');
+							$('tableHeader').after(val+='<td>'+value+'</td>');
+							if(key == 'waybillNum')
+								waybillNum = value;
 					});
-					$('#tableHeader').after('<tr class="lookupList">'+val+'</tr>');
+					$('#tableHeader').after('<tr class="lookupList" onclick="modalShow(this);" id="'+waybillNum+'">'+val+'</tr>');
 				});
+				},
+				error : function (request,status,error) {
+					alert('실패');
+				}
+			});
+		}
+		
+		$.fn.ajaxConnectionDetail = function(sendData) {
+			$.ajax({
+				type : 'post',
+				url : '/mypage/detail',
+				data : sendData,
+				dataType : 'json',
+				contentType:'application/json;charset=UTF-8',
+				success : function (data) {
+					alert('성공');
+					console.log(data);
 				},
 				error : function (request,status,error) {
 					alert('실패');
@@ -144,9 +206,9 @@ $(function() {
 //      $('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 
            $('#lookupBtn').click(function() {
-           	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
-           	$.fn.ajaxConnection(sendData);
- 		});
+	           	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
+	           	$.fn.ajaxConnection(sendData);
+ 			});
 });
 </script>
 </html>

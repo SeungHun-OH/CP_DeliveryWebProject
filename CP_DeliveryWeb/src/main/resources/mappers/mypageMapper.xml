@@ -24,7 +24,7 @@
 
 <resultMap type="LookUpVO" id="LookUpResultMap">
 <result property="productName" column="ITEM_NAME"/>
-<result property="wabillNum" column="WAYBILL_NUMBER"/>
+<result property="waybillNum" column="WAYBILL_NUMBER"/>
 <result property="sender" column="RES_SE_NAME"/>
 <result property="processDate" column="PROCESS_TIME"/>
 <result property="deliveryStep" column="DELIVERY_STEP"/>

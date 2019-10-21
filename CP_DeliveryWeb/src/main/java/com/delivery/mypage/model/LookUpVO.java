@@ -3,7 +3,7 @@ package com.delivery.mypage.model;
 public class LookUpVO {
 
 	private String productName;
-	private long wabillNum;
+	private long waybillNum;
 	private String sender;
 	private String processDate;
 	private String deliveryStep;
@@ -14,11 +14,11 @@ public class LookUpVO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public long getWabillNum() {
-		return wabillNum;
+	public long getWaybillNum() {
+		return waybillNum;
 	}
-	public void setWabillNum(long wabillNum) {
-		this.wabillNum = wabillNum;
+	public void setWaybillNum(long waybillNum) {
+		this.waybillNum = waybillNum;
 	}
 	public String getSender() {
 		return sender;

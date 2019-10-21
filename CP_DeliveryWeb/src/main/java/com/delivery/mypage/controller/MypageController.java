@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.delivery.board.model.DeliveryVO;
+import com.delivery.board.model.SearchDTO;
+import com.delivery.board.model.SearchResultVO;
+import com.delivery.board.service.BoardService;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 import com.delivery.mypage.service.MypageService;
@@ -30,6 +31,9 @@ public class MypageController {
 	
 	@Inject
 	private MypageService mypageService;
+	
+	@Inject
+	private BoardService boardService;
 	
 	@RequestMapping(value="/deliverylist", method=RequestMethod.GET)
 	public String deliveryListGET() {
@@ -57,9 +61,12 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping(value="/detail", method=RequestMethod.POST)
-	public String ajaxDetailPOST(@RequestBody DeliveryVO deliveryVO) {
-		logger.info("운송장번호:    "+deliveryVO.getWaybill());
-		
-		return null;
+	public HashMap<String, Object> ajaxDetailPOST(@RequestBody SearchDTO searchDTO) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<SearchResultVO> searchList = boardService.searchListResult(searchDTO);
+		SearchResultVO searchResultVO = boardService.searchResult(searchDTO);
+		map.put("result",searchResultVO);
+		map.put("resultList",searchList);
+		return map;
 	}
 }

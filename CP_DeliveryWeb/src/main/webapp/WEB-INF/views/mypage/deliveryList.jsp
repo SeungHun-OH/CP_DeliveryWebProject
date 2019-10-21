@@ -88,7 +88,7 @@
 
 <script>
 function modalShow(e) {
-	var sendData = JSON.stringify({waybill:e.getAttribute('id')});
+	var sendData = JSON.stringify({waybill_Num:e.getAttribute('id')});
 	console.log(sendData);
 	$.fn.ajaxConnectionDetail(sendData);
 // 	$("#myModal").modal('show');

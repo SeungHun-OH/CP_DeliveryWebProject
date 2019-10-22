@@ -17,6 +17,7 @@
 	.ui-datepicker-trigger{cursor: pointer;}
 	/*datepicer input 롤오버 시 손가락 모양 표시*/
 	.hasDatepicker{cursor: pointer;}
+	.modal-lg{max-width: 1200px;}
 </style>
 <body>
 <div class="container col-md-10" role="main">

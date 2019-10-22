@@ -90,8 +90,10 @@
 function modalShow(e) {
 	var sendData = JSON.stringify({waybill_Num:e.getAttribute('id')});
 	console.log(sendData);
+	$('.infoSub').remove();
+	$('.stepSub').remove();
 	$.fn.ajaxConnectionDetail(sendData);
-// 	$("#myModal").modal('show');
+	$("#myModal").modal('show');
 }
 $(window).load(function(){
 	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
@@ -134,8 +136,25 @@ $(function() {
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
 				success : function (data) {
-					alert('성공');
 					console.log(data);
+					varTr = '';
+					
+					$.each(data.result, function(key,value){
+						if(value != null){
+							varTr+='<td>'+value+'</td>';
+						}
+					});
+					$('#infoTr').after('<tr class="infoSub">'+varTr+'</tr>');
+					
+					$.each(data.resultList, function(index1){
+						var valTr2 = '';
+						$.each(data.resultList[index1], function(key,value){
+							if(value != '0' && value != null){
+								valTr2+='<td>'+value+'</td>';
+							}
+						});
+						$('#stepTr').after('<tr class="stepSub">'+valTr2+'</tr>');
+					});
 				},
 				error : function (request,status,error) {
 					alert('실패');

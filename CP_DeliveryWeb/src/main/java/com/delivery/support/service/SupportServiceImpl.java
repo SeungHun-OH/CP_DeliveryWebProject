@@ -1,5 +1,7 @@
 package com.delivery.support.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +29,11 @@ public class SupportServiceImpl implements SupportService {
 	@Override
 	public void insertInquiry(InquiryVO inquiryVO) {
 		supportDao.insertInquiry(inquiryVO);
+	}
+
+	@Override
+	public List<InquiryVO> inquiryList(String loginId) {
+		return supportDao.inquiryList(loginId);
 	}
 
 }

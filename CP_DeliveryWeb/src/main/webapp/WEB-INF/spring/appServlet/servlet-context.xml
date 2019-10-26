@@ -51,7 +51,7 @@
         </interceptor>
 		<!-- 사이트 이동시 로그인 인터셉터   -->
         <interceptor>
-        	<mapping path="/mypage/deliverylist"/>
+        	<mapping path="/mypage/*"/>
         	<beans:ref bean="authInterceptor" />
         </interceptor>
 		<!-- 자동로그인 인터셉터  -->

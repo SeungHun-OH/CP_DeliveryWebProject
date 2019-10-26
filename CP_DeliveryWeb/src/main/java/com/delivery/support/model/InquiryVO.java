@@ -12,6 +12,9 @@ public class InquiryVO {
 	private String productName;
 	private String title;
 	private String content;
+	private String loginId;
+	private String regDate;
+	private String inquiryStatus;
 	
 	
 	public int getInquiryNo() {
@@ -74,12 +77,31 @@ public class InquiryVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public String getInquiryStatus() {
+		return inquiryStatus;
+	}
+	public void setInquiryStatus(String inquiryStatus) {
+		this.inquiryStatus = inquiryStatus;
+	}
+
 	
 	@Override
 	public String toString() {
-		return "InquiryVO [waybillNum=" + waybillNum + ", name=" + name + ", phone=" + phone + ", addr=" + addr
-				+ ", addr2=" + addr2 + ", inquiryType=" + inquiryType + ", productName=" + productName + ", title=" + title
-				+ ", content=" + content + "]";
+		return "InquiryVO [inquiryNo=" + inquiryNo + ", waybillNum=" + waybillNum + ", name=" + name + ", phone="
+				+ phone + ", addr=" + addr + ", addr2=" + addr2 + ", inquiryType=" + inquiryType + ", productName="
+				+ productName + ", title=" + title + ", content=" + content + ", loginId=" + loginId + ", regDate="
+				+ regDate + ", inquiryStatus=" + inquiryStatus + "]";
 	}
-	
 }

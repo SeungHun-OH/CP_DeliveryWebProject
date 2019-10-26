@@ -18,7 +18,11 @@
    											, ADDRESS2
    											, PRODUCT_NAME
    											, TITLE
-   											, CONTENT)
+   											, CONTENT
+   											<if test="loginId != null">
+   											, LOGIN_ID
+   											</if>
+   											)
    											VALUES (
    											#{inquiryNo}
    											, #{waybillNum}
@@ -29,7 +33,11 @@
    											, #{addr2}
    											, #{productName}
    											, #{title}
-   											, #{content})
+   											, #{content}
+   											<if test="loginId != null">
+   											, #{loginId}
+   											</if>
+   											)
   	</insert>
   	
   	<insert id="insertFile" parameterType="FileVO" useGeneratedKeys="false">
@@ -53,4 +61,27 @@
   	<delete id="deleteFile">
   		DELETE FROM CAP_DELIVERY_INQUIRY_FILE WHERE FILE_LOCATION = #{fileLocation}
   	</delete>
+  	
+  	<select id="inquiryList" resultMap="InquiryResultMap">
+  	SELECT INQUIRY_TYPE,  TITLE, WAYBILL_NUM, REG_DATE, INQUIRY_STATUS
+	FROM CAP_DELIVERY_INQUIRY
+	WHERE login_id = #{loginId}
+  	</select>
+  	
+  	<resultMap type="InquiryVO" id="InquiryResultMap">
+  	<result property="inquiryNo" column="INQUIRY_NO" />
+  	<result property="waybillNum" column="WAYBILL_NUM" />
+  	<result property="name" column="NAME" />
+  	<result property="phone" column="PHONE" />
+  	<result property="addr" column="ADDRESS" />
+  	<result property="addr2" column="ADDRESS2" />
+  	<result property="inquiryType" column="INQUIRY_TYPE" />
+  	<result property="productName" column="PRODUCT_NAME" />
+  	<result property="title" column="TITLE" />
+  	<result property="regDate" column="REG_DATE" />
+  	<result property="inquiryStatus" column="INQUIRY_STATUS" />
+  	<result property="content" column="CONTENT" />
+  	<result property="loginId" column="LOGIN_ID" />
+  	</resultMap>
+  	
   </mapper>

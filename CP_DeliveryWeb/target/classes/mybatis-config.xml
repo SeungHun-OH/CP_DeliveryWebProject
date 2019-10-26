@@ -9,6 +9,7 @@
 	  	<typeAlias type="com.delivery.board.model.DeliveryVO" alias="DeliveryVO"/>
 	  	<typeAlias type="com.delivery.board.model.SearchDTO" alias="SearchDTO"/>
 	  	<typeAlias type="com.delivery.board.model.SearchResultVO" alias="SearchResultVO"/>
+	  	<typeAlias type="com.delivery.support.model.InquiryVO" alias="InquiryVO"/>
 	  	<typeAlias type="com.delivery.support.model.FileVO" alias="FileVO"/>
 	  	<typeAlias type="com.delivery.mypage.model.LookUpVO" alias="LookUpVO"/>
 	  </typeAliases>

@@ -9,12 +9,14 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.delivery.support.model.FileVO;
 import com.delivery.support.model.InquiryVO;
 import com.delivery.support.service.SupportService;
+import com.delivery.user.model.UserVO;
 
 @Controller
 @RequestMapping("/support")
@@ -28,7 +30,7 @@ public class SupportController {
 	 
 	
 	@RequestMapping(value = "/inquiry", method=RequestMethod.GET)
-	public String inquiryGET (HttpSession session) {
+	public String inquiryGET (HttpSession session, Model model) {
 		if(session.getAttribute("fileName") != null) {
 			List<String> fileNameArr = (ArrayList<String>) session.getAttribute("fileName");
 			for(String fileName : fileNameArr) {
@@ -38,6 +40,10 @@ public class SupportController {
 				new File(uploadPath+fileName.replace('/',File.separatorChar)).delete();
 			}
 			session.removeAttribute("fileName");
+		}
+		if(session.getAttribute("login") != null) {
+		UserVO userVO = (UserVO) session.getAttribute("login");
+		model.addAttribute("userId", userVO.getUser_id());
 		}
 		return "/support/inquiryView";
 	}

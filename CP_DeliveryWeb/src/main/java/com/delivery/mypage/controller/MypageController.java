@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,8 @@ import com.delivery.board.service.BoardService;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 import com.delivery.mypage.service.MypageService;
+import com.delivery.support.model.InquiryVO;
+import com.delivery.support.service.SupportService;
 import com.delivery.user.model.UserVO;
 
 
@@ -34,6 +37,9 @@ public class MypageController {
 	
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private SupportService supportService;
 	
 	@RequestMapping(value="/deliverylist", method=RequestMethod.GET)
 	public String deliveryListGET() {
@@ -68,5 +74,13 @@ public class MypageController {
 		map.put("result",searchResultVO);
 		map.put("resultList",searchList);
 		return map;
+	}
+	
+	@RequestMapping(value="/myinquiry", method=RequestMethod.GET)
+	public String myinauiryListGET(HttpSession session, Model model) {
+		UserVO userVo = (UserVO)session.getAttribute("login");
+		List<InquiryVO> userInquiry = supportService.inquiryList(userVo.getUser_id());
+		model.addAttribute("inquiryList", userInquiry);
+		return "mypage/myinquiryView";
 	}
 }

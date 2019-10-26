@@ -1,5 +1,7 @@
 package com.delivery.support.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,6 +39,11 @@ public class SupportDaoImpl implements SupportDao{
 	@Override
 	public void deleteFile(String fileLocation) {
 		sqlSession.delete("supportMapper.deleteFile",fileLocation);
+	}
+
+	@Override
+	public List<InquiryVO> inquiryList(String loginId) {
+		return sqlSession.selectList("supportMapper.inquiryList", loginId);
 	}
 
 }

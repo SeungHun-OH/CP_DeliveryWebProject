@@ -236,6 +236,7 @@ $(document).ready(function(){
 				<h1>고객 문의</h1>
 			</div>
 			<form method="post" id="inquiryForm">
+			<input type="hidden" name="loginId" value="${userId}">
 			<div class="form-group">
 				<label for="waybillNum">운송장번호</label>
 				<input type="text" id="waybillNum" name="waybillNum" placeholder="운송장번호를 입력해주세요" class="form-control">

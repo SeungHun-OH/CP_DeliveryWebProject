@@ -41,9 +41,6 @@
   	</insert>
   	
   	<insert id="insertFile" parameterType="FileVO" useGeneratedKeys="false">
-   	<selectKey keyProperty="fileNo" resultType="int"  order="BEFORE">
-       		SELECT COALESCE(MAX(FILE_NO),0)+1 as fileNo FROM CAP_DELIVERY_INQUIRY_FILE
-   	</selectKey>
    			INSERT INTO CAP_DELIVERY_INQUIRY_FILE (
    											INQUIRY_NO
    											, FILE_NO
@@ -63,11 +60,30 @@
   	</delete>
   	
   	<select id="inquiryList" resultMap="InquiryResultMap">
-  	SELECT INQUIRY_TYPE,  TITLE, WAYBILL_NUM, REG_DATE, INQUIRY_STATUS
+  	SELECT INQUIRY_TYPE,  TITLE, WAYBILL_NUM, REG_DATE, INQUIRY_STATUS, INQUIRY_NO
 	FROM CAP_DELIVERY_INQUIRY
 	WHERE login_id = #{loginId}
   	</select>
   	
+  	<select id="detailInquiry" resultMap="InquiryResultMap">
+  	SELECT content, address, address2, name, product_name
+	FROM cap_delivery_inquiry
+	WHERE inquiry_no = #{inquiryNo}
+  	</select>
+  	
+  	<select id="detailInquiryFile" resultMap="FileResultMap">
+  	SELECT file_name,file_no,file_location
+	FROM cap_delivery_inquiry_file
+	WHERE inquiry_no = #{inquiryNo}
+  	</select>
+  	
+  	
+  	<resultMap type="FileVO" id="FileResultMap">
+  	<result property="fileName" column="FILE_NAME" />
+  	<result property="fileNo" column="FILE_NO" />
+  	<result property="fileLocation" column="FILE_LOCATION" />
+  	</resultMap>
+
   	<resultMap type="InquiryVO" id="InquiryResultMap">
   	<result property="inquiryNo" column="INQUIRY_NO" />
   	<result property="waybillNum" column="WAYBILL_NUM" />

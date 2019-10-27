@@ -94,7 +94,6 @@ function modalShow(e) {
 	$('.infoSub').remove();
 	$('.stepSub').remove();
 	$.fn.ajaxConnectionDetail(sendData);
-	$("#myModal").modal('show');
 }
 $(window).load(function(){
 	var sendData = JSON.stringify({startDate:$('input[id="datepicker"]').val(), endDate:$('input[id="datepicker2"]').val()});
@@ -104,7 +103,7 @@ $(function() {
 		$.fn.ajaxConnection = function(sendData) {
 			$.ajax({
 				type : 'post',
-				url : '/mypage/lookuplist',
+				url : '/mypage/deliveryLookuplist',
 				data : sendData,
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
@@ -132,7 +131,7 @@ $(function() {
 		$.fn.ajaxConnectionDetail = function(sendData) {
 			$.ajax({
 				type : 'post',
-				url : '/mypage/detail',
+				url : '/mypage/deliveryDetail',
 				data : sendData,
 				dataType : 'json',
 				contentType:'application/json;charset=UTF-8',
@@ -156,6 +155,7 @@ $(function() {
 						});
 						$('#stepTr').after('<tr class="stepSub">'+valTr2+'</tr>');
 					});
+					$("#myModal").modal('show');
 				},
 				error : function (request,status,error) {
 					alert('실패');

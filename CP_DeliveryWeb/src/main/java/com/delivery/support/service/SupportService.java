@@ -10,4 +10,6 @@ public interface SupportService {
 	void insertInquiry(InquiryVO inquiryVO, FileVO fileVO);
 	void deleteFile(String fileLoaction);
 	List<InquiryVO> inquiryList(String loginId);
+	InquiryVO detailInquiry(int inquiryNo);
+	List<FileVO> detailInquiryFile(int inquiryNo);
 }

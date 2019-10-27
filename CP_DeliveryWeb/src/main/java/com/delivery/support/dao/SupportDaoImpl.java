@@ -31,6 +31,7 @@ public class SupportDaoImpl implements SupportDao{
 				fileVO.setFileName(fileVO.getFileNameArr()[i]);
 				fileVO.setFileLocation(fileVO.getFileLocationArr()[i]);
 				fileVO.setFileSize(fileVO.getFileSizeArr()[i]);
+				fileVO.setFileNo(i+1);
 				sqlSession.insert("supportMapper.insertFile",fileVO);
 			}
 		}
@@ -44,6 +45,16 @@ public class SupportDaoImpl implements SupportDao{
 	@Override
 	public List<InquiryVO> inquiryList(String loginId) {
 		return sqlSession.selectList("supportMapper.inquiryList", loginId);
+	}
+
+	@Override
+	public InquiryVO detailInquiry(int inquiryNo) {
+		return sqlSession.selectOne("supportMapper.detailInquiry", inquiryNo);
+	}
+
+	@Override
+	public List<FileVO> detailInquiryFile(int inquiryNo) {
+		return sqlSession.selectList("supportMapper.detailInquiryFile", inquiryNo);
 	}
 
 }

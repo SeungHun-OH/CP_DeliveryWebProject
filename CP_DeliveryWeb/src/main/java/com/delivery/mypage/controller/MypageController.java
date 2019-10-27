@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.delivery.board.model.SearchDTO;
@@ -21,6 +22,7 @@ import com.delivery.board.service.BoardService;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 import com.delivery.mypage.service.MypageService;
+import com.delivery.support.model.FileVO;
 import com.delivery.support.model.InquiryVO;
 import com.delivery.support.service.SupportService;
 import com.delivery.user.model.UserVO;
@@ -47,8 +49,8 @@ public class MypageController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/lookuplist", method=RequestMethod.POST)
-	public HashMap<String, Object> ajaxListPOST(HttpSession httpSession, @RequestBody DateDTO dateDTO) {
+	@RequestMapping(value="/deliveryLookuplist", method=RequestMethod.POST)
+	public HashMap<String, Object> ajaxDeliveryListPOST(HttpSession httpSession, @RequestBody DateDTO dateDTO) {
 		logger.info("보낸 date값 "+dateDTO.getStartDate()+":"+dateDTO.getEndDate());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if(httpSession.getAttribute("login")!= null) {
@@ -66,8 +68,8 @@ public class MypageController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/detail", method=RequestMethod.POST)
-	public HashMap<String, Object> ajaxDetailPOST(@RequestBody SearchDTO searchDTO) throws Exception {
+	@RequestMapping(value="/deliveryDetail", method=RequestMethod.POST)
+	public HashMap<String, Object> ajaxDeliveryDetailPOST(@RequestBody SearchDTO searchDTO) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<SearchResultVO> searchList = boardService.searchListResult(searchDTO);
 		SearchResultVO searchResultVO = boardService.searchResult(searchDTO);
@@ -82,5 +84,22 @@ public class MypageController {
 		List<InquiryVO> userInquiry = supportService.inquiryList(userVo.getUser_id());
 		model.addAttribute("inquiryList", userInquiry);
 		return "mypage/myinquiryView";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/inquiryDetail", method=RequestMethod.GET)
+	public HashMap<String, Object> ajaxInquiryDetailPOST(@RequestParam("inquiryNo") int inquiryNo) {
+		InquiryVO inquiryVO = supportService.detailInquiry(inquiryNo);
+		List<FileVO> listFileVo = supportService.detailInquiryFile(inquiryNo);
+		for(FileVO i : listFileVo) {
+			System.out.println(i.toString());
+		}
+		System.out.println(inquiryVO.toString());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("result",inquiryVO);
+		if(!listFileVo.isEmpty()) {
+			map.put("resultList",listFileVo);
+		}
+		return map;
 	}
 }

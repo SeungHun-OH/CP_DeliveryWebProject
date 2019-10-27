@@ -36,4 +36,14 @@ public class SupportServiceImpl implements SupportService {
 		return supportDao.inquiryList(loginId);
 	}
 
+	@Override
+	public InquiryVO detailInquiry(int inquiryNo) {
+		return supportDao.detailInquiry(inquiryNo);
+	}
+
+	@Override
+	public List<FileVO> detailInquiryFile(int inquiryNo) {
+		return supportDao.detailInquiryFile(inquiryNo);
+	}
+
 }

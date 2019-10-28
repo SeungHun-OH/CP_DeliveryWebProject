@@ -45,14 +45,26 @@
 </div>
 </body>
 <script>
-$('#myinquiryTable .inquiryTr').click(function(){
-	alert('클릭');
-	var tr = $(this);
-	var tr_id =tr.attr('id');
-	var param = '?inquiryNo='+tr_id;
-	
-	detailAjax(param, tr, tr_id);
+$('#myinquiryTable .inquiryTr').on("click", function(){
+// 	alert('클릭');
+// 	var tr = $(this);
+// 	var tr_id =tr.attr('id');
+// 	var param = '?inquiryNo='+tr_id;
+// 	detailAjax(param, tr, tr_id);
+	var clicks = $(this).data('clicks');
+	alert(clicks)
+	if (clicks) {
+	    alert("두번째 클릭");
+	} else {
+		alert("첫번째 클릭");
+	 	var tr = $(this);
+	 	var tr_id =tr.attr('id');
+	 	var param = '?inquiryNo='+tr_id;
+	 	detailAjax(param, tr, tr_id);
+	}
+	$(this).data("clicks", !clicks);
 });
+
 function detailAjax(param, thisTr, tr_id) {
 	$.ajax({
 		type : 'get',

@@ -25,7 +25,7 @@ import com.delivery.user.service.UserService;
 public class UserController {
 
 	@Inject
-	UserService userService;
+	private UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(@ModelAttribute ("loginDTO") LoginDTO loginDTO) {
@@ -38,7 +38,6 @@ public class UserController {
 			return ;
 		}
 		model.addAttribute("user", userVO);
-//		https://doublesprogramming.tistory.com/211 [참고]
 		if(loginDTO.isUseCookie()) {
 			int amount = 60 * 60 * 24 * 7; // 7일
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));

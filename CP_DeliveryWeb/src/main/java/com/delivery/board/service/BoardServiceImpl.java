@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.delivery.board.dao.BoardDAO;
-import com.delivery.board.model.DeliveryVO;
 import com.delivery.board.model.ReservationVO;
 import com.delivery.board.model.SearchDTO;
 import com.delivery.board.model.SearchResultVO;
@@ -23,12 +22,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void reserve(ReservationVO reservationVO) throws Exception {
 		boardDAO.reserve(reservationVO);
-	}
-
-	//운송장 조회
-	@Override
-	public DeliveryVO search(long deliveryNum) throws Exception {
-		return boardDAO.search(deliveryNum);
 	}
 
 	@Override

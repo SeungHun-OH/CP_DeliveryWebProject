@@ -2,15 +2,15 @@ package com.delivery.board.model;
 
 public class SearchResultVO {
 
-	long waybill_Num;
-	String sender;
-	String receiver;
-	String product_Name;
-	String quantity;
-	String step;
-	String process_Time;
-	String product_Status;
-	String charge_Place;
+	private long waybill_Num;
+	private String sender;
+	private String receiver;
+	private String product_Name;
+	private String quantity;
+	private String step;
+	private String process_Time;
+	private String product_Status;
+	private String charge_Place;
 	
 	public long getWaybill_Num() {
 		return waybill_Num;

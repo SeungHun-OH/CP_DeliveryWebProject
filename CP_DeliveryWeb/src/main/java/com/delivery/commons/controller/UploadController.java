@@ -40,7 +40,7 @@ public class UploadController {
     // 업로드 디렉토리 servlet-context.xml에 설정되어 있음
     
     @Resource(name = "uploadPath")
-    String uploadPath;
+    private String uploadPath;
  
     //메뉴에서 [ 업로드(Ajax) ]를 누르면
     // 파일첨부 페이지(jsp페이지)로 이동
@@ -61,9 +61,21 @@ public class UploadController {
     	for(MultipartFile file : fileList) {
     		logger.info("파일이름 : "+file.getOriginalFilename()+"          바이트 : "+ file.getBytes());
     		result.add(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()));
+    		System.out.println(result.toString());
     	}
+    	if(session.getAttribute("fileName") != null) {
+    		List<String> temp = (List<String>)session.getAttribute("fileName");
+    		temp.add(result.get(0));
+    		for(String test : temp) {
+        		System.out.println("result리스트 내용: "+test);
+        	}
+    		session.setAttribute("fileName", temp);
+    		System.out.println("여기실행");
+    	}
+    	else {
     	session.setAttribute("fileName", result);
-    	String json = new Gson().toJson(result); 
+    	}
+    	String json = new Gson().toJson(result);
     	System.out.println("json 출력    "+ json);
     	entity = new ResponseEntity<String>(json, HttpStatus.CREATED);
     	return entity;

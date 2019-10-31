@@ -26,7 +26,7 @@ public class SupportController {
 	private SupportService supportService;
 	
 	 @Resource(name = "uploadPath")
-	 String uploadPath;
+	 private String uploadPath;
 	 
 	
 	@RequestMapping(value = "/inquiry", method=RequestMethod.GET)
@@ -34,6 +34,7 @@ public class SupportController {
 		if(session.getAttribute("fileName") != null) {
 			List<String> fileNameArr = (ArrayList<String>) session.getAttribute("fileName");
 			for(String fileName : fileNameArr) {
+				System.out.println("삭제파일이름: "+fileName);
 				String front=fileName.substring(0, 12);
 				String end=fileName.substring(14);
 				new File(uploadPath+(front+end).replace('/',File.separatorChar)).delete();

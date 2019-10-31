@@ -6,7 +6,6 @@
 	  <typeAliases>
 	  	<typeAlias type="com.delivery.notice.model.NoticeVO" alias="NoticeVO"/>
 	  	<typeAlias type="com.delivery.board.model.ReservationVO" alias="ReservationVO"/>
-	  	<typeAlias type="com.delivery.board.model.DeliveryVO" alias="DeliveryVO"/>
 	  	<typeAlias type="com.delivery.board.model.SearchDTO" alias="SearchDTO"/>
 	  	<typeAlias type="com.delivery.board.model.SearchResultVO" alias="SearchResultVO"/>
 	  	<typeAlias type="com.delivery.support.model.InquiryVO" alias="InquiryVO"/>

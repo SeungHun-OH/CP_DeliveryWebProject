@@ -148,13 +148,18 @@
               </div>
               <div class="tab-pane" id="userInfo_tab">
                 <h1>고객 정보로 조회</h1>
-                <div>
-                	<input type="text" placeholder="예: 홍길동" id="user_name" name="user_name">
-                	<input type="text" placeholder="예: abcd@example.com" id="user_email" name="user_email">
-                </div>
+                <c:if test="${not empty logininfo}">
+	                <div>
+	                	<input type="text" placeholder="예: 홍길동" id="user_name" name="user_name">
+	                	<input type="text" placeholder="예: abcd@example.com" id="user_email" name="user_email">
+	                </div>
                 <div>
                 	<button id="btnUserInfoLookup">조회</button>
                 </div>
+                </c:if>
+                <c:if test="${empty logininfo}">
+                	<a href="${path}/user/login">로그인</a>
+                </c:if>
               </div>
               <div class="tab-pane" id="resNum_tab">
                 <h1>예약 정보로 조회</h1>

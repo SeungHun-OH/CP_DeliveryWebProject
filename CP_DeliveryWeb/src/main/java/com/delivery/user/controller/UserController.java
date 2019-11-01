@@ -28,7 +28,9 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginGET(@ModelAttribute ("loginDTO") LoginDTO loginDTO) {
+	public String loginGET(@ModelAttribute ("loginDTO") LoginDTO loginDTO, HttpServletRequest request) {
+		String referer = request.getHeader("Referer");
+		request.getSession().setAttribute("destination", referer);
 		return "user/loginForm";
 	}
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,9 @@ public class BoardController {
 	
 	// 운송장 검색
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String deliverySearch(HttpServletRequest req,Model model) throws Exception {
+	public String deliverySearch(HttpSession httpSession, Model model) throws Exception {
+		if(httpSession.getAttribute("login") != null)
+		model.addAttribute("logininfo","loginOK");
 		return "board/searchView";
 	}
 }

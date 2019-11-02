@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 
@@ -20,5 +21,4 @@ public class MypageDaoImpl implements MypageDao{
 	public List<LookUpVO> lookuplist(DateDTO dateDto){
 		return sqlSession.selectList("mypageMapper.lookuplist", dateDto);
 	}
-
 }

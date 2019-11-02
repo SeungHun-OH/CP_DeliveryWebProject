@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.support.dao.SupportDao;
 import com.delivery.support.model.FileVO;
 import com.delivery.support.model.InquiryVO;
@@ -44,6 +45,16 @@ public class SupportServiceImpl implements SupportService {
 	@Override
 	public List<FileVO> detailInquiryFile(int inquiryNo) {
 		return supportDao.detailInquiryFile(inquiryNo);
+	}
+	
+	@Override
+	public int listCount(String loginId) {
+		return supportDao.listCount(loginId);
+	}
+
+	@Override
+	public List<InquiryVO> listCriteria(Criteria criteria) throws Exception {
+		return supportDao.listCriteria(criteria);
 	}
 
 }

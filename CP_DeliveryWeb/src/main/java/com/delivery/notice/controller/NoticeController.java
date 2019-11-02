@@ -81,10 +81,10 @@ public class NoticeController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
-		pageMaker.setTotalCount(noticeService.listCount(criteria));
+		pageMaker.setTotalCount(noticeService.listCount());
 		
 		model.addAttribute("notices", noticeService.listCriteria(criteria));
-		model.addAttribute("pageMaker",pageMaker);	
+		model.addAttribute("pageMaker",pageMaker);
 		
 		return "/notice/listView";
 	}

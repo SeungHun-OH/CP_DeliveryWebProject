@@ -5,6 +5,7 @@ public class Criteria {
 	private int perPageNum;
 	private int rowStart;
 	private int rowEnd;
+	private String loginId;
 	
 	public Criteria() {
 		this.page = 1;
@@ -49,11 +50,12 @@ public class Criteria {
 		return rowEnd;
 	}
 
-	@Override
-	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
-				+ "]";
+	public String getLoginId() {
+		return loginId;
 	}
-	
-	
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
 }

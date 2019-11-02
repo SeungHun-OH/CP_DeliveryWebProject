@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.delivery.commons.paging.Criteria;
 import com.delivery.support.model.FileVO;
 import com.delivery.support.model.InquiryVO;
 
@@ -56,5 +57,14 @@ public class SupportDaoImpl implements SupportDao{
 	public List<FileVO> detailInquiryFile(int inquiryNo) {
 		return sqlSession.selectList("supportMapper.detailInquiryFile", inquiryNo);
 	}
+	
+	@Override
+	public int listCount(String loginId) {
+		return sqlSession.selectOne("supportMapper.listCount", loginId);
+	}
 
+	@Override
+	public List<InquiryVO> listCriteria(Criteria criteria) {
+		return sqlSession.selectList("supportMapper.listCriteria", criteria);
+	}
 }

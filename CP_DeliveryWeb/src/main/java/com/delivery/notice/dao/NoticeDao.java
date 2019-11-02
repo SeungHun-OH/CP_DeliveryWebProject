@@ -12,6 +12,6 @@ public interface NoticeDao {
 	void update(NoticeVO noticeVO) throws Exception;
 	void delete(Integer ntc_No) throws Exception;
 	List<NoticeVO> listAll() throws Exception;
-	int listCount(Criteria criteria) throws Exception;
+	int listCount() throws Exception;
 	List<NoticeVO> listCriteria(Criteria criteria) throws Exception;
 }

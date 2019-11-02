@@ -63,6 +63,7 @@
   	SELECT INQUIRY_TYPE,  TITLE, WAYBILL_NUM, REG_DATE, INQUIRY_STATUS, INQUIRY_NO
 	FROM CAP_DELIVERY_INQUIRY
 	WHERE login_id = #{loginId}
+	ORDER BY INQUIRY_NO DESC
   	</select>
   	
   	<select id="detailInquiry" resultMap="InquiryResultMap">
@@ -71,12 +72,37 @@
 	WHERE inquiry_no = #{inquiryNo}
   	</select>
   	
-  	<select id="detailInquiryFile" resultMap="FileResultMap">
+  	<select id="detailInquiryFile" parameterType="String" resultMap="FileResultMap">
   	SELECT file_name,file_no,file_location
 	FROM cap_delivery_inquiry_file
 	WHERE inquiry_no = #{inquiryNo}
   	</select>
   	
+  	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(INQUIRY_NO)
+		FROM cap_delivery_inquiry
+		WHERE INQUIRY_NO > 0 AND login_id = #{loginId}
+	]]>
+	</select>
+	
+	<select id="listCriteria" resultMap="InquiryResultMap">
+  <![CDATA[
+ 	SELECT * 
+	  FROM(
+	        SELECT ROWNUM AS RNUM, A.*
+	            FROM ( SELECT * 
+	                    FROM 
+	                        cap_delivery_inquiry
+	                    WHERE 
+	                        INQUIRY_NO > 0 and login_id = #{loginId}
+	                    ORDER BY 
+	                    INQUIRY_NO DESC, REG_DATE DESC ) A
+	         WHERE ROWNUM <= #{rowEnd}
+	      )
+ 	WHERE RNUM >= #{rowStart}
+  	]]>
+  </select>
   	
   	<resultMap type="FileVO" id="FileResultMap">
   	<result property="fileName" column="FILE_NAME" />

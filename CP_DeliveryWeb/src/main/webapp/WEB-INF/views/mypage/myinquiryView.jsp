@@ -51,15 +51,13 @@ $('#myinquiryTable .inquiryTr').on("click", function(){
 // 	var tr_id =tr.attr('id');
 // 	var param = '?inquiryNo='+tr_id;
 // 	detailAjax(param, tr, tr_id);
+	var tr = $(this);
+	var tr_id =tr.attr('id');
+ 	var param = '?inquiryNo='+tr_id;
 	var clicks = $(this).data('clicks');
-	alert(clicks)
 	if (clicks) {
-	    alert("두번째 클릭");
+	    $('#detail_'+tr_id).remove();
 	} else {
-		alert("첫번째 클릭");
-	 	var tr = $(this);
-	 	var tr_id =tr.attr('id');
-	 	var param = '?inquiryNo='+tr_id;
 	 	detailAjax(param, tr, tr_id);
 	}
 	$(this).data("clicks", !clicks);
@@ -81,8 +79,11 @@ function detailAjax(param, thisTr, tr_id) {
 			var result ='';
 			result='<tr id=detail_'+tr_id+'><td colspan="5"><table class="table text-center" style="margin-bottom: 0px;" width="100%"><tr><th>물품명</th><th>이름</th><th>주소</th></tr>';
 			result+='<tr><td>'+data.result.productName+'</td><td>'+data.result.name+'</td><td colspan="3">'+data.result.addr+" "+data.result.addr2+'</td></tr>';
-			result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.resultList[0].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.resultList[0].fileLocation+'" /></a></td><tr>'
-			result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.resultList[1].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.resultList[1].fileLocation+'" /></a></td><tr>'
+			if(data.resultList != null){
+				result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.resultList[0].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.resultList[0].fileLocation+'" /></a></td><tr>'
+				result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.resultList[1].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.resultList[1].fileLocation+'" /></a></td><tr>'
+			}
+					
 			result+='<tr><th colspan="3">내용</th></tr><tr><td colspan="3">'+data.result.content+'</td></tr></table></td></tr>'
 			thisTr.after(result);
 		},

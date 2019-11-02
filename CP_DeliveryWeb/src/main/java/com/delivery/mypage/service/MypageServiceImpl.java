@@ -20,7 +20,4 @@ public class MypageServiceImpl implements MypageService {
 	public List<LookUpVO> lookuplist(DateDTO dateDto) {
 		return mypageDao.lookuplist(dateDto);
 	}
-
-	
-
 }

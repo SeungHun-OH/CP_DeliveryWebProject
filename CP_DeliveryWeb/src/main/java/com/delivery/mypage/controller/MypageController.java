@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.delivery.board.model.SearchDTO;
 import com.delivery.board.model.SearchResultVO;
 import com.delivery.board.service.BoardService;
+import com.delivery.commons.paging.Criteria;
+import com.delivery.commons.paging.PageMaker;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
 import com.delivery.mypage.service.MypageService;
@@ -79,10 +81,18 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinquiry", method=RequestMethod.GET)
-	public String myinauiryListGET(HttpSession session, Model model) {
+	public String myinauiryListGET(HttpSession session, Model model, Criteria criteria) throws Exception {
 		UserVO userVo = (UserVO)session.getAttribute("login");
-		List<InquiryVO> userInquiry = supportService.inquiryList(userVo.getUser_id());
-		model.addAttribute("inquiryList", userInquiry);
+		PageMaker pageMaker = new PageMaker();
+		criteria.setLoginId(userVo.getUser_id());
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(supportService.listCount(criteria.getLoginId()));
+		model.addAttribute("pageMaker",pageMaker);
+		
+//		List<InquiryVO> userInquiry = supportService.inquiryList(userVo.getUser_id());
+//		model.addAttribute("inquiryList", userInquiry);
+		model.addAttribute("notices", supportService.listCriteria(criteria));
+		model.addAttribute("pageMaker",pageMaker);
 		return "mypage/myinquiryView";
 	}
 	

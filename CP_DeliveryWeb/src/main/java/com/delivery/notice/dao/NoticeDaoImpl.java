@@ -42,7 +42,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public int listCount(Criteria criteria) throws Exception {
+	public int listCount() throws Exception {
 		return sqlSession.selectOne("noticeMapper.listCount");
 	}
 	

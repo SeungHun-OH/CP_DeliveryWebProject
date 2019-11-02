@@ -16,6 +16,8 @@ import com.delivery.board.dao.BoardDAO;
 import com.delivery.board.model.ReservationVO;
 import com.delivery.board.model.SearchDTO;
 import com.delivery.notice.dao.NoticeDao;
+import com.delivery.support.dao.SupportDao;
+import com.delivery.support.model.InquiryVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -28,6 +30,9 @@ public class NoticeDaoTest {
 	
 	@Inject
 	private BoardDAO boardDao;
+	
+	@Inject
+	private SupportDao supportDao;
 	
 //	@Test
 //	public void testCreate() throws Exception {
@@ -100,11 +105,6 @@ public class NoticeDaoTest {
 //	}
 	@Test
 	public void testSearch() throws Exception {
-		SearchDTO searchDTO = new SearchDTO();
-		searchDTO.setUser_name("구유지");
-		searchDTO.setUser_email("hgj@naver.com");
-		logger.info("로그입니다."+searchDTO);
-		boardDao.searchListResult(searchDTO);
 	}
 
 

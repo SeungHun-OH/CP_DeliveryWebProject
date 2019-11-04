@@ -37,7 +37,7 @@ public class UserController {
 	}
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
 	public void loginPOST(LoginDTO loginDTO, HttpSession httpSession, Model model) throws Exception {
-		UserVO userVO = userService.login(loginDTO);
+		UserVO userVO = userService.login(loginDTO, new Date());
 		if(userVO == null || !BCrypt.checkpw(loginDTO.getUser_pwd(), userVO.getUser_pwd())){
 			return ;
 		}
@@ -62,7 +62,7 @@ public class UserController {
 				loginCookie.setPath("/");	//쿠키의 유효한 디렉토리 설정
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				userService.keepLogin(userVO.getUser_id(), "none", new Date());	// DB에 저장한 세션아이디와 자동로그인 유지기간 초기화
+				userService.keepLogin(userVO.getUser_id(), null, null);	// DB에 저장한 세션아이디와 자동로그인 유지기간 초기화
 			}
 		}
 		return "/user/logoutForm";

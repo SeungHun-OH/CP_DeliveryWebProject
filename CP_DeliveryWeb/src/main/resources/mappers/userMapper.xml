@@ -11,8 +11,8 @@
 
 <update id="keepLogin">
 	UPDATE CAP_DELIVERY_USER
-	SET SESSION_KEY = #{sessionKey}
-		, SESSION_LIMIT = #{sessionLimit}
+	SET SESSION_KEY = #{sessionKey, jdbcType=VARCHAR}
+		, SESSION_LIMIT = #{sessionLimit, jdbcType=TIMESTAMP}
 	WHERE USER_ID = #{userId}
 </update>
 
@@ -30,8 +30,7 @@
 	                            , USER_PWD
 	                            , USER_PHONE
 	                            , USER_ADDR
-	                            , USER_ADDR2
-	                            , USER_EMAIL)
+	                            , USER_ADDR2)
 	                        VALUES( #{user_id}
 	                            , #{user_name}
 	                            , #{user_birth}
@@ -39,8 +38,7 @@
 	                            , #{user_pwd}
 	                            , #{user_phone}
 	                            , #{user_addr}
-	                            , #{user_addr2}
-	                            , #{user_email})
+	                            , #{user_addr2})
 </insert>
 
 <select id="chkUserId" parameterType="String" resultType="int">

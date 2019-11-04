@@ -76,4 +76,12 @@ public void setUser_loginDate(Date user_loginDate) {
 	this.user_loginDate = user_loginDate;
 }
 
+@Override
+public String toString() {
+	return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_birth=" + user_birth + ", user_gender="
+			+ user_gender + ", user_pwd=" + user_pwd + ", user_phone=" + user_phone + ", user_addr=" + user_addr
+			+ ", user_addr2=" + user_addr2 + ", user_joinDate=" + user_joinDate + ", user_loginDate=" + user_loginDate
+			+ "]";
+}
+
 }

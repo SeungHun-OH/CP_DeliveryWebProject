@@ -113,4 +113,11 @@ public class MypageController {
 		}
 		return map;
 	}
+	
+	@RequestMapping(value="/myinfo", method=RequestMethod.GET)
+	public String myinfoGET(UserVO userVO, HttpSession request) {
+		userVO = (UserVO)request.getAttribute("login");
+		System.out.println(userVO.toString());
+		return "mypage/myinfoView";
+	}
 }

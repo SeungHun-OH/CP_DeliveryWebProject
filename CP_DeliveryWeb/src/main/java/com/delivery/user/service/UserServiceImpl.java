@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public UserVO login(LoginDTO loginDTO) throws Exception {
-		return userDao.login(loginDTO);
+	public UserVO login(LoginDTO loginDTO, Date loginDate) throws Exception {
+		return userDao.login(loginDTO, loginDate);
 	}
 	
 	@Override

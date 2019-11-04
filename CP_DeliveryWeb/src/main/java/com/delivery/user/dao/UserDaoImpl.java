@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 	
 	
 	@Override
-	public UserVO login(LoginDTO loginDTO) throws Exception {
+	public UserVO login(LoginDTO loginDTO, Date loginDate) throws Exception {
 		return sqlSession.selectOne("userMapper.login", loginDTO);
 	}
 	

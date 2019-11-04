@@ -13,4 +13,5 @@ public interface UserService {
 	// 세션키 검증
 	UserVO checkLoginBefore(String value) throws Exception;
 	int insertUser(UserVO userVO) throws Exception;
+	int chkUserId(String chkId) throws Exception;
 }

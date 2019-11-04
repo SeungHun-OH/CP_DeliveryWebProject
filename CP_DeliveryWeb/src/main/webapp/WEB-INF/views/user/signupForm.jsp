@@ -72,17 +72,22 @@
 			return false;
 		}
 		var param = '?chkId='+$('#user_id').val();
-		alert(param);
 		chkIdAjax(param);
 	}
 	function chkIdAjax(param) {
 		$.ajax({
 			type : 'get',
-			url : '/user/chkId'+param,
-			dataType : 'json',
+			url : '/user/chkUserId'+param,
+			dataType : 'text',
 			contentType:'application/json;charset=UTF-8',
 			success : function (data) {
-				console.log(data);
+				if(data == 0){
+					alert("사용할 수 있는 아이디입니다.");
+					
+				}else{
+					alert("이미 존재하는 아이디입니다.");
+					return false;
+				}
 			},
 			error : function (request,status,error) {
 				alert('실패');

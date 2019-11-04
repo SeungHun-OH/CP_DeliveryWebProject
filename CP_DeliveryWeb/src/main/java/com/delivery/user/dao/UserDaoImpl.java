@@ -44,7 +44,9 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.insert("userMapper.insertUser", userVO);
 	}
 
-
-	
+	@Override
+	public int chkUserId(String chkId) throws Exception {
+		return sqlSession.selectOne("userMapper.chkUserId",chkId);
+	}
 
 }

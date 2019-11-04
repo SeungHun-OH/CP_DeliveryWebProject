@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	  <typeAliases>
+	  	<typeAlias type="com.delivery.user.model.UserVO" alias="UserVO"/>
 	  	<typeAlias type="com.delivery.notice.model.NoticeVO" alias="NoticeVO"/>
 	  	<typeAlias type="com.delivery.board.model.ReservationVO" alias="ReservationVO"/>
 	  	<typeAlias type="com.delivery.board.model.SearchDTO" alias="SearchDTO"/>

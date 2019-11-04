@@ -13,4 +13,5 @@ public interface UserDao {
 	// 세션키 검증
 	UserVO checkUserWithSessionKey(String value) throws Exception;
 	int insertUser(UserVO userVO) throws Exception;
+	int chkUserId(String chkId) throws Exception;
 }

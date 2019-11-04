@@ -77,4 +77,12 @@ public class PageMaker {
 		   
 		return uriComponents.toUriString();
 	}
+
+	@Override
+	public String toString() {
+		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", next="
+				+ next + ", prev=" + prev + ", displayPageNum=" + displayPageNum + ", criteria=" + criteria + "]";
+	}
+	
+	
 }

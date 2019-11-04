@@ -72,7 +72,7 @@
 	WHERE inquiry_no = #{inquiryNo}
   	</select>
   	
-  	<select id="detailInquiryFile" parameterType="String" resultMap="FileResultMap">
+  	<select id="detailInquiryFile" resultMap="FileResultMap">
   	SELECT file_name,file_no,file_location
 	FROM cap_delivery_inquiry_file
 	WHERE inquiry_no = #{inquiryNo}

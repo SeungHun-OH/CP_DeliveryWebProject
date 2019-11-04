@@ -91,14 +91,15 @@ public class MypageController {
 		
 //		List<InquiryVO> userInquiry = supportService.inquiryList(userVo.getUser_id());
 //		model.addAttribute("inquiryList", userInquiry);
-		model.addAttribute("notices", supportService.listCriteria(criteria));
+		model.addAttribute("inquiryList", supportService.listCriteria(criteria));
 		model.addAttribute("pageMaker",pageMaker);
 		return "mypage/myinquiryView";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/inquiryDetail", method=RequestMethod.GET)
-	public HashMap<String, Object> ajaxInquiryDetailPOST(@RequestParam("inquiryNo") int inquiryNo) {
+	public HashMap<String, Object> ajaxInquiryDetailGET(@RequestParam("inquiryNo") int inquiryNo) {
+		System.out.println("숫자: "+inquiryNo);
 		InquiryVO inquiryVO = supportService.detailInquiry(inquiryNo);
 		List<FileVO> listFileVo = supportService.detailInquiryFile(inquiryNo);
 		for(FileVO i : listFileVo) {

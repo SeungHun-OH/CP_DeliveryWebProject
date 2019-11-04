@@ -39,6 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			}
 			
 			Object destination = httpSession.getAttribute("destination");
+			System.out.println("목적지:  "+(String)destination);
 			response.sendRedirect(destination != null ? (String)destination : "/");
 		}
 	}

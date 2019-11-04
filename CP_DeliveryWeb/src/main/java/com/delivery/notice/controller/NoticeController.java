@@ -85,7 +85,6 @@ public class NoticeController {
 		
 		model.addAttribute("notices", noticeService.listCriteria(criteria));
 		model.addAttribute("pageMaker",pageMaker);
-		
 		return "/notice/listView";
 	}
 }

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!-- 외부 API 다운 (다음 주소 찾기) -->
@@ -65,6 +65,30 @@
 			return false;
 		}
 	});
+	
+	function chkId() {
+		if($('#user_id').val() == ''){
+			alert("아이디를 입력해주십시오");
+			return false;
+		}
+		var param = '?chkId='+$('#user_id').val();
+		alert(param);
+		chkIdAjax(param);
+	}
+	function chkIdAjax(param) {
+		$.ajax({
+			type : 'get',
+			url : '/user/chkId'+param,
+			dataType : 'json',
+			contentType:'application/json;charset=UTF-8',
+			success : function (data) {
+				console.log(data);
+			},
+			error : function (request,status,error) {
+				alert('실패');
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -79,6 +103,9 @@
 						<label for="user_id" class="col-md-3 col-form-label text-md-right">아이디</label>
 						<div class="col-md-7">
 							<form:input path="user_id" id="user_id" class="form-control" placeholder="아이디을 입력해 주세요" />
+						</div>
+						<div class="col-md-2">
+							<input class="btn btn-primary" type='button' OnClick='chkId()' value='중복확인'>
 						</div>
 					</div>
 		
@@ -141,15 +168,6 @@
 						</div>
 					</div>
 					
-					<div class="form-group row">
-						<label for="user_email" class="col-md-3 col-form-label text-md-right">이메일</label>
-						<div class="input-group col-md-7">
-							<div class="input-group-prepend">
-								<span class="input-group-text">@</span>
-							</div>
-							<form:input path="user_email" id="user_email" class="form-control" placeholder="이메일을 입력해 주세요" />
-						</div>
-					</div>
 				</form:form>
 			</div>
 		</div>

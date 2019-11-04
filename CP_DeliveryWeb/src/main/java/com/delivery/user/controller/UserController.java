@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
 import com.delivery.user.model.LoginDTO;
@@ -79,6 +80,12 @@ public class UserController {
 		userVO.setUser_pwd(hashPw);
 		userService.insertUser(userVO);
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/chkId", method=RequestMethod.GET)
+	public String ajaxChkId(@RequestParam("chkId") String chkId) {
+		System.out.println("아이디 체크: "+chkId);
+		return null;
 	}
 	
 	

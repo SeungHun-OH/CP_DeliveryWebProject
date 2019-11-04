@@ -11,7 +11,6 @@ private String user_pwd;
 private String user_phone;
 private String user_addr;
 private String user_addr2;
-private String user_email;
 private Date user_joinDate;
 private Date user_loginDate;
 
@@ -63,12 +62,6 @@ public String getUser_addr() {
 }
 public void setUser_addr(String user_addr) {
 	this.user_addr = user_addr;
-}
-public String getUser_email() {
-	return user_email;
-}
-public void setUser_email(String user_email) {
-	this.user_email = user_email;
 }
 public Date getUser_joinDate() {
 	return user_joinDate;

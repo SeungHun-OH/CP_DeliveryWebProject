@@ -157,7 +157,7 @@
 					<div class="form-group row">
 						<label for="user_addr" class="col-md-3 col-form-label text-md-right">주소</label>
 						<div class="col-md-7" >
-							<input name="user_addr" id="user_addr" class="form-control" readonly="true"/>
+							<input name="user_addr" id="user_addr" class="form-control" readonly="readonly"/>
 						</div>
 						<div class="col-md-2">
 							<input class="btn btn-primary" type='button' OnClick='DaumPostcode()' value='주소검색'>

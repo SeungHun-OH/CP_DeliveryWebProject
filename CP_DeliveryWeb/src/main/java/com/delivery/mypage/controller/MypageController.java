@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -115,9 +116,27 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfo", method=RequestMethod.GET)
-	public String myinfoGET(UserVO userVO, HttpSession request) {
-		userVO = (UserVO)request.getAttribute("login");
-		System.out.println(userVO.toString());
+	public String myinfoGET(UserVO userVO, HttpSession session, Model model) {
+		userVO = (UserVO)session.getAttribute("login");
+		model.addAttribute("myinfo", userVO);
 		return "mypage/myinfoView";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ajaxModifyMyInfo", method=RequestMethod.POST)
+	public String ajaxModifyMyInfo(@RequestBody HashMap<String,String> sendData, HttpSession session) {
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		if(!BCrypt.checkpw(sendData.get("user_pw"), userVO.getUser_pwd())){
+			return "false";
+		}else {
+			return "true";
+		}
+	}
+	
+	@RequestMapping(value="/modifyMyInfo", method=RequestMethod.POST)
+	public String modifyMyInfoPOST(UserVO userVO) {
+		System.out.println("여기실행");
+		return "redirect:/mypage/myinfo";
+	}
+	
 }

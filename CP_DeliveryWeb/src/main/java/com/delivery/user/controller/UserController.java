@@ -37,11 +37,13 @@ public class UserController {
 	}
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
 	public void loginPOST(LoginDTO loginDTO, HttpSession httpSession, Model model) throws Exception {
-		UserVO userVO = userService.login(loginDTO, new Date());
+		
+		UserVO userVO = userService.login(loginDTO);
 		if(userVO == null || !BCrypt.checkpw(loginDTO.getUser_pwd(), userVO.getUser_pwd())){
 			return ;
 		}
 		model.addAttribute("user", userVO);
+		userService.loginDate(userVO.getUser_id(), new Date());
 		if(loginDTO.isUseCookie()) {
 			int amount = 60 * 60 * 24 * 7; // 7일
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));

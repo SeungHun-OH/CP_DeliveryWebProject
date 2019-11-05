@@ -46,4 +46,10 @@
 	FROM cap_delivery_user
 	WHERE user_id = #{chkId}
 </select>
+
+<update id="loginDateUpdate">
+	UPDATE cap_delivery_user
+	SET user_logindate = #{loginDate} 
+	WHERE user_id = #{userId}
+</update>
 </mapper>

@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public UserVO login(LoginDTO loginDTO, Date loginDate) throws Exception {
-		return userDao.login(loginDTO, loginDate);
+	public UserVO login(LoginDTO loginDTO) throws Exception {
+		return userDao.login(loginDTO);
 	}
 	
 	@Override
@@ -39,6 +39,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int chkUserId(String chkId) throws Exception {
 		return userDao.chkUserId(chkId);
+	}
+
+	@Override
+	public void loginDate(String userId, Date loginDate) {
+		userDao.loginDate(userId, loginDate);
 	}
 
 }

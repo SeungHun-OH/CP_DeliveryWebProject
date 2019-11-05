@@ -7,11 +7,12 @@ import com.delivery.user.model.UserVO;
 
 public interface UserDao {
 	
-	UserVO login(LoginDTO loginDTO, Date loginDate) throws Exception;
+	UserVO login(LoginDTO loginDTO) throws Exception;
 	// 로그인 유지 처리
 	void keepLogin(String user_id, String session_key, Date session_Limit) throws Exception;
 	// 세션키 검증
-	UserVO checkUserWithSessionKey(String value) throws Exception;
-	int insertUser(UserVO userVO) throws Exception;
-	int chkUserId(String chkId) throws Exception;
+	UserVO checkUserWithSessionKey(String value);
+	int insertUser(UserVO userVO);
+	int chkUserId(String chkId);
+	void loginDate(String userId,Date loginDate);
 }

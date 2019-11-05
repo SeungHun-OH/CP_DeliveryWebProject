@@ -1,7 +1,8 @@
 package com.delivery;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,17 +14,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.delivery.board.dao.BoardDAO;
-import com.delivery.board.model.ReservationVO;
-import com.delivery.board.model.SearchDTO;
 import com.delivery.notice.dao.NoticeDao;
 import com.delivery.support.dao.SupportDao;
-import com.delivery.support.model.InquiryVO;
+import com.delivery.user.dao.UserDao;
+import com.delivery.user.model.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class NoticeDaoTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(NoticeDaoTest.class);
+	
+	@Inject
+	private UserDao userDao;
 	
 	@Inject
 	private NoticeDao noticeDao;
@@ -105,6 +108,12 @@ public class NoticeDaoTest {
 //	}
 	@Test
 	public void testSearch() throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		UserVO userVo = new UserVO();
+		String asd ="asd123123";
+		paramMap.put("userId",asd);
+		paramMap.put("loginDate", new Date());
+		
 	}
 
 

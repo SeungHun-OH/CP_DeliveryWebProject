@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 	
 	
 	@Override
-	public UserVO login(LoginDTO loginDTO, Date loginDate) throws Exception {
+	public UserVO login(LoginDTO loginDTO) throws Exception {
 		return sqlSession.selectOne("userMapper.login", loginDTO);
 	}
 	
@@ -35,18 +35,26 @@ public class UserDaoImpl implements UserDao {
 
 
 	@Override
-	public UserVO checkUserWithSessionKey(String value) throws Exception {
+	public UserVO checkUserWithSessionKey(String value) {
 		return sqlSession.selectOne("userMapper.checkUserWithSessionKey", value);
 	}
 	
 	@Override
-	public int insertUser(UserVO userVO) throws Exception {
+	public int insertUser(UserVO userVO) {
 		return sqlSession.insert("userMapper.insertUser", userVO);
 	}
 
 	@Override
-	public int chkUserId(String chkId) throws Exception {
+	public int chkUserId(String chkId) {
 		return sqlSession.selectOne("userMapper.chkUserId",chkId);
+	}
+
+	@Override
+	public void loginDate(String userId,Date loginDate) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("userId", userId);
+		paramMap.put("loginDate", loginDate);
+		sqlSession.update("userMapper.loginDateUpdate",paramMap);
 	}
 
 }

@@ -116,41 +116,41 @@
 			</div>
 		</div>
 		<div style="margin-top:10px; margin-bottom:10px;">
-			<button type="button" class="btn btn-lg btn-primary" id="btnModify">정보수정</button>
+			<button type="button" class="btn btn-lg btn-primary" id="btnMyinfoModify">정보수정</button>
 		</div>
 		<div class="card">
 			<div class="card-header">비밀번호 수정</div>
 			<div class="card-body">
-				<form method="post" action="${pageContext.request.contextPath}/mypage/modifypwd" id="modifyPwdForm">
+				<form method="post" action="${pageContext.request.contextPath}/mypage/modifyMyPwd" id="modifyPwdForm">
+					<input type="hidden" name="user_id" value="${myinfo.user_id}">
 					<div class="form-group row">
-						<label for="user_pw" class="col-md-3 col-form-label text-md-right">현재 비밀번호</label>
+						<label for="crr_pwd" class="col-md-3 col-form-label text-md-right">현재 비밀번호</label>
 						<div class="col-md-7">
-							<input name="user_id" id="user_pw" class="form-control"/>
+							<input type="password" id="crr_pwd" class="form-control"/>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="user_newpw" class="col-md-3 col-form-label text-md-right">새로운 비밀번호</label>
+						<label for="new_pwd" class="col-md-3 col-form-label text-md-right">새로운 비밀번호</label>
 						<div class="col-md-7">
-							<input name="user_id" id="user_newpw" class="form-control"/>
+							<input type="password" name="new_pwd" id="new_pwd" class="form-control"/>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="user_newpwchk" class="col-md-3 col-form-label text-md-right">새로운 비밀번호 확인</label>
+						<label for="new_pwdChk" class="col-md-3 col-form-label text-md-right">새로운 비밀번호 확인</label>
 						<div class="col-md-7">
-							<input name="user_id" id="user_newpwchk" class="form-control"/>
+							<input type="password" id="new_pwdChk" class="form-control"/>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div style="margin-top:10px; margin-bottom:10px;">
-			<button type="button" class="btn btn-lg btn-primary" id="btnSignup">비밀번호 수정</button>
+			<button type="button" class="btn btn-lg btn-primary" id="btnPwdModify">비밀번호 수정</button>
 		</div>
 	</div>
 </body>
 <script>
-var existing_addr = ${user_addr}
-$("#btnModify").click(function(e) {
+$('#btnMyinfoModify').click(function(e) {
 	e.preventDefault();
 	if($('#ck_pwd').val() == ''){
 		alert('비밀번호를 입력해주세요.');
@@ -160,9 +160,29 @@ $("#btnModify").click(function(e) {
 		alert('기존 정보와 같습니다. 변경 후 다시 시도해주십시오');
 		return false;
 	}
-	var sendData = JSON.stringify({ck_pwd:$('#ck_pwd').val()});
+	var sendData = JSON.stringify({ck_pwd:$('#ck_pwd').val(), chk_btn:'btnMyinfoModify'});
 	modifyMyinfo(sendData);
 });
+
+$('#btnPwdModify').click(function(e) {
+	e.preventDefault();
+	if($('#crr_pwd').val() == '' || $('#new_pwd').val() == '' || $('#new_pwdChk').val() == ''){
+		alert('비밀번호를 입력해주세요.');
+		return false;
+	}
+	
+	if($('#new_pwd').val() != $('#new_pwdChk').val()){
+		alert('새 비밀번호가 같지 않습니다. 다시 입력해주십시오.');
+		return false;
+	}else if($('#crr_pwd').val() == $('#new_pwd').val()){
+		alert('현재 비밀번호와 새로운 비밀번호가 같습니다. 다시 입력해주십시오.');
+		return false;
+	}
+	
+	var sendData = JSON.stringify({ck_pwd:$('#crr_pwd').val(), chk_btn:'btnPwdModify'});
+	modifyMyinfo(sendData);
+});
+
 function modifyMyinfo(sendData) {
 	$.ajax({
 		type : 'post',
@@ -172,11 +192,14 @@ function modifyMyinfo(sendData) {
 		contentType:'application/json;charset=UTF-8',
 		success : function (data) {
 			console.log(data);
-			if(data == 'true'){
+			if(data == 'trueMyinfo'){
 				alert("정보를 수정했습니다.");
 				$('#modifyMyInfoForm').submit();
+			}else if(data == 'trueMyPwd'){
+				alert('비밀번호를 수정했습니다.');
+				$('#modifyPwdForm').submit();
 			}else if(data == 'false'){
-				alert("비밀번호를 확인해주십시오.");
+				alert('비밀번호를 확인해주십시오.');
 			}
 		},
 		error : function (request,status,error) {

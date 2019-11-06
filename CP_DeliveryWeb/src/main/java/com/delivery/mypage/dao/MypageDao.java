@@ -9,4 +9,5 @@ import com.delivery.user.model.UserVO;
 public interface MypageDao {
 	List<LookUpVO> lookuplist (DateDTO dataDto);
 	void modifyMyInfo (UserVO userVO);
+	void modifyMyPass (String newPwd, String userId);
 }

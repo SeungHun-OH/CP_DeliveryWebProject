@@ -78,7 +78,6 @@ public class UserController {
 	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public String insertUserSC(@ModelAttribute UserVO userVO) throws Exception {
-		
 		String hashPw = BCrypt.hashpw(userVO.getUser_pwd(), BCrypt.gensalt());
 		userVO.setUser_pwd(hashPw);
 		userService.insertUser(userVO);

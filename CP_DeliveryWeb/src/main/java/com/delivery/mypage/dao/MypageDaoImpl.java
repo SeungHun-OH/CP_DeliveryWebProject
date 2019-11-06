@@ -1,5 +1,6 @@
 package com.delivery.mypage.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,5 +26,13 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public void modifyMyInfo(UserVO userVO) {
 		sqlSession.update("mypageMapper.modifyMyInfo", userVO);
+	}
+
+	@Override
+	public void modifyMyPass(String newPwd, String userId) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("newPwd", newPwd);
+		paramMap.put("userId", userId);
+		sqlSession.update("mypageMapper.modifyMyPass", paramMap);
 	}
 }

@@ -26,4 +26,9 @@ public class MypageServiceImpl implements MypageService {
 	public void modifyMyInfo(UserVO userVO) {
 		mypageDao.modifyMyInfo(userVO);
 	}
+
+	@Override
+	public void modifyMyPass(String newPwd, String userId) {
+		mypageDao.modifyMyPass(newPwd, userId);
+	}
 }

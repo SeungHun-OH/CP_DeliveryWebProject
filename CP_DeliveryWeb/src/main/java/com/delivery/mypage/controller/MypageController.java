@@ -126,12 +126,16 @@ public class MypageController {
 	
 	@ResponseBody
 	@RequestMapping(value="/ajaxModifyMyInfo", method=RequestMethod.POST)
-	public String ajaxModifyMyInfo(@RequestBody HashMap<String,String> sendData, HttpSession session) {
+	public String ajaxModifyMyInfo(@RequestBody HashMap<String,String> sendDataMap, HttpSession session) {
 		UserVO userVO = (UserVO)session.getAttribute("login");
-		if(!BCrypt.checkpw(sendData.get("ck_pwd"), userVO.getUser_pwd())){
+		
+		if(!BCrypt.checkpw(sendDataMap.get("ck_pwd"), userVO.getUser_pwd())){
 			return "false";
 		}else {
-			return "true";
+			if(sendDataMap.get("chk_btn").equals("btnMyinfoModify"))
+				return "trueMyinfo";
+			else
+				return "trueMyPwd";
 		}
 	}
 	
@@ -144,4 +148,13 @@ public class MypageController {
 		return "redirect:/mypage/myinfo";
 	}
 	
+	@RequestMapping(value="/modifyMyPwd", method=RequestMethod.POST)
+	public String modifyMyPwdPOST(@RequestParam("new_pwd") String newPwd, @RequestParam("user_id") String userId, HttpSession session) {
+		newPwd = BCrypt.hashpw(newPwd, BCrypt.gensalt());
+		mypageService.modifyMyPass(newPwd, userId);
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		userVO.setUser_pwd(newPwd);
+		session.setAttribute("login", userVO);
+		return "redirect:/mypage/myinfo";
+	}
 }

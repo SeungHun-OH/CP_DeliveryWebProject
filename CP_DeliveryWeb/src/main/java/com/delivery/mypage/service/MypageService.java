@@ -9,4 +9,5 @@ import com.delivery.user.model.UserVO;
 public interface MypageService {
 	List<LookUpVO> lookuplist(DateDTO dateDto);
 	void modifyMyInfo(UserVO userVO);
+	void modifyMyPass (String newPwd, String userId);
 }

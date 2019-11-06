@@ -28,6 +28,11 @@
 	WHERE user_id = #{user_id}
 </update>
 
+<update id="modifyMyPass">
+	UPDATE cap_delivery_user 
+		SET user_pwd = #{newPwd} 
+		WHERE user_id = #{userId}
+</update>
 
 <resultMap type="LookUpVO" id="LookUpResultMap">
 <result property="productName" column="ITEM_NAME"/>

@@ -149,8 +149,17 @@
 	</div>
 </body>
 <script>
+var existing_addr = ${user_addr}
 $("#btnModify").click(function(e) {
 	e.preventDefault();
+	if($('#ck_pwd').val() == ''){
+		alert('비밀번호를 입력해주세요.');
+		return false;
+	}
+	if('${myinfo.user_phone}' == $('#user_phone').val() && '${myinfo.user_addr}' == $('#user_addr').val() && '${myinfo.user_addr2}' == $('#user_addr2').val()){
+		alert('기존 정보와 같습니다. 변경 후 다시 시도해주십시오');
+		return false;
+	}
 	var sendData = JSON.stringify({ck_pwd:$('#ck_pwd').val()});
 	modifyMyinfo(sendData);
 });

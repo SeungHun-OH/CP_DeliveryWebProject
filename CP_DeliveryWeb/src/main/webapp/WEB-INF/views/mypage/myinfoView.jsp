@@ -84,9 +84,9 @@
 					</div>
 					
 					<div class="form-group row">
-						<label for="user_pwd" class="col-md-3 col-form-label text-md-right">비밀번호</label>
+						<label for="ck_pwd" class="col-md-3 col-form-label text-md-right">비밀번호</label>
 						<div class="col-md-7">
-							<input type="password" name="user_pwd" id="user_pwd" class="form-control" placeholder="비밀번호를 입력해 주세요" maxlength="20"/>
+							<input type="password" id="ck_pwd" class="form-control" placeholder="비밀번호를 입력해 주세요" maxlength="20"/>
 						</div>
 					</div>
 
@@ -151,7 +151,7 @@
 <script>
 $("#btnModify").click(function(e) {
 	e.preventDefault();
-	var sendData = JSON.stringify({user_pw:$('#user_pwd').val()});
+	var sendData = JSON.stringify({ck_pwd:$('#ck_pwd').val()});
 	modifyMyinfo(sendData);
 });
 function modifyMyinfo(sendData) {

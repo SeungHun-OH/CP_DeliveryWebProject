@@ -20,6 +20,15 @@
     ORDER BY l.PROCESS_TIME
 </select>
 
+<update id="modifyMyInfo">
+	UPDATE cap_delivery_user 
+		SET user_phone = #{user_phone}
+		, user_addr = #{user_addr}
+		, user_addr2 = #{user_addr2} 
+	WHERE user_id = #{user_id}
+</update>
+
+
 <resultMap type="LookUpVO" id="LookUpResultMap">
 <result property="productName" column="ITEM_NAME"/>
 <result property="waybillNum" column="WAYBILL_NUMBER"/>

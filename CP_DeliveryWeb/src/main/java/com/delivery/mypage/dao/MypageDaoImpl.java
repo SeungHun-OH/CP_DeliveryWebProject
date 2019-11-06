@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.delivery.commons.paging.Criteria;
 import com.delivery.mypage.model.DateDTO;
 import com.delivery.mypage.model.LookUpVO;
+import com.delivery.user.model.UserVO;
 
 @Repository
 public class MypageDaoImpl implements MypageDao{
@@ -20,5 +20,10 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public List<LookUpVO> lookuplist(DateDTO dateDto){
 		return sqlSession.selectList("mypageMapper.lookuplist", dateDto);
+	}
+
+	@Override
+	public void modifyMyInfo(UserVO userVO) {
+		sqlSession.update("mypageMapper.modifyMyInfo", userVO);
 	}
 }

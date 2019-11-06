@@ -1,11 +1,13 @@
 package com.delivery.mypage.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,7 +128,7 @@ public class MypageController {
 	@RequestMapping(value="/ajaxModifyMyInfo", method=RequestMethod.POST)
 	public String ajaxModifyMyInfo(@RequestBody HashMap<String,String> sendData, HttpSession session) {
 		UserVO userVO = (UserVO)session.getAttribute("login");
-		if(!BCrypt.checkpw(sendData.get("user_pw"), userVO.getUser_pwd())){
+		if(!BCrypt.checkpw(sendData.get("ck_pwd"), userVO.getUser_pwd())){
 			return "false";
 		}else {
 			return "true";
@@ -134,8 +136,11 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/modifyMyInfo", method=RequestMethod.POST)
-	public String modifyMyInfoPOST(UserVO userVO) {
-		System.out.println("여기실행");
+	public String modifyMyInfoPOST(UserVO userVO, HttpSession session) throws IllegalAccessException, InvocationTargetException {
+		UserVO sessionUserVO = (UserVO)session.getAttribute("login");
+		mypageService.modifyMyInfo(userVO);
+		BeanUtils.copyProperties(userVO, sessionUserVO, "user_pwd", "user_joinDate", "user_loginDate");
+		session.setAttribute("login", sessionUserVO);
 		return "redirect:/mypage/myinfo";
 	}
 	
